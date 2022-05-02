@@ -7,6 +7,6 @@ import HorarioEmpty from './Windows/horarioEmptyScreen';
 export default function App(){
 
   return (
-    <Schedule/>
+    <HorarioAdd/>
   );
 }

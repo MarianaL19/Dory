@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import actualTheme from '../Components/actualTheme';
 
 export default class App extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class App extends Component {
       </View>
 
       <View style = {styles.containerTitulo}>
-        <Text style = {styles.titulo}> Horario </Text>
+        <Text style = {[styles.titulo,{color: actualTheme.primary}]}> Horario </Text>
       </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
