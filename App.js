@@ -6,6 +6,6 @@ import AgendaC from './Windows/agendaScreen';
 export default function App(){
 
   return (
-    <Schedule/>
+    <AgendaC/>
   );
 }
