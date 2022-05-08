@@ -12,82 +12,82 @@ export default class Recordatorios extends Component {
     return (
       <View style={styles.sectionContainer}>
         
-      <View style={styles.filterButtonContainer}>
+        <View style={styles.filterButtonContainer}>
+          
+          <TouchableOpacity
+          style={styles.filterButton}
+          >
+            <Text
+            style={styles.filterText}
+            >
+              Todos
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+          style={styles.filterButton}
+          >
+            <Text
+            style={styles.filterText}
+            >
+              Tareas
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+          style={styles.filterButton}
+          >
+            <Text
+            style={styles.filterText}
+            >
+              Exámenes
+            </Text>
+          </TouchableOpacity>
         
-        <TouchableOpacity
-        style={styles.filterButton}
-        >
-          <Text
-          style={styles.filterText}
+          <TouchableOpacity
+          style={styles.filterButton}
           >
-            Todos
-          </Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity
-        style={styles.filterButton}
-        >
-          <Text
-          style={styles.filterText}
-          >
-            Tareas
-          </Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity
-        style={styles.filterButton}
-        >
-          <Text
-          style={styles.filterText}
-          >
-            Exámenes
-          </Text>
-        </TouchableOpacity>
-      
-        <TouchableOpacity
-        style={styles.filterButton}
-        >
-          <Text
-          style={styles.filterText}
-          >
-            Otros
-          </Text>
-        </TouchableOpacity>
-      </View>
+            <Text
+            style={styles.filterText}
+            >
+              Otros
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      <View>
-        <TouchableOpacity
+        <View>
+          <TouchableOpacity
+            style={styles.listingButton}
+          >
+            <Text
+            style={styles.listingText}
+            >
+              Anteriores
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
           style={styles.listingButton}
-        >
-          <Text
-          style={styles.listingText}
           >
-            Anteriores
-          </Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity
-        style={styles.listingButton}
-        >
-          <Text
-          style={styles.listingText}
+            <Text
+            style={styles.listingText}
+            >
+              Hoy
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+          style={styles.listingButton}
           >
-            Hoy
-          </Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity
-        style={styles.listingButton}
-        >
-          <Text
-          style={styles.listingText}
-          >
-            Más tarde
-          </Text>
-        </TouchableOpacity>
-      </View>
+            <Text
+            style={styles.listingText}
+            >
+              Más tarde
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-    </View>
+      </View>
     );
   }
 }
