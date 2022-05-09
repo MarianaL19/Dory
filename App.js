@@ -10,6 +10,6 @@ import Settings from './Windows/SettingsScreen';
 export default function App(){
 
   return (
-    <Settings/>
+    <AgendaC/>
   );
 }

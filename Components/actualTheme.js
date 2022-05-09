@@ -1,7 +1,7 @@
 
 import { blueTheme, pinkTheme } from "./themes";
 
-const actualTheme = pinkTheme;
+const actualTheme = blueTheme;
 
  var theme = {
     primaryColor: actualTheme.colors.primary,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import actualTheme from '../Components/actualTheme';
 
 import {
@@ -6,82 +6,98 @@ import {
     StyleSheet,
     Text,
     View,
-    Button,
     TouchableOpacity,
     TextInput,
+    FlatList,
   } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default function AgendaC() {
-    return (
+  
+  //Almacen de contactos
+  const [contactos, setContact] = useState([])
+
+  //Funcion para meter contactos a almacenamiento
+  const handleOnSubmit = async (nombre, telefono, correo) => {
+    const contacto = { id: nombre, nombre, telefono, correo};
+    const actualizarContactos = await [...contactos, contacto];
+    setContacts(actualizarContactos);
+    await AsyncStorage.setItem('contactos', JSON.stringify(actualizarContactos));
+  }
+
+  //Añadir contacto
+  function addContact(){
+    handleOnSubmit('Cesar', '3318049956', 'cesarseigi@hotmail.com');
+    //handleOnSubmit('Alexis', '1472583690', 'alexis@hotmail.com');
+    //handleOnSubmit('Mariana', '3698521470', 'mariana@hotmail.com');
+    //handleOnSubmit('Oliver', '1234567890', 'Oliver@hotmail.com');
+    //handleOnSubmit('Tona', '1596324780', 'tona@hotmail.com');
+    //handleOnSubmit('Osvaldo', '3216549870', 'osva@hotmail.com');
+  }
+
+  //Funcion de busqueda
+  const findContact = async () => {
+    const result = await AsyncStorage.getItem('contactos');
+    console.log(result)
+    if (result !== null) setContact(JSON.parse(result));
+  }
+
+  return (
          
     <View style={styles.wholeContainer}>
-    <View>
-      <TextInput style={styles.searchBoxFormat}
-        placeholder='Buscar contacto'
-        placeholderTextColor='#C4C4C4'
-      />
-    </View>
+      {/*Seccion de barra de busqueda*/}
+      <View>
+        <TextInput style={styles.searchBoxFormat}
+          placeholder='Buscar contacto'
+          placeholderTextColor='#C4C4C4'
+        />
+      </View>
 
-    <View style={styles.buttonContainer}>
-      <TouchableOpacity style={[styles.buttonFormat,{backgroundColor: actualTheme.secondaryColor}]}>
-        <Text>Todos</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonFormat}>
-        <Text>Compañero</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonFormat}>
-        <Text>Profesor</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonFormat}>
-        <Text>Administrativos</Text>
-      </TouchableOpacity>
-    </View>
-    
-    <View>
-      <ScrollView>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-        <Text>Texto de prueba</Text>
-      </ScrollView>
-    </View>
+      {/*Botones de filtros*/}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.buttonFormat,{backgroundColor: actualTheme.secondaryColor}]}>
+          <Text>Todos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonFormat}>
+          <Text>Compañero</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonFormat}>
+          <Text>Profesor</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonFormat}>
+          <Text>Administrativos</Text>
+        </TouchableOpacity>
+      </View>
 
-  </View>
+      {/*Area de scroll para ver contactos*/}
+      
+      {/* Validación para saber si hay contactos */}
+      {!contactos.length ?
+        ( //Si no los hay, muestra un mensaje
+          <View style={[styles.emptyHeaderContainer, {backgroundColor: actualTheme.background}]}>
+            <Text style={styles.emptyHeader}>
+              Parece que no tienes ningun contacto añadido, ¡Empieza añadiendo uno!
+            </Text>
+          </View>
+        ) : 
+            ( // Si hay contactos los muestra
+              <FlatList
+                data={contactos}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => <Task item={item}/>} style={{ backgroundColor: actualTheme.background }}
+              />
+            ) 
+      }
+      
+
+      {/*Botón para agregar contactos*/}
+      <TouchableOpacity onPress={() => addContact()} style={styles.addIcon} >
+        <Icon name='plus-circle' size={50} color={actualTheme.primary}/>
+      </TouchableOpacity>
+
+    </View>
   
   
 
@@ -120,51 +136,9 @@ export default function AgendaC() {
   
   */
 
-  //importar imagen, o hacer lo de las letras de google con contenedor y letras gigantes
+  
 
-  /*
-  <View style={styles.wholeContainer}>
-    <View>
-      <Text>Imagen</Text>
-    </View>
-    
-    <View style={styles.inputFormat}>
-      <TextInput style={styles.addInputFormat}
-        placeholder='Nombre del contacto'
-        placeholderTextColor='#C4C4C4'
-      />
-      <TextInput style={styles.addInputFormat}
-        placeholder='Añadir número de teléfono'
-        placeholderTextColor='#C4C4C4'
-      />
-      <TextInput style={styles.addInputFormat}
-        placeholder='Añadir correo'
-        placeholderTextColor='#C4C4C4'
-      />
-    </View>
-    
-    <View>
-      <Text style={styles.tagFormat}>Etiqueta</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonFormat}>
-          <Text>Compañero</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonFormat}>
-          <Text>Profesor</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonFormat}>
-          <Text>Academico</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-    
-    <View style={styles.addButtonContainer}>
-      <TouchableOpacity style={styles.addButtonFormat}>
-        <Text style={styles.addButtonText}>AÑADIR</Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-  */
+  
     );
 }
 
@@ -172,6 +146,7 @@ const styles = StyleSheet.create({
     wholeContainer: {
       padding: 20,
       marginTop: 60,
+      height: 530,
     },
     //Estilos para ver contactos
     buttonContainer: {
@@ -195,12 +170,25 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       marginBottom: 20,
     },
-    addContactButton: {
+    addIcon: {
       position: 'absolute',
       zIndex: 1,
       bottom: 10,
       right: 10,
     },
+    emptyHeaderContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: -1,
+    },
+    emptyHeader: {
+      fontSize: 30,
+      fontWeight: 'bold',
+      opacity: 0.5,
+      bottom: 30,
+    },
+
     //Estilos para ver contacto
     contactContainer: {
       flexDirection: 'column',
@@ -295,57 +283,6 @@ const styles = StyleSheet.create({
       display: 'flex',
       alignItems: 'center',
       textAlign: 'center',
-    },
-    //Estilos para formulario
-    addButtonContainer: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      marginBottom: 10,
-      marginTop: 10,
-    },
-    addButtonFormat: {
-      backgroundColor: '#0E63F4',
-      padding: 5,
-      borderRadius: 20,
-      width: 140,
-      height: 60,
-    },
-    addButtonText: {
-      fontFamily: 'Inter',
-      fontStyle: 'normal',
-      fontWeight: 'bold',
-      fontSize: 18,
-      color: '#ffffff',
-      marginTop: 10,
-      display: 'flex',
-      alignItems: 'center',
-      textAlign: 'center',
-    },
-    inputFormat: {
-      marginTop: 20,
-      marginBottom: 20,
-    },
-    tagFormat: {
-      fontFamily: 'Inter',
-      fontStyle: 'normal',
-      fontWeight: '600',
-      fontSize: 25,
-      display: 'flex',
-      alignItems: 'center',
-      color: '#00456e',
-      marginBottom: 15,
-    },
-    addInputFormat: {
-      backgroundColor: '#ffffff',
-      borderRadius: 0,
-      borderWidth: 3,
-      borderColor: '#c2e6ff',
-      borderRightWidth: 0,
-      borderLeftWidth: 0,
-      padding: 10,
-      fontSize: 18,
-      textAlign: 'center',
-      marginBottom: 20,
     },
   });
   
