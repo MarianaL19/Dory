@@ -13,10 +13,10 @@ const AddRecordatorios = () =>{
     const [tag, setTag] = useState('null');
 
     // Variables para el estado del DatePicker
-    const [fechaDate, setFechaDate] = useState(new Date())
+    const [fecha, setFecha] = useState(new Date())
     const [fechaOpen, setFechaOpen] = useState(false)
     const [textFecha, setTextFecha] = useState('Selecciona la fecha de entrega')
-    const [horaDate, setHoraDate] = useState(new Date())
+    const [hora, setHora] = useState(new Date())
     const [horaOpen, setHoraOpen] = useState(false)
     const [textHora, setTextHora] = useState('Selecciona la hora de entrega')
 
@@ -115,11 +115,12 @@ const AddRecordatorios = () =>{
           <DatePicker
             modal
             open={fechaOpen}
-            date={fechaDate}
+            date={fecha}
+            locale={'es'}
             mode={'date'}
             onConfirm={(date) => {
               setFechaOpen(false)
-              setFechaDate(date)
+              setFecha(date)
               setTextFecha(date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate())
             }}
             onCancel={() => {
@@ -131,12 +132,12 @@ const AddRecordatorios = () =>{
           <DatePicker
             modal
             open={horaOpen}
-            date={horaDate}
+            date={hora}
             mode={'time'}
             onConfirm={(date) => {
               setHoraOpen(false)
-              setHoraDate(date)
-              setTextHora(date.getHours() + ':' + date.getMinutes())
+              setHora(date)
+              setTextHora(date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes() ): date.getMinutes()))
             }}
             onCancel={() => {
               setHoraOpen(false)
