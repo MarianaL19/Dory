@@ -4,8 +4,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import actualTheme from '../Components/actualTheme';
 import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
+import sqlite from 'react-native-sqlite-storage';
 
 const AddRecordatorios = () =>{
+
+    // sqlite.openDatabase({
+    //   name: 'bd_Dory.db',
+    //   createFromLocation: 1,
+    // });
 
     const {width, height} = Dimensions.get('screen');
 
