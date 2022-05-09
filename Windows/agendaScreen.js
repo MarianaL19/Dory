@@ -19,9 +19,12 @@ export default function AgendaC() {
   //Almacen de contactos
   const [contactos, setContact] = useState([])
 
+  // Variables para el estado del tag del recordatorio
+  const [tag, setTag] = useState('todos');
+
   //Funcion para meter contactos a almacenamiento
-  const handleOnSubmit = async (nombre, telefono, correo) => {
-    const contacto = { id: nombre, nombre, telefono, correo};
+  const handleOnSubmit = async (nombre, telefono, correo, etiqueta) => {
+    const contacto = { id: nombre, nombre, telefono, correo, etiqueta};
     const actualizarContactos = await [...contactos, contacto];
     setContacts(actualizarContactos);
     await AsyncStorage.setItem('contactos', JSON.stringify(actualizarContactos));
@@ -49,30 +52,40 @@ export default function AgendaC() {
     <View style={styles.wholeContainer}>
       {/*Seccion de barra de busqueda*/}
       <View>
+
         <TextInput style={styles.searchBoxFormat}
           placeholder='Buscar contacto'
           placeholderTextColor='#C4C4C4'
         />
+
       </View>
 
       {/*Botones de filtros*/}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.buttonFormat,{backgroundColor: actualTheme.secondaryColor}]}>
-          <Text>Todos</Text>
+
+        <TouchableOpacity onPress={() => setTag('todos')}
+          style={[styles.buttonFormat, tag == 'todos' ? {backgroundColor: actualTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'todos' ? {color: actualTheme.tertiary} : {}]}>Todos</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonFormat}>
-          <Text>Compañero</Text>
+
+        <TouchableOpacity onPress={() => setTag('compañero')}
+          style={[styles.buttonFormat, tag == 'compañero' ? {backgroundColor: actualTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'compañero' ? {color: actualTheme.tertiary} : {}]}>Compañero</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonFormat}>
-          <Text>Profesor</Text>
+
+        <TouchableOpacity onPress={() => setTag('profesor')}
+          style={[styles.buttonFormat, tag == 'profesor' ? {backgroundColor: actualTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'profesor' ? {color: actualTheme.tertiary}: {}]}>Profesor</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonFormat}>
-          <Text>Administrativos</Text>
+
+        <TouchableOpacity onPress={() => setTag('admin')}
+          style={[styles.buttonFormat, tag == 'admin' ? {backgroundColor: actualTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'admin' ? {color: actualTheme.tertiary} : {}]}>Administrativos</Text>
         </TouchableOpacity>
+        
       </View>
 
       {/*Area de scroll para ver contactos*/}
-      
       {/* Validación para saber si hay contactos */}
       {!contactos.length ?
         ( //Si no los hay, muestra un mensaje
@@ -91,7 +104,6 @@ export default function AgendaC() {
             ) 
       }
       
-
       {/*Botón para agregar contactos*/}
       <TouchableOpacity onPress={() => addContact()} style={styles.addIcon} >
         <Icon name='plus-circle' size={50} color={actualTheme.primary}/>
@@ -157,6 +169,7 @@ const styles = StyleSheet.create({
     buttonFormat: {
       backgroundColor: '#E5E5E5',
       padding: 5,
+      paddingHorizontal: 10,
       borderRadius: 5,
       borderColor: '#E5E5E5',
     },
@@ -169,6 +182,17 @@ const styles = StyleSheet.create({
       fontSize: 15,
       textAlign: 'center',
       marginBottom: 20,
+    },
+    searchText: {
+      fontFamily: 'Sen',
+      fontStyle: 'normal',
+      fontWeight: '700',
+      fontSize: 12,
+      color: '#ffffff',
+      marginTop: 2,
+      display: 'flex',
+      alignItems: 'center',
+      textAlign: 'center',
     },
     addIcon: {
       position: 'absolute',
