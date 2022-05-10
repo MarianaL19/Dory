@@ -29,13 +29,13 @@ const AddRecordatorios = () =>{
 
     return (
 
-      <View style={[styles.container, {backgroundColor: actualTheme.backgroundColor}]}>
+      <View style={styles.container}>
         <ScrollView>
           <Text style={[styles.title,{color: actualTheme.primary}]}>Nuevo recordatorio</Text>
 
           <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
 
-          <TextInput placeholder="Título del recordatorio" keyboardType="default" style={styles.inputs}/>
+          <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs,{marginVertical: 5}]}/>
           
           <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
           
@@ -60,11 +60,15 @@ const AddRecordatorios = () =>{
 
           <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
 
-          <View style={styles.iconContainer}>
-            <Icon name='book-open-page-variant' size={25} color='#A9A9A9'/>
-            <TextInput placeholder="Materia" keyboardType="default" style={styles.inputs}/>
-          </View> 
-          <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+          {tag != 'otro' ? (
+          <>
+            <View style={styles.iconContainer}>
+              <Icon name='book-open-page-variant' size={25} color='#A9A9A9'/>
+              <TextInput placeholder="Materia" keyboardType="default" style={styles.inputs}/>
+            </View> 
+            <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+          </>
+          ) : null}
 
           {/* ~~~~~~~~ Seleccionar la fecha y hora de entrega ~~~~~~~~ */}
 
@@ -162,6 +166,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   filterButtonContainer: {
     flexDirection: 'row',

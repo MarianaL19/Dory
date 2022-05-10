@@ -14,13 +14,13 @@ export default function App(){
 
   return (
     //<Schedule/>
-    <AgendaC/>
+    // <AgendaC/>
     //<AgendaAddContact/>
     //<HorarioAdd/>
     //<HorarioEmpty/>
     //<HorarioShow/>
     //<Settings/>
-    //<RecordatoriosAdd/>
+    <RecordatoriosAdd/>
     //<Recordatorios/>    
   );
 }
