@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, Button } from "react-native";
 import actualTheme from './actualTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { cambioFormato } from './Date';
+
+//REvisar iconos
 
 const Contact = ({ item }) => {
     //Variable para saber el estado del popUp (si se ve o no)
@@ -26,7 +27,7 @@ const Contact = ({ item }) => {
                 >
                     {/* Contenido del popUp del contacto */}
 
-                    <View style={{ backgroundColor: '#000000aa', flex: 1, alignItems: 'center' }}>
+                    <View style={{ backgroundColor: '#000000aa', flex: 1, alignItems: 'center'}}>
                         <View style={styles.modalContainer}>
 
                             <View style={styles.moveButton}>
@@ -117,15 +118,16 @@ const styles = StyleSheet.create({
         padding: 30,
         borderRadius: 10,
         flex: 1,
+        width: width * 0.85,
     },
     modalTitle: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 30,
         textAlign: 'center',
         marginBottom: 20,
     },
     modalRegularText: {
-        fontSize: 13,
+        fontSize: 20,
         color: '#171717',
         marginTop: 10,
         marginBottom: 10,
@@ -141,7 +143,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     modalTagText: {
-        fontSize: 11,
+        fontSize: 17,
         fontWeight: 'bold',
         color: '#A9A9A9'
     },
@@ -156,24 +158,24 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         marginBottom: 10,
-        marginTop: 10,
+        marginTop: 30,
       },
-      contactContainer2: {
-        marginTop: 10,
+    contactContainer2: {
+        marginTop: 20,
         marginBottom: 10,
-      },
-      moveButton: {
+    },
+    moveButton: {
         alignItems: 'flex-end',
         marginBottom: 20,
-      },
-      formatButtonContainer: {
+    },
+    formatButtonContainer: {
         backgroundColor: '#0E63F4',
         padding: 5,
         borderRadius: 20,
         width: 80,
         height: 40,
-      },
-      editTextFormat: {
+    },
+    editTextFormat: {
         fontFamily: 'Inter',
         fontStyle: 'normal',
         fontWeight: '600',
@@ -183,16 +185,16 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         textAlign: 'center',
-      },
-      nameFormat: {
+    },
+    nameFormat: {
         fontFamily: 'Sen',
         fontStyle: 'normal',
         fontWeight: 'bold',
         fontSize: 25,
         color: '#00456e',
         marginBottom: 20,
-      },
-      tagFormat: {
+    },
+    tagFormat: {
         backgroundColor: '#c2e6ff',
         width: 130,
         height: 35,
@@ -208,16 +210,16 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         marginTop: 20,
         marginBottom: 20,
-      },
-      styleHeader: {
+    },
+    styleHeader: {
         color: 'rgba(0, 0, 0, 0.5)',
         fontFamily: 'Sen',
         fontWeight: '400',
         fontSize: 16,
         display: 'flex',
         alignItems: 'center',
-      },
-      styleInfo: {
+    },
+    styleInfo: {
         color: '#000000',
         fontFamily: 'Sen',
         fontStyle: 'normal',
@@ -226,15 +228,15 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         marginBottom: 20,
-      },
-      closeButtonFormat: {
+    },
+    closeButtonFormat: {
         backgroundColor: '#0E63F4',
         padding: 5,
         borderRadius: 20,
         width: 100,
         height: 40,
-      },
-      closeButtonText: {
+    },
+    closeButtonText: {
         fontFamily: 'Inter',
         fontStyle: 'normal',
         fontWeight: 'bold',
@@ -244,5 +246,5 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         textAlign: 'center',
-      },
+    },
 });

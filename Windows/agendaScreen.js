@@ -2,7 +2,6 @@ import React, { useState }  from 'react';
 import actualTheme from '../Components/actualTheme';
 
 import {
-    ScrollView,
     StyleSheet,
     Text,
     View,
@@ -21,7 +20,7 @@ export default function AgendaC() {
   const [contactos, setContacts] = useState([])
 
   // Variables para el estado del tag del recordatorio
-  const [tag, setTag] = useState('todos');
+  const [tag, setTag] = useState('Todos');
 
   //Funcion para meter contactos a almacenamiento
   const handleOnSubmit = async (nombre, telefono, correo, etiqueta) => {
@@ -35,8 +34,8 @@ export default function AgendaC() {
   function addContact(){
     handleOnSubmit('Cesar', '3318049956', 'cesarseigi@hotmail.com', 'Profesor');
     handleOnSubmit('Alexis', '1472583690', 'alexis@hotmail.com', 'Compañero');
-    handleOnSubmit('Mariana', '3698521470', 'mariana@hotmail.com', 'Administrativo');
-    handleOnSubmit('Oliver', '1234567890', 'Oliver@hotmail.com', 'Administrativo');
+    handleOnSubmit('Mariana', '3698521470', 'mariana@hotmail.com', 'Administrativoistrativo');
+    handleOnSubmit('Oliver', '1234567890', 'Oliver@hotmail.com', 'Administrativoistrativo');
     handleOnSubmit('Tona', '1596324780', 'tona@hotmail.com', 'Compañero');
     handleOnSubmit('Osvaldo', '3216549870', 'osva@hotmail.com', 'Profesor');
   }
@@ -50,7 +49,8 @@ export default function AgendaC() {
 
   return (
          
-    <View style={styles.wholeContainer}>
+    <View style={[styles.wholeContainer, {backgroundColor: actualTheme.background}]}>
+      
       {/*Seccion de barra de busqueda*/}
       <View>
 
@@ -64,24 +64,28 @@ export default function AgendaC() {
       {/*Botones de filtros*/}
       <View style={styles.buttonContainer}>
 
-        <TouchableOpacity onPress={() => setTag('todos')}
-          style={[styles.buttonFormat, tag == 'todos' ? {backgroundColor: actualTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'todos' ? {color: actualTheme.tertiary} : {}]}>Todos</Text>
+        {/* Boton para ver Todos los contactos */}
+        <TouchableOpacity onPress={() => setTag('Todos')}
+          style={[styles.buttonFormat, tag == 'Todos' ? {backgroundColor: actualTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'Todos' ? {color: actualTheme.tertiary} : {}]}>Todos</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => setTag('compañero')}
-          style={[styles.buttonFormat, tag == 'compañero' ? {backgroundColor: actualTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'compañero' ? {color: actualTheme.tertiary} : {}]}>Compañero</Text>
+        {/* Boton para ver solo Compañeros */}
+        <TouchableOpacity onPress={() => setTag('Compañero')}
+          style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: actualTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'Compañero' ? {color: actualTheme.tertiary} : {}]}>Compañero</Text>
         </TouchableOpacity>
 
+        {/* Boton para ver solo profesor */}
         <TouchableOpacity onPress={() => setTag('profesor')}
           style={[styles.buttonFormat, tag == 'profesor' ? {backgroundColor: actualTheme.quinary} : {}]}>
           <Text style={[styles.searchText, tag == 'profesor' ? {color: actualTheme.tertiary}: {}]}>Profesor</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => setTag('admin')}
-          style={[styles.buttonFormat, tag == 'admin' ? {backgroundColor: actualTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'admin' ? {color: actualTheme.tertiary} : {}]}>Administrativos</Text>
+        {/* Boton para ver solo Administrativo */}
+        <TouchableOpacity onPress={() => setTag('Administrativo')}
+          style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: actualTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'Administrativo' ? {color: actualTheme.tertiary} : {}]}>Administrativo</Text>
         </TouchableOpacity>
         
       </View>
@@ -111,15 +115,17 @@ export default function AgendaC() {
       </TouchableOpacity>
 
     </View>
-    //Modal para ver cotnacto esta en ContactList.js
+    //Modal para ver contacto esta en ContactList.js
+    //Esta aparece al seleccionar un contacto
     );
 }
 
 const styles = StyleSheet.create({
     wholeContainer: {
-      padding: 20,
       marginTop: 60,
       height: 530,
+      flex: 1,
+      justifyContent: 'center',
     },
     //Estilos para ver contactos
     buttonContainer: {
@@ -149,7 +155,7 @@ const styles = StyleSheet.create({
       fontStyle: 'normal',
       fontWeight: '700',
       fontSize: 12,
-      color: '#ffffff',
+      color: '#A9A9A9',
       marginTop: 2,
       display: 'flex',
       alignItems: 'center',

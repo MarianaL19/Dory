@@ -1,112 +1,168 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, Dimensions } from "react-native";
+import actualTheme from '../Components/actualTheme';
+import Contact from '../Components/ContactList';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default class agendaAddContact extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
 
-  render() {
+//Pedir ayuda para las lineas y terminar de comentar, tambien iconos
+
+export default function AgendaAddContact() {
+
+    // Variables para el estado del tag del recordatorio
+    const [tag, setTag] = useState('null');
+
     return (
-        //importar imagen, o hacer lo de las letras de google con contenedor y letras gigantes
         <View style={styles.wholeContainer}>
-            <View>
-            <Text>Imagen</Text>
-            </View>
-            
+                        
             <View style={styles.inputFormat}>
-            <TextInput style={styles.addInputFormat}
-                placeholder='Nombre del contacto'
-                placeholderTextColor='#C4C4C4'
-            />
-            <TextInput style={styles.addInputFormat}
-                placeholder='Añadir número de teléfono'
-                placeholderTextColor='#C4C4C4'
-            />
-            <TextInput style={styles.addInputFormat}
-                placeholder='Añadir correo'
-                placeholderTextColor='#C4C4C4'
-            />
+
+              <Text style={[styles.modalTitle, {color: actualTheme.primary}]}>Ingrese nuevo contacto</Text>
+
+              <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+
+              <TextInput style={styles.addInputFormat}
+                  placeholder='Nombre del contacto'
+                  placeholderTextColor='#C4C4C4'
+              />
+
+              <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+
+              <TextInput style={styles.addInputFormat}
+                  placeholder='Añadir número de teléfono'
+                  placeholderTextColor='#C4C4C4'
+              />
+
+              <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+
+              <TextInput style={styles.addInputFormat}
+                  placeholder='Añadir correo'
+                  placeholderTextColor='#C4C4C4'
+              />
+
+              <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+
             </View>
             
             <View>
-            <Text style={styles.tagFormat}>Etiqueta</Text>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.buttonFormat}>
-                <Text>Compañero</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonFormat}>
-                <Text>Profesor</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonFormat}>
-                <Text>Academico</Text>
-                </TouchableOpacity>
-            </View>
+
+              <Text style={styles.tagFormat}>Etiqueta</Text>
+
+              <View style={styles.buttonContainer}>
+
+                  <TouchableOpacity onPress={() => setTag('Compañero')}
+                    style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: actualTheme.quinary} : {}]}>
+                    <Text style={[styles.searchText, tag == 'Compañero' ? {color: actualTheme.tertiary} : {}]}>Compañero</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={() => setTag('Profesor')}
+                    style={[styles.buttonFormat, tag == 'Profesor' ? {backgroundColor: actualTheme.quinary} : {}]}>
+                    <Text style={[styles.searchText, tag == 'Profesor' ? {color: actualTheme.tertiary} : {}]}>Profesor</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={() => setTag('Administrativo')}
+                    style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: actualTheme.quinary} : {}]}>
+                    <Text style={[styles.searchText, tag == 'Administrativo' ? {color: actualTheme.tertiary} : {}]}>Administrativo</Text>
+                  </TouchableOpacity>
+
+              </View>
+
             </View>
             
             <View style={styles.addButtonContainer}>
-            <TouchableOpacity style={styles.addButtonFormat}>
-                <Text style={styles.addButtonText}>AÑADIR</Text>
-            </TouchableOpacity>
+
+              <TouchableOpacity style={styles.addButtonFormat}>
+                  <Text style={styles.addButtonText}>AÑADIR</Text>
+              </TouchableOpacity>
+
             </View>
+
         </View>
-    
     );
-  }
 }
+
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 const styles = StyleSheet.create({
     //Estilos para formulario
+    wholeContainer: {
+      padding: 20,
+      marginTop: 60,
+      height: 530,
+      backgroundColor: actualTheme.background,
+    },
+    modalTitle: {
+      fontWeight: 'bold',
+      fontSize: 30,
+      textAlign: 'center',
+      marginBottom: 20,
+    },
+    searchText: {
+      fontFamily: 'Sen',
+      fontStyle: 'normal',
+      fontWeight: '700',
+      fontSize: 18,
+      color: '#A9A9A9',
+      marginTop: 2,
+      display: 'flex',
+      alignItems: 'center',
+      textAlign: 'center',
+    },
     addButtonContainer: {
         flexDirection: 'column',
         alignItems: 'center',
         marginBottom: 10,
         marginTop: 10,
-      },
-      addButtonFormat: {
-        backgroundColor: '#0E63F4',
-        padding: 5,
-        borderRadius: 20,
-        width: 140,
-        height: 60,
-      },
-      addButtonText: {
-        fontFamily: 'Inter',
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: 18,
-        color: '#ffffff',
-        marginTop: 10,
-        display: 'flex',
-        alignItems: 'center',
-        textAlign: 'center',
-      },
-      inputFormat: {
-        marginTop: 20,
-        marginBottom: 20,
-      },
-      tagFormat: {
-        fontFamily: 'Inter',
-        fontStyle: 'normal',
-        fontWeight: '600',
-        fontSize: 25,
-        display: 'flex',
-        alignItems: 'center',
-        color: '#00456e',
-        marginBottom: 15,
-      },
-      addInputFormat: {
-        backgroundColor: '#ffffff',
-        borderRadius: 0,
-        borderWidth: 3,
-        borderColor: '#c2e6ff',
-        borderRightWidth: 0,
-        borderLeftWidth: 0,
-        padding: 10,
-        fontSize: 18,
-        textAlign: 'center',
-        marginBottom: 20,
-      },
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 40,
+    },
+    addButtonFormat: {
+      backgroundColor: '#0E63F4',
+      padding: 5,
+      borderRadius: 20,
+      width: 140,
+      height: 60,
+    },
+    buttonFormat: {
+      backgroundColor: '#E5E5E5',
+      padding: 5,
+      paddingHorizontal: 10,
+      borderRadius: 5,
+      borderColor: '#E5E5E5',
+    },
+    addButtonText: {
+      fontFamily: 'Inter',
+      fontStyle: 'normal',
+      fontWeight: 'bold',
+      fontSize: 18,
+      color: '#ffffff',
+      marginTop: 10,
+      display: 'flex',
+      alignItems: 'center',
+      textAlign: 'center',
+    },
+    inputFormat: {
+      marginTop: 20,
+      marginBottom: 20,
+      justifyContent: 'center',
+    },
+    tagFormat: {
+      fontFamily: 'Inter',
+      fontStyle: 'normal',
+      fontWeight: '600',
+      fontSize: 25,
+      display: 'flex',
+      alignItems: 'center',
+      color: '#00456e',
+      marginBottom: 15,
+      marginTop: 40,
+    },
+    addInputFormat: {
+      fontSize: 18,
+      textAlign: 'center',
+    },
 });
