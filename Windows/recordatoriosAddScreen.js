@@ -31,14 +31,15 @@ const AddRecordatorios = () =>{
 
       <View style={styles.container}>
         <ScrollView>
-          <Text style={[styles.title,{color: actualTheme.primary}]}>Nuevo recordatorio</Text>
+          <Text style={[styles.title,{color: actualTheme.quaternary}]}>Nuevo recordatorio</Text>
 
           <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
 
-          <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs,{marginVertical: 5}]}/>
+          <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs,{marginVertical: 5, paddingHorizontal: 10}]}/>
           
-          <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
-          
+          <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>          
+
+          {/* ~~~~~~~~ Etiquetas de tipo de recordatorio ~~~~~~~~ */}
           <Text style={[styles.subtitle, {color: actualTheme.tertiary}]}>Tipo de recordatorio</Text>
 
           <View style={styles.filterButtonContainer}>
@@ -60,6 +61,9 @@ const AddRecordatorios = () =>{
 
           <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
 
+
+          {/* ~~~~~~~~ Materia ~~~~~~~~ */}
+
           {tag != 'otro' ? (
           <>
             <View style={styles.iconContainer}>
@@ -69,6 +73,7 @@ const AddRecordatorios = () =>{
             <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
           </>
           ) : null}
+
 
           {/* ~~~~~~~~ Seleccionar la fecha y hora de entrega ~~~~~~~~ */}
 
@@ -92,26 +97,32 @@ const AddRecordatorios = () =>{
 
           <View style={styles.iconContainer}>
             <Icon name='pencil' size={25} color='#A9A9A9'/>
-            <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs,{fontSize:13}]}/>
+            <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs,{width: width*0.8}]}/>
           </View> 
           <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
 
 
           {/* ~~~~~~~~ Notificar recordatorio ~~~~~~~~ */}
+          
+          <View style={[styles.iconContainer,{paddingTop: 10}]}>
+            <Icon name='bell' size={27} color={actualTheme.primary}/>
+            <Text style={[styles.notificarText,{color: actualTheme.tertiary}]}>Notificar recordatorio</Text>
+          </View> 
 
-          <Text style={[styles.subtitle,{color: actualTheme.tertiary}]}>Notificar recordatorio</Text>
 
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          {/* ~~~~~~~~ Opciones de notificar recordatorio ~~~~~~~~ */}
+
+          <View style={styles.opcRecordatorioContainer}>
             <Text style={styles.recordatoriosText}>24 horas antes</Text>
             <Switch trackColor={{false:"grey", true:"grey"}}/>
           </View>
 
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.opcRecordatorioContainer}>
             <Text style={styles.recordatoriosText}>12 horas antes</Text>
             <Switch trackColor={{false:"grey", true:"grey"}}/>
           </View>
 
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.opcRecordatorioContainer}>
             <Text style={styles.recordatoriosText}>Seleccionar hora</Text>
           </View>
 
@@ -217,6 +228,12 @@ const styles = StyleSheet.create({
     marginTop: 15, 
     marginBottom: 10,
   },
+  notificarText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginHorizontal: 10,
+    marginBottom: 3,
+  },
   inputs:{
     fontSize: 15,
     fontWeight: '500',
@@ -228,8 +245,13 @@ const styles = StyleSheet.create({
     color: "#00456E",
     fontSize: 14,
     fontWeight: '500',
-    marginHorizontal: 30,
+    marginHorizontal: 20,
     marginVertical: 7,
+  },
+  opcRecordatorioContainer: {
+    paddingHorizontal: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   buttonText: {
     color: "#FAF9F3",
@@ -238,4 +260,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 5,
   },
+
 });
