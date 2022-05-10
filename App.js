@@ -14,8 +14,8 @@ export default function App(){
 
   return (
     //<Schedule/>
-    //<AgendaC/>
-    <AgendaAddContact/>
+    <AgendaC/>
+    //<AgendaAddContact/>
     //<HorarioAdd/>
     //<HorarioEmpty/>
     //<HorarioShow/>

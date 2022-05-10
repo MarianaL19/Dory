@@ -13,9 +13,9 @@ export default function AgendaAddContact() {
     const [tag, setTag] = useState('null');
 
     return (
-        <View style={styles.wholeContainer}>
+        <View style={[styles.wholeContainer, {backgroundColor: actualTheme.background}]}>
                         
-            <View style={styles.inputFormat}>
+            <View style={[styles.inputFormat, {backgroundColor: actualTheme.background}]}>
 
               <Text style={[styles.modalTitle, {color: actualTheme.primary}]}>Ingrese nuevo contacto</Text>
 
@@ -44,7 +44,7 @@ export default function AgendaAddContact() {
 
             </View>
             
-            <View>
+            <View style={{backgroundColor: actualTheme.background}}>
 
               <Text style={styles.tagFormat}>Etiqueta</Text>
 
@@ -69,7 +69,7 @@ export default function AgendaAddContact() {
 
             </View>
             
-            <View style={styles.addButtonContainer}>
+            <View style={[styles.addButtonContainer, {backgroundColor: actualTheme.background}]}>
 
               <TouchableOpacity style={styles.addButtonFormat}>
                   <Text style={styles.addButtonText}>AÑADIR</Text>

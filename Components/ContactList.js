@@ -3,7 +3,6 @@ import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, But
 import actualTheme from './actualTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-//REvisar iconos
 
 const Contact = ({ item }) => {
     //Variable para saber el estado del popUp (si se ve o no)
@@ -28,43 +27,68 @@ const Contact = ({ item }) => {
                     {/* Contenido del popUp del contacto */}
 
                     <View style={{ backgroundColor: '#000000aa', flex: 1, alignItems: 'center'}}>
+
                         <View style={styles.modalContainer}>
 
+                            {/* Boton para editar contacto */}
                             <View style={styles.moveButton}>
-                                    <TouchableOpacity style={styles.formatButtonContainer}>
-                                        <Text style={styles.editTextFormat}>Editar</Text>
+
+                                    <TouchableOpacity>
+                                        <Icon name='dots-vertical' size={40} color={'#c4c4c4'}/>
                                     </TouchableOpacity>
+
                             </View>
 
                             {/* Apartado: nombre del contacto */}
-                            <Text style={[styles.modalTitle, { color: actualTheme.primary }]}>{item.nombre}</Text>
+                            <Text style={[styles.modalTitle, { color: actualTheme.tertiary }]}>{item.nombre}</Text>
 
                             {/* Apartado: Tipo de contacto */}
-                            <Text style={[styles.modalRegularText, { color: actualTheme.tertiary, fontWeight: 'bold' }]}> Tipo de contacto</Text>
-                            <View style={{ flexDirection: 'row' }}>
-                                {/* tipo de contacto */}
-                                <View style={[styles.modalTagContainer, {backgroundColor: actualTheme.quinary}]}>
-                                    <Text style={[styles.modalTagText, {color: actualTheme.tertiary}]}>{item.etiqueta}</Text>
-                                </View>   
-                            </View>
-                            
-                            {/* Seccion que despliega la informacion */}
+                            {/* tipo de contacto */}
+                            <View style={[styles.modalTagContainer, {backgroundColor: actualTheme.quinary}]}>
+
+                                <Text style={[styles.modalTagText]}>{item.etiqueta}</Text>
+
+                            </View>  
+
+                            {/* Apartado: despliega la informacion */}
                             <View style={styles.contactContainer2}>
-                                <Text style={styles.styleHeader}>Telefono</Text>
-                                <Text style={styles.styleInfo}>{item.telefono}</Text>
-                                <Text style={styles.styleHeader}>Correo</Text>
-                                <Text style={styles.styleInfo}>{item.correo}</Text>
+                                
+                                {/* Iconos */}
+                                <View style={styles.contactInconFormat}>
+
+                                    <Icon name='phone' size={30} color={'#c4c4c4'}  />
+                                    <View style={{marginBottom: 40}} />
+                                    <Icon name='email-outline' size={30} color={'#c4c4c4'} />
+
+                                </View>
+
+                                {/* Informacion */}
+                                <View style={styles.contactInconFormat}>
+                                
+                                    <Text style={styles.styleHeader}>Telefono</Text>
+                                    <Text style={styles.styleInfo}>{item.telefono}</Text>
+                                    <View style={{marginBottom: 40}} />
+                                    <Text style={styles.styleHeader}>Correo</Text>
+                                    <Text style={styles.styleInfo}>{item.correo}</Text>
+
+                                </View>
+
                             </View>
 
                             <View style={styles.contactContainer} >
+
+                                {/* Boton para salir */}
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}
                                     style={[styles.closeButtonFormat, {backgroundColor: actualTheme.primary}]}>
                                     <Text style={styles.closeButtonText}>CERRAR</Text>
                                 </TouchableOpacity>
+
                             </View>
                             
                         </View>
+
                     </View>
+
                 </Modal>
 
                 {/* Estilo con el que se van a renderizar el contacto */}
@@ -78,6 +102,7 @@ const Contact = ({ item }) => {
                         
                         {/* nombre del contacto */}
                         <Text numberOfLines={2} style={styles.title}>{nombre}</Text>
+
                     </View>
                 </TouchableOpacity>
 
@@ -134,18 +159,19 @@ const styles = StyleSheet.create({
     },
     modalTagContainer: {
         backgroundColor: '#E5E5E5',
-        width: width / 5,
+        width: width / 3,
         paddingVertical: 6,
         justifyContent: 'center',
         borderRadius: 3,
         alignItems: 'center',
         marginBottom: 20,
         marginHorizontal: 5,
+        alignSelf: 'center',
     },
     modalTagText: {
         fontSize: 17,
-        fontWeight: 'bold',
-        color: '#A9A9A9'
+        fontWeight: '400',
+        color: '#000000'
     },
     modalDateText: {
         fontSize: 14,
@@ -153,7 +179,7 @@ const styles = StyleSheet.create({
         color: '#171717',
         paddingHorizontal: 10,
     },
-    //Estilos para ver contacto
+    //Estilos para ver contacto (modal)
     contactContainer: {
         flexDirection: 'column',
         alignItems: 'center',
@@ -163,17 +189,18 @@ const styles = StyleSheet.create({
     contactContainer2: {
         marginTop: 20,
         marginBottom: 10,
+        flexDirection: 'row',
+    },
+    contactInconFormat:{
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        justifyContent: 'space-evenly',
+        alignContent: 'stretch',
+        paddingRight: 15,
     },
     moveButton: {
         alignItems: 'flex-end',
         marginBottom: 20,
-    },
-    formatButtonContainer: {
-        backgroundColor: '#0E63F4',
-        padding: 5,
-        borderRadius: 20,
-        width: 80,
-        height: 40,
     },
     editTextFormat: {
         fontFamily: 'Inter',
@@ -216,8 +243,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Sen',
         fontWeight: '400',
         fontSize: 16,
-        display: 'flex',
-        alignItems: 'center',
     },
     styleInfo: {
         color: '#000000',
@@ -225,15 +250,12 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: 'bold',
         fontSize: 18,
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: 20,
     },
     closeButtonFormat: {
         backgroundColor: '#0E63F4',
         padding: 5,
         borderRadius: 20,
-        width: 100,
+        width: 140,
         height: 40,
     },
     closeButtonText: {

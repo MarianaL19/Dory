@@ -34,8 +34,8 @@ export default function AgendaC() {
   function addContact(){
     handleOnSubmit('Cesar', '3318049956', 'cesarseigi@hotmail.com', 'Profesor');
     handleOnSubmit('Alexis', '1472583690', 'alexis@hotmail.com', 'Compañero');
-    handleOnSubmit('Mariana', '3698521470', 'mariana@hotmail.com', 'Administrativoistrativo');
-    handleOnSubmit('Oliver', '1234567890', 'Oliver@hotmail.com', 'Administrativoistrativo');
+    handleOnSubmit('Mariana', '3698521470', 'mariana@hotmail.com', 'Administrativo');
+    handleOnSubmit('Oliver', '1234567890', 'Oliver@hotmail.com', 'Administrativo');
     handleOnSubmit('Tona', '1596324780', 'tona@hotmail.com', 'Compañero');
     handleOnSubmit('Osvaldo', '3216549870', 'osva@hotmail.com', 'Profesor');
   }
@@ -117,7 +117,7 @@ export default function AgendaC() {
     </View>
     //Modal para ver contacto esta en ContactList.js
     //Esta aparece al seleccionar un contacto
-    );
+  );
 }
 
 const styles = StyleSheet.create({
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       paddingBottom: 10,
+      paddingHorizontal: 20,
     },
     buttonFormat: {
       backgroundColor: '#E5E5E5',
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
       fontFamily: 'Sen',
       fontStyle: 'normal',
       fontWeight: '700',
-      fontSize: 12,
+      fontSize: 14,
       color: '#A9A9A9',
       marginTop: 2,
       display: 'flex',
