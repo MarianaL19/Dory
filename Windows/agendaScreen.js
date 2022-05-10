@@ -12,12 +12,13 @@ import {
   } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Contact from '../Components/ContactList';
 
 
 export default function AgendaC() {
   
   //Almacen de contactos
-  const [contactos, setContact] = useState([])
+  const [contactos, setContacts] = useState([])
 
   // Variables para el estado del tag del recordatorio
   const [tag, setTag] = useState('todos');
@@ -32,12 +33,12 @@ export default function AgendaC() {
 
   //Añadir contacto
   function addContact(){
-    handleOnSubmit('Cesar', '3318049956', 'cesarseigi@hotmail.com');
-    //handleOnSubmit('Alexis', '1472583690', 'alexis@hotmail.com');
-    //handleOnSubmit('Mariana', '3698521470', 'mariana@hotmail.com');
-    //handleOnSubmit('Oliver', '1234567890', 'Oliver@hotmail.com');
-    //handleOnSubmit('Tona', '1596324780', 'tona@hotmail.com');
-    //handleOnSubmit('Osvaldo', '3216549870', 'osva@hotmail.com');
+    handleOnSubmit('Cesar', '3318049956', 'cesarseigi@hotmail.com', 'Profesor');
+    handleOnSubmit('Alexis', '1472583690', 'alexis@hotmail.com', 'Compañero');
+    handleOnSubmit('Mariana', '3698521470', 'mariana@hotmail.com', 'Administrativo');
+    handleOnSubmit('Oliver', '1234567890', 'Oliver@hotmail.com', 'Administrativo');
+    handleOnSubmit('Tona', '1596324780', 'tona@hotmail.com', 'Compañero');
+    handleOnSubmit('Osvaldo', '3216549870', 'osva@hotmail.com', 'Profesor');
   }
 
   //Funcion de busqueda
@@ -99,7 +100,7 @@ export default function AgendaC() {
               <FlatList
                 data={contactos}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) => <Task item={item}/>} style={{ backgroundColor: actualTheme.background }}
+                renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: actualTheme.background }}
               />
             ) 
       }
@@ -110,47 +111,7 @@ export default function AgendaC() {
       </TouchableOpacity>
 
     </View>
-  
-  
-
-  //Modal ventana
-  /*
-  <View style={styles.wholeContainer}>
-
-    <View style={styles.moveButton}>
-      <TouchableOpacity style={styles.formatButtonContainer}>
-        <Text style={styles.editTextFormat}>Editar</Text>
-      </TouchableOpacity>
-    </View>
-
-    <View style={styles.contactContainer}>
-      <Text style={styles.nameFormat}>Aqui va el nombre</Text>
-      
-      <Text>Aqui va imagen</Text>
-      
-      <Text style={styles.tagFormat}>Aqui va etiqueta</Text>
-    </View>
-
-    <View style={styles.contactContainer2}>
-      <Text style={styles.styleHeader}>Telefono</Text>
-      <Text style={styles.styleInfo}>#numero de telefono</Text>
-      <Text style={styles.styleHeader}>Correo</Text>
-      <Text style={styles.styleInfo}>#direccion de correo</Text>
-      
-    </View>
-
-    <View style={styles.contactContainer}>
-      <TouchableOpacity style={styles.closeButtonFormat}>
-        <Text style={styles.closeButtonText}>CERRAR</Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-  
-  */
-
-  
-
-  
+    //Modal para ver cotnacto esta en ContactList.js
     );
 }
 
@@ -212,101 +173,5 @@ const styles = StyleSheet.create({
       opacity: 0.5,
       bottom: 30,
     },
-
-    //Estilos para ver contacto
-    contactContainer: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      marginBottom: 10,
-      marginTop: 10,
-    },
-    contactContainer2: {
-      left: 50,
-      marginTop: 10,
-      marginBottom: 10,
-    },
-    moveButton: {
-      alignItems: 'flex-end',
-      marginBottom: 20,
-    },
-    formatButtonContainer: {
-      backgroundColor: '#0E63F4',
-      padding: 5,
-      borderRadius: 20,
-      width: 80,
-      height: 40,
-    },
-    editTextFormat: {
-      fontFamily: 'Inter',
-      fontStyle: 'normal',
-      fontWeight: '600',
-      fontSize: 18,
-      color: '#ffffff',
-      marginTop: 2,
-      display: 'flex',
-      alignItems: 'center',
-      textAlign: 'center',
-    },
-    nameFormat: {
-      fontFamily: 'Sen',
-      fontStyle: 'normal',
-      fontWeight: 'bold',
-      fontSize: 25,
-      color: '#00456e',
-      marginBottom: 20,
-    },
-    tagFormat: {
-      backgroundColor: '#c2e6ff',
-      width: 130,
-      height: 35,
-      borderRadius: 8,
-      fontFamily: 'Sen',
-      fontStyle: 'normal',
-      fontWeight: '400',
-      fontSize: 15,
-      display: 'flex',
-      alignItems: 'center',
-      color: '#000000',
-      padding: 5,
-      paddingLeft: 10,
-      marginTop: 20,
-      marginBottom: 20,
-    },
-    styleHeader: {
-      color: 'rgba(0, 0, 0, 0.5)',
-      fontFamily: 'Sen',
-      fontWeight: '400',
-      fontSize: 16,
-      display: 'flex',
-      alignItems: 'center',
-    },
-    styleInfo: {
-      color: '#000000',
-      fontFamily: 'Sen',
-      fontStyle: 'normal',
-      fontWeight: 'bold',
-      fontSize: 18,
-      display: 'flex',
-      alignItems: 'center',
-      marginBottom: 20,
-    },
-    closeButtonFormat: {
-      backgroundColor: '#0E63F4',
-      padding: 5,
-      borderRadius: 20,
-      width: 100,
-      height: 40,
-    },
-    closeButtonText: {
-      fontFamily: 'Inter',
-      fontStyle: 'normal',
-      fontWeight: 'bold',
-      fontSize: 18,
-      color: '#ffffff',
-      marginTop: 2,
-      display: 'flex',
-      alignItems: 'center',
-      textAlign: 'center',
-    },
-  });
+},);
   
