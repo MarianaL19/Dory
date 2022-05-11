@@ -19,8 +19,8 @@ export default function App(){
     //<HorarioAdd/>
     //<HorarioEmpty/>
     //<HorarioShow/>
-    //<Settings/>
-    <RecordatoriosAdd/>
+    <Settings/>
+    //<RecordatoriosAdd/>
     //<Recordatorios/>    
   );
 }

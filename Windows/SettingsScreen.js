@@ -1,25 +1,66 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView, Dimensions, Image, Switch, TouchableOpacity} from 'react-native';
-import { Button } from 'react-native-elements';
+import actualTheme from '../Components/actualTheme';
+
 const {width, height} = Dimensions.get("screen");
+const UserID = 1;
 
 const Settings = () => {
+
+  const [username, setUsername] = useState('usuario');
   const [nombre, setNombre] = useState('usuario');
+
+  const cambiarUsername = () => {
+    if (nombre == "") {
+      setUsername(username)
+    } else {
+      setUsername(nombre);
+    }
+  }
+
+  const Tema1 = () => {
+
+  }
+  const Tema2 = () => {
+
+  }
+  const Tema3 = () => {
+
+  }
+
+  const GUARDAR = () => {
+    var NombreUsuario = username;
+  }
+  const CERRAR = () => {
+
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.TituloUsuario}>¡Hola, {nombre}!</Text>
-      
-      {/* Casilla de input para texto (nombre de usuario) */}
-      <TextInput 
-        style={styles.inputTexto}
-        placeholder="nombre de usuario"
-        onChangeText={(value)=>setNombre(value)}
-        maxLength={20}
-      />
+      <Text style={styles.TituloUsuario}>¡Hola, {username}!</Text>
+
+      <View style={{flexDirection:"row", justifyContent: "space-around"}}>
+        {/* Casilla de input para texto (nombre de usuario) */}
+        <TextInput 
+          style={styles.inputTexto}
+          placeholder="nombre de usuario"
+          onChangeText={(value)=>setNombre(value)}
+          maxLength={20}
+        />
+        <TouchableOpacity style={{
+          alignItems: "center",
+          backgroundColor: "#E7E7E7",
+          width: 42,
+          height: 42,
+          borderRadius: 25,
+          marginTop: 15,}}
+          onPress={cambiarUsername}
+        >
+        </TouchableOpacity>
+      </View>
       {/* La siguiente view es utilizada para crear una linea vertical */}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 35, flex: 1, height: 1, backgroundColor: '#C2E6FF'}} />
+        <View style={{marginTop: 35, flex: 1, height: 1, backgroundColor: actualTheme.quinaryColor}} />
       </View>
 
       {/* A partir de aqui es el apartado de notificaciones */}
@@ -28,29 +69,26 @@ const Settings = () => {
 
       {/* Aqui es la separación de Temas */}
       <View style={styles.Themes}>
-        <Text style={{fontSize: 20, paddingLeft: 50, marginTop: 10, color: "#00456E", fontWeight: "600",}}>Temas</Text>
+        <Text style={{fontSize: 20, paddingLeft: 50, marginTop: 10, color: actualTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
       </View>
   
       {/* Aqui se contendran los temas */}
       <View style={{marginTop: 25, flexDirection:"row", justifyContent: "space-between"}}>
         
         {/* Funcionalidad Tema 1 */}
-        <TouchableOpacity style={styles.buttonTheme}>
+        <TouchableOpacity style={styles.buttonTheme} onPress={Tema1}>
           <Image></Image>
         </TouchableOpacity> 
-        <Text>  </Text>
 
         {/* Funcionalidad Tema 2 */}
-        <TouchableOpacity style={styles.buttonTheme}>
+        <TouchableOpacity style={styles.buttonTheme} onPress={Tema2}>
           <Image></Image>
         </TouchableOpacity>
-        <Text>  </Text>
 
         {/* Funcionalidad Tema 3 */}
-        <TouchableOpacity style={styles.buttonTheme}>
+        <TouchableOpacity style={styles.buttonTheme} onPress={Tema3}>
           <Image></Image>
         </TouchableOpacity>
-        <Text>  </Text>
 
       </View>
 
@@ -58,15 +96,21 @@ const Settings = () => {
       <View style={{marginTop: 40, flexDirection: "row", justifyContent: "space-between"}}>
         
         {/* Boton Cerrar */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={CERRAR}
+          >
           <Text style={{color: "white", marginTop: 8, fontSize: 18}}>CERRAR</Text>
         </TouchableOpacity>
-        <Text>     </Text>
         
         {/* Boton Guardar */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity 
+          style={styles.button}
+          onPress={GUARDAR}
+          >
           <Text style={{color: "white", marginTop: 8, fontSize: 18}}>GUARDAR</Text>
         </TouchableOpacity>
+
       </View>
       
 
@@ -82,7 +126,7 @@ const styles = StyleSheet.create({
 
   TituloUsuario: {
     marginTop: 40,
-    color: "#1B18F9",
+    color: actualTheme.quaternaryColor,
     textAlign: "center",
     justifyContent: "center",
     fontSize: 25,
@@ -91,7 +135,7 @@ const styles = StyleSheet.create({
   },
   titulo2: {
     marginTop: 35,
-    color: "#00456E",
+    color: actualTheme.tertiaryColor,
     fontSize: 19,
     fontWeight: "600",
   },
@@ -102,6 +146,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     borderRadius: 20,
     paddingLeft: 15,
+    marginHorizontal: 5,
     width: 250,
     height: 42,
   },
@@ -117,10 +162,11 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#1B18F9",
+    backgroundColor: actualTheme.quaternaryColor,
     width: 150,
     height: 42,
     borderRadius: 20,
+    marginHorizontal: 10,
   },
   buttonTheme: {
     alignItems: "center",
@@ -128,19 +174,9 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 25,
+    marginHorizontal: 10,
     marginTop: 10,
   }
-
-  /*Declaración de Colores:
-
-  AZUL BRILLANTE  = 0E63F4
-  AZUL REY        = 1B18F9
-  DORY            = 00ADEF
-  AZUL OSCURO     = 00456E
-  CELESTE         = C2E6FF
-  BEIGE           = FAF9F3
-
-  */
 });
 
 export default Settings;
