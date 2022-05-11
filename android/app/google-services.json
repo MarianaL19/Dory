@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "691568136364",
+    "project_id": "dory-2a20e",
+    "storage_bucket": "dory-2a20e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691568136364:android:c61988b413134934c00f09",
+        "android_client_info": {
+          "package_name": "com.dory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691568136364-5kgde6nt7fai5162gk77bpvnegqq69h2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxmre-rjMRWGML4KMSV04FrbUJgJ43BN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "691568136364-5kgde6nt7fai5162gk77bpvnegqq69h2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
