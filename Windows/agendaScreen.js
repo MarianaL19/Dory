@@ -122,9 +122,9 @@ export default function AgendaC() {
 
 const styles = StyleSheet.create({
     wholeContainer: {
-      marginTop: 60,
       height: 530,
       flex: 1,
+      padding: 8,
       justifyContent: 'center',
     },
     //Estilos para ver contactos
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
       fontSize: 15,
       textAlign: 'center',
       marginBottom: 20,
+      marginTop: 15,
     },
     searchText: {
       fontFamily: 'Sen',
@@ -173,6 +174,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       zIndex: -1,
+      padding: 35,
     },
     emptyHeader: {
       fontSize: 30,
