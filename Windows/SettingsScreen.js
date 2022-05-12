@@ -61,6 +61,7 @@ const Settings = () => {
           marginTop: 15,}}
           onPress={cambiarUsername}
         >
+          <Text style={{marginTop: 3, fontSize: 25 }}>💽</Text>
         </TouchableOpacity>
       </View>
       {/* La siguiente view es utilizada para crear una linea vertical */}
@@ -88,16 +89,19 @@ const Settings = () => {
         
         {/* Funcionalidad Tema 1 */}
         <TouchableOpacity style={styles.buttonTheme} onPress={Tema1}>
+          <Text style={{fontSize:50, marginTop:15}}>🐠</Text>
           <Image></Image>
         </TouchableOpacity> 
 
         {/* Funcionalidad Tema 2 */}
         <TouchableOpacity style={styles.buttonTheme} onPress={Tema2}>
+          <Text style={{fontSize:50, marginTop:15}}>🐠</Text>
           <Image></Image>
         </TouchableOpacity>
 
         {/* Funcionalidad Tema 3 */}
         <TouchableOpacity style={styles.buttonTheme} onPress={Tema3}>
+          <Text style={{fontSize:50, marginTop:15}}>🐠</Text>
           <Image></Image>
         </TouchableOpacity>
 

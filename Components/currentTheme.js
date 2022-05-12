@@ -3,7 +3,7 @@ import React, { Component, useState } from 'react';
 import { blueTheme, pinkTheme } from "./themes";
 
 var currentTheme;
-var themeID = "";
+var themeID = "1";
 
 if (themeID == "1") {
     currentTheme = blueTheme;
