@@ -1,13 +1,14 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView, Dimensions, Image, Switch, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, Text, TextInput, SafeAreaView, Dimensions, Image, Switch, TouchableOpacity, TouchableHighlight} from 'react-native';
 import { act } from 'react-test-renderer';
 import currentTheme from '../Components/currentTheme';
-import { blueTheme, pinkTheme } from "../Components/themes";
 
 const {width, height} = Dimensions.get("screen");
 const UserID = 1;
 
 const Settings = () => {
+
+  const [tag,setTag] = useState("Button1");
 
   const [username, setUsername] = useState('usuario');
   const [nombre, setNombre] = useState('usuario');
@@ -24,13 +25,13 @@ const Settings = () => {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const Tema1 = () => {
-    
+    setTag("Button1");
   }
   const Tema2 = () => {
-    
+    setTag("Button2");
   }
   const Tema3 = () => {
-    
+    setTag("Button3");
   }
 
   const GUARDAR = () => {
@@ -88,19 +89,19 @@ const Settings = () => {
       <View style={{marginTop: 25, flexDirection:"row", justifyContent: "space-between"}}>
         
         {/* Funcionalidad Tema 1 */}
-        <TouchableOpacity style={styles.buttonTheme} onPress={Tema1}>
+        <TouchableOpacity style={[styles.buttonTheme, tag == 'Button1' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema1}>
           <Text style={{fontSize:50, marginTop:15}}>🐠</Text>
           <Image></Image>
         </TouchableOpacity> 
 
         {/* Funcionalidad Tema 2 */}
-        <TouchableOpacity style={styles.buttonTheme} onPress={Tema2}>
+        <TouchableOpacity style={[styles.buttonTheme, tag == 'Button2' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema2}>
           <Text style={{fontSize:50, marginTop:15}}>🐠</Text>
           <Image></Image>
         </TouchableOpacity>
 
         {/* Funcionalidad Tema 3 */}
-        <TouchableOpacity style={styles.buttonTheme} onPress={Tema3}>
+        <TouchableOpacity style={[styles.buttonTheme, tag == 'Button3' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema3}>
           <Text style={{fontSize:50, marginTop:15}}>🐠</Text>
           <Image></Image>
         </TouchableOpacity>

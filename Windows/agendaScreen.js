@@ -66,26 +66,26 @@ export default function AgendaC() {
 
         {/* Boton para ver Todos los contactos */}
         <TouchableOpacity onPress={() => setTag('Todos')}
-          style={[styles.buttonFormat, tag == 'Todos' ? {backgroundColor: currentTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'Todos' ? {color: currentTheme.tertiary} : {}]}>Todos</Text>
+          style={[styles.buttonFormat, tag == 'Todos' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+          <Text style={[styles.searchText, tag == 'Todos' ? {color: currentTheme.tertiaryColor} : {}]}>Todos</Text>
         </TouchableOpacity>
 
         {/* Boton para ver solo Compañeros */}
         <TouchableOpacity onPress={() => setTag('Compañero')}
-          style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: currentTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'Compañero' ? {color: currentTheme.tertiary} : {}]}>Compañero</Text>
+          style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+          <Text style={[styles.searchText, tag == 'Compañero' ? {color: currentTheme.tertiaryColor} : {}]}>Compañero</Text>
         </TouchableOpacity>
 
         {/* Boton para ver solo profesor */}
         <TouchableOpacity onPress={() => setTag('profesor')}
-          style={[styles.buttonFormat, tag == 'profesor' ? {backgroundColor: currentTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'profesor' ? {color: currentTheme.tertiary}: {}]}>Profesor</Text>
+          style={[styles.buttonFormat, tag == 'profesor' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+          <Text style={[styles.searchText, tag == 'profesor' ? {color: currentTheme.tertiaryColor}: {}]}>Profesor</Text>
         </TouchableOpacity>
 
         {/* Boton para ver solo Administrativo */}
         <TouchableOpacity onPress={() => setTag('Administrativo')}
-          style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: currentTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'Administrativo' ? {color: currentTheme.tertiary} : {}]}>Administrativo</Text>
+          style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+          <Text style={[styles.searchText, tag == 'Administrativo' ? {color: currentTheme.tertiaryColor} : {}]}>Administrativo</Text>
         </TouchableOpacity>
         
       </View>
@@ -94,7 +94,7 @@ export default function AgendaC() {
       {/* Validación para saber si hay contactos */}
       {!contactos.length ?
         ( //Si no los hay, muestra un mensaje
-          <View style={[styles.emptyHeaderContainer, {backgroundColor: currentTheme.background}]}>
+          <View style={[styles.emptyHeaderContainer, {backgroundColor: currentTheme.backgroundColor}]}>
             <Text style={styles.emptyHeader}>
               Parece que no tienes ningun contacto añadido, ¡Empieza añadiendo uno!
             </Text>
@@ -104,14 +104,14 @@ export default function AgendaC() {
               <FlatList
                 data={contactos}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.background }}
+                renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
               />
             ) 
       }
       
       {/*Botón para agregar contactos*/}
       <TouchableOpacity onPress={() => addContact()} style={styles.addIcon} >
-        <Icon name='plus-circle' size={50} color={currentTheme.primary}/>
+        <Icon name='plus-circle' size={50} color={currentTheme.primaryColor}/>
       </TouchableOpacity>
 
     </View>

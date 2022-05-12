@@ -21,3 +21,13 @@ export const pinkTheme = {
     },
 }
 
+export const greenTheme = {
+    colors: {
+        primary: '#007723',
+        secondary: '#70B578',
+        tertiary: '#317F43',
+        quaternary: '#008F4C',
+        quinary: '#31A84F',
+        background: '#fff9fe',
+    },
+}

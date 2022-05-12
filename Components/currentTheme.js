@@ -1,9 +1,9 @@
 
 import React, { Component, useState } from 'react';
-import { blueTheme, pinkTheme } from "./themes";
+import { blueTheme, pinkTheme, greenTheme } from "./themes";
 
 var currentTheme;
-var themeID = "1";
+var themeID = "3";
 
 if (themeID == "1") {
     currentTheme = blueTheme;
@@ -11,6 +11,9 @@ if (themeID == "1") {
 else if (themeID == "2") {
     currentTheme = pinkTheme;
 } 
+else if (themeID == "3"){
+    currentTheme = greenTheme;
+}
 else {
     currentTheme = blueTheme;
 }
