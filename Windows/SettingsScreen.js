@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView, Dimensions, Image, Switch, TouchableOpacity} from 'react-native';
 import { act } from 'react-test-renderer';
-import actualTheme from '../Components/actualTheme';
+import currentTheme from '../Components/currentTheme';
 import { blueTheme, pinkTheme } from "../Components/themes";
 
 const {width, height} = Dimensions.get("screen");
@@ -65,22 +65,22 @@ const Settings = () => {
       </View>
       {/* La siguiente view es utilizada para crear una linea vertical */}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 35, flex: 1, height: 1, backgroundColor: actualTheme.quinaryColor}} />
+        <View style={{marginTop: 35, flex: 1, height: 1, backgroundColor: currentTheme.quinaryColor}} />
       </View>
 
       {/* A partir de aqui es el apartado de notificaciones */}
       <Text style={styles.titulo2}>Habilitar nofiticaciones</Text>
       <Switch 
         style={{marginTop: 15}}
-        trackColor={{ false: "#767577", true: actualTheme.secondaryColor }}
-        thumbColor={isEnabled ? actualTheme.quinaryColor : "#f4f3f4"}
+        trackColor={{ false: "#767577", true: currentTheme.secondaryColor }}
+        thumbColor={isEnabled ? currentTheme.quinaryColor : "#f4f3f4"}
         onValueChange={toggleSwitch}
         value={isEnabled}
         ></Switch>
 
       {/* Aqui es la separación de Temas */}
       <View style={styles.Themes}>
-        <Text style={{fontSize: 20, paddingLeft: 50, marginTop: 10, color: actualTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
+        <Text style={{fontSize: 20, paddingLeft: 50, marginTop: 10, color: currentTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
       </View>
   
       {/* Aqui se contendran los temas */}
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
 
   TituloUsuario: {
     marginTop: 40,
-    color: actualTheme.quaternaryColor,
+    color: currentTheme.quaternaryColor,
     textAlign: "center",
     justifyContent: "center",
     fontSize: 25,
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   titulo2: {
     marginTop: 35,
-    color: actualTheme.tertiaryColor,
+    color: currentTheme.tertiaryColor,
     fontSize: 19,
     fontWeight: "600",
   },
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: actualTheme.quaternaryColor,
+    backgroundColor: currentTheme.quaternaryColor,
     width: 150,
     height: 42,
     borderRadius: 20,

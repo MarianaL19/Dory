@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import actualTheme from '../Components/actualTheme';
+import currentTheme from '../Components/currentTheme';
 
 import {
     StyleSheet,
@@ -49,7 +49,7 @@ export default function AgendaC() {
 
   return (
          
-    <View style={[styles.wholeContainer, {backgroundColor: actualTheme.background}]}>
+    <View style={[styles.wholeContainer, {backgroundColor: currentTheme.background}]}>
       
       {/*Seccion de barra de busqueda*/}
       <View>
@@ -66,26 +66,26 @@ export default function AgendaC() {
 
         {/* Boton para ver Todos los contactos */}
         <TouchableOpacity onPress={() => setTag('Todos')}
-          style={[styles.buttonFormat, tag == 'Todos' ? {backgroundColor: actualTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'Todos' ? {color: actualTheme.tertiary} : {}]}>Todos</Text>
+          style={[styles.buttonFormat, tag == 'Todos' ? {backgroundColor: currentTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'Todos' ? {color: currentTheme.tertiary} : {}]}>Todos</Text>
         </TouchableOpacity>
 
         {/* Boton para ver solo Compañeros */}
         <TouchableOpacity onPress={() => setTag('Compañero')}
-          style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: actualTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'Compañero' ? {color: actualTheme.tertiary} : {}]}>Compañero</Text>
+          style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: currentTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'Compañero' ? {color: currentTheme.tertiary} : {}]}>Compañero</Text>
         </TouchableOpacity>
 
         {/* Boton para ver solo profesor */}
         <TouchableOpacity onPress={() => setTag('profesor')}
-          style={[styles.buttonFormat, tag == 'profesor' ? {backgroundColor: actualTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'profesor' ? {color: actualTheme.tertiary}: {}]}>Profesor</Text>
+          style={[styles.buttonFormat, tag == 'profesor' ? {backgroundColor: currentTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'profesor' ? {color: currentTheme.tertiary}: {}]}>Profesor</Text>
         </TouchableOpacity>
 
         {/* Boton para ver solo Administrativo */}
         <TouchableOpacity onPress={() => setTag('Administrativo')}
-          style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: actualTheme.quinary} : {}]}>
-          <Text style={[styles.searchText, tag == 'Administrativo' ? {color: actualTheme.tertiary} : {}]}>Administrativo</Text>
+          style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: currentTheme.quinary} : {}]}>
+          <Text style={[styles.searchText, tag == 'Administrativo' ? {color: currentTheme.tertiary} : {}]}>Administrativo</Text>
         </TouchableOpacity>
         
       </View>
@@ -94,7 +94,7 @@ export default function AgendaC() {
       {/* Validación para saber si hay contactos */}
       {!contactos.length ?
         ( //Si no los hay, muestra un mensaje
-          <View style={[styles.emptyHeaderContainer, {backgroundColor: actualTheme.background}]}>
+          <View style={[styles.emptyHeaderContainer, {backgroundColor: currentTheme.background}]}>
             <Text style={styles.emptyHeader}>
               Parece que no tienes ningun contacto añadido, ¡Empieza añadiendo uno!
             </Text>
@@ -104,14 +104,14 @@ export default function AgendaC() {
               <FlatList
                 data={contactos}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: actualTheme.background }}
+                renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.background }}
               />
             ) 
       }
       
       {/*Botón para agregar contactos*/}
       <TouchableOpacity onPress={() => addContact()} style={styles.addIcon} >
-        <Icon name='plus-circle' size={50} color={actualTheme.primary}/>
+        <Icon name='plus-circle' size={50} color={currentTheme.primary}/>
       </TouchableOpacity>
 
     </View>

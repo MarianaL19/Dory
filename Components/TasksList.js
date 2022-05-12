@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, Button } from "react-native";
-import actualTheme from './actualTheme';
+import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cambioFormato } from './Date';
 
@@ -51,21 +51,21 @@ const Task = ({ item }) => {
                         <View style={styles.modalContainer}>
 
                             {/* Apartado: Título del recordatorio */}
-                            <Text style={[styles.modalTitle, { color: actualTheme.primary }]}>{item.title}</Text>
+                            <Text style={[styles.modalTitle, { color: currentTheme.primary }]}>{item.title}</Text>
 
                             {/* Apartado: Tipo de recordatorio */}
-                            <Text style={[styles.modalRegularText, { color: actualTheme.tertiary, fontWeight: 'bold' }]}> Tipo de recordatorio</Text>
+                            <Text style={[styles.modalRegularText, { color: currentTheme.tertiary, fontWeight: 'bold' }]}> Tipo de recordatorio</Text>
                             <View style={{ flexDirection: 'row' }}>
 
                                 {/* Agrega color a la etiqueta según el tipo de recordatorio */}
-                                <View style={[styles.modalTagContainer, item.tag == 'Tarea' ? { backgroundColor: actualTheme.quinary } : {}]}>
-                                    <Text style={[styles.modalTagText, item.tag == 'Tarea' ? { color: actualTheme.tertiary } : {}]}> Tarea</Text>
+                                <View style={[styles.modalTagContainer, item.tag == 'Tarea' ? { backgroundColor: currentTheme.quinary } : {}]}>
+                                    <Text style={[styles.modalTagText, item.tag == 'Tarea' ? { color: currentTheme.tertiary } : {}]}> Tarea</Text>
                                 </View>
-                                <View style={[styles.modalTagContainer, item.tag == 'Examen' ? { backgroundColor: actualTheme.quinary } : {}]}>
-                                    <Text style={[styles.modalTagText, item.tag == 'Examen' ? { color: actualTheme.tertiary } : {}]}> Examen</Text>
+                                <View style={[styles.modalTagContainer, item.tag == 'Examen' ? { backgroundColor: currentTheme.quinary } : {}]}>
+                                    <Text style={[styles.modalTagText, item.tag == 'Examen' ? { color: currentTheme.tertiary } : {}]}> Examen</Text>
                                 </View>
-                                <View style={[styles.modalTagContainer, item.tag == 'Otro' ? { backgroundColor: actualTheme.quinary } : {}]}>
-                                    <Text style={[styles.modalTagText, item.tag == 'Otro' ? { color: actualTheme.tertiary } : {}]}> Otro</Text>
+                                <View style={[styles.modalTagContainer, item.tag == 'Otro' ? { backgroundColor: currentTheme.quinary } : {}]}>
+                                    <Text style={[styles.modalTagText, item.tag == 'Otro' ? { color: currentTheme.tertiary } : {}]}> Otro</Text>
                                 </View>
                             </View>
 
@@ -93,7 +93,7 @@ const Task = ({ item }) => {
                             ) : null}
 
                             {/* Botón para salir del popUp */}
-                            <Button color={actualTheme.primary} title='Cerrar' onPress={() => setModalVisible(!modalVisible)}> </Button>
+                            <Button color={currentTheme.primary} title='Cerrar' onPress={() => setModalVisible(!modalVisible)}> </Button>
                         </View>
                     </View>
                 </Modal>
