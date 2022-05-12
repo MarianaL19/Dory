@@ -1,6 +1,8 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView, Dimensions, Image, Switch, TouchableOpacity} from 'react-native';
+import { act } from 'react-test-renderer';
 import actualTheme from '../Components/actualTheme';
+import { blueTheme, pinkTheme } from "../Components/themes";
 
 const {width, height} = Dimensions.get("screen");
 const UserID = 1;
@@ -18,14 +20,17 @@ const Settings = () => {
     }
   }
 
-  const Tema1 = () => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
+  const Tema1 = () => {
+    
   }
   const Tema2 = () => {
-
+    
   }
   const Tema3 = () => {
-
+    
   }
 
   const GUARDAR = () => {
@@ -65,7 +70,13 @@ const Settings = () => {
 
       {/* A partir de aqui es el apartado de notificaciones */}
       <Text style={styles.titulo2}>Habilitar nofiticaciones</Text>
-      <Switch style={{marginTop: 15}}></Switch>
+      <Switch 
+        style={{marginTop: 15}}
+        trackColor={{ false: "#767577", true: actualTheme.secondaryColor }}
+        thumbColor={isEnabled ? actualTheme.quinaryColor : "#f4f3f4"}
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+        ></Switch>
 
       {/* Aqui es la separación de Temas */}
       <View style={styles.Themes}>
@@ -166,7 +177,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 42,
     borderRadius: 20,
-    marginHorizontal: 10,
+    marginHorizontal: 15,
   },
   buttonTheme: {
     alignItems: "center",
