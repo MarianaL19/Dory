@@ -27,7 +27,7 @@ export const greenTheme = {
         secondary: '#70B578',
         tertiary: '#317F43',
         quaternary: '#008F4C',
-        quinary: '#31A84F',
+        quinary: '#95C799',
         background: '#fff9fe',
     },
 }
