@@ -12,6 +12,10 @@ import Settings from './Windows/SettingsScreen';
 import RecordatoriosAdd from './Windows/recordatoriosAddScreen';
 import Recordatorios from './Windows/recordatoriosScreen';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 export default function App(){
 
@@ -24,7 +28,64 @@ export default function App(){
     //<HorarioShow/>
     //<Settings/>
     //<RecordatoriosAdd/>
+<<<<<<< HEAD
     //<Recordatorios/> 
     <Menu/>
+=======
+    //<Recordatorios/>    
+
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{headerShown: false}}
+      >
+
+      <Stack.Screen 
+          name="Settings"
+          component={Settings}>
+      </Stack.Screen>
+
+      <Stack.Screen 
+          name="Schedule"
+          component={Schedule}>
+      </Stack.Screen>
+
+      <Stack.Screen 
+          name="HomeScreen"
+          component={HorarioEmpty}>
+      </Stack.Screen>
+
+      <Stack.Screen 
+          name="HorarioAdd"
+          component={HorarioShow}>
+      </Stack.Screen>
+
+      <Stack.Screen 
+          name="HorarioShow"
+          component={HorarioShow}>
+      </Stack.Screen>
+
+      <Stack.Screen 
+          name="AgendaC"
+          component={AgendaC}>
+      </Stack.Screen>
+
+      <Stack.Screen 
+          name="AgendaAdd"
+          component={AgendaAddContact}>
+      </Stack.Screen>
+
+      <Stack.Screen 
+          name="Recordatorios"
+          component={Recordatorios}>
+      </Stack.Screen>
+
+      <Stack.Screen 
+          name="RecordatoriosAdd"
+          component={RecordatoriosAdd}>
+      </Stack.Screen>
+
+      </Stack.Navigator>
+    </NavigationContainer>
+>>>>>>> b1c4222c136b7c462afbd082914ccab80b3d4334
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, Button } from "react-native";
-import actualTheme from './actualTheme';
+import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
@@ -40,11 +40,11 @@ const Contact = ({ item }) => {
                             </View>
 
                             {/* Apartado: nombre del contacto */}
-                            <Text style={[styles.modalTitle, { color: actualTheme.tertiary }]}>{item.nombre}</Text>
+                            <Text style={[styles.modalTitle, { color: currentTheme.tertiary }]}>{item.nombre}</Text>
 
                             {/* Apartado: Tipo de contacto */}
                             {/* tipo de contacto */}
-                            <View style={[styles.modalTagContainer, {backgroundColor: actualTheme.quinary}]}>
+                            <View style={[styles.modalTagContainer, {backgroundColor: currentTheme.quinary}]}>
 
                                 <Text style={[styles.modalTagText]}>{item.etiqueta}</Text>
 
@@ -79,7 +79,7 @@ const Contact = ({ item }) => {
 
                                 {/* Boton para salir */}
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}
-                                    style={[styles.closeButtonFormat, {backgroundColor: actualTheme.primary}]}>
+                                    style={[styles.closeButtonFormat, {backgroundColor: currentTheme.primary}]}>
                                     <Text style={styles.closeButtonText}>CERRAR</Text>
                                 </TouchableOpacity>
 

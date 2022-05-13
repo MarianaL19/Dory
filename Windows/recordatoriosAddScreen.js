@@ -1,12 +1,12 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Switch, Dimensions, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import actualTheme from '../Components/actualTheme';
+import currentTheme from '../Components/currentTheme';
 import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
 import sqlite from 'react-native-sqlite-storage';
 
-const AddRecordatorios = () =>{
+const AddRecordatorios = ( {navigation} ) =>{
 
     // sqlite.openDatabase({
     //   name: 'bd_Dory.db',
@@ -31,35 +31,35 @@ const AddRecordatorios = () =>{
 
       <View style={styles.container}>
         <ScrollView>
-          <Text style={[styles.title,{color: actualTheme.quaternary}]}>Nuevo recordatorio</Text>
+          <Text style={[styles.title,{color: currentTheme.quaternary}]}>Nuevo recordatorio</Text>
 
-          <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
 
           <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs,{marginVertical: 5, paddingHorizontal: 10}]}/>
           
-          <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>          
+          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>          
 
           {/* ~~~~~~~~ Etiquetas de tipo de recordatorio ~~~~~~~~ */}
-          <Text style={[styles.subtitle, {color: actualTheme.tertiary}]}>Tipo de recordatorio</Text>
+          <Text style={[styles.subtitle, {color: currentTheme.tertiary}]}>Tipo de recordatorio</Text>
 
           <View style={styles.filterButtonContainer}>
             <TouchableOpacity onPress={() => setTag('tarea')}
-                    style={[styles.filterButton, tag == 'tarea' ? { backgroundColor: actualTheme.quinary } : {}]}>
-              <Text style={[styles.filterText, tag == 'tarea' ? { color: actualTheme.primary } : {}]}>Tarea</Text>
+                    style={[styles.filterButton, tag == 'tarea' ? { backgroundColor: currentTheme.quinary } : {}]}>
+              <Text style={[styles.filterText, tag == 'tarea' ? { color: currentTheme.primary } : {}]}>Tarea</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setTag('examen')}
-                    style={[styles.filterButton, tag == 'examen' ? { backgroundColor: actualTheme.quinary } : {}]}>
-              <Text style={[styles.filterText, tag == 'examen' ? { color: actualTheme.primary } : {}]}>Examen</Text>
+                    style={[styles.filterButton, tag == 'examen' ? { backgroundColor: currentTheme.quinary } : {}]}>
+              <Text style={[styles.filterText, tag == 'examen' ? { color: currentTheme.primary } : {}]}>Examen</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setTag('otro')}
-                    style={[styles.filterButton, tag == 'otro' ? { backgroundColor: actualTheme.quinary } : {}]}>
-              <Text style={[styles.filterText, tag == 'otro' ? { color: actualTheme.primary } : {}]}>Otro</Text>
+                    style={[styles.filterButton, tag == 'otro' ? { backgroundColor: currentTheme.quinary } : {}]}>
+              <Text style={[styles.filterText, tag == 'otro' ? { color: currentTheme.primary } : {}]}>Otro</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
 
 
           {/* ~~~~~~~~ Materia ~~~~~~~~ */}
@@ -70,7 +70,7 @@ const AddRecordatorios = () =>{
               <Icon name='book-open-page-variant' size={25} color='#A9A9A9'/>
               <TextInput placeholder="Materia" keyboardType="default" style={styles.inputs}/>
             </View> 
-            <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+            <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
           </>
           ) : null}
 
@@ -91,7 +91,7 @@ const AddRecordatorios = () =>{
             </TouchableOpacity>
           </View>
 
-          <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
 
           {/* ~~~~~~~~ Descripción ~~~~~~~~ */}
 
@@ -99,14 +99,14 @@ const AddRecordatorios = () =>{
             <Icon name='pencil' size={25} color='#A9A9A9'/>
             <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs,{width: width*0.8}]}/>
           </View> 
-          <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
 
 
           {/* ~~~~~~~~ Notificar recordatorio ~~~~~~~~ */}
           
           <View style={[styles.iconContainer,{paddingTop: 10}]}>
-            <Icon name='bell' size={27} color={actualTheme.primary}/>
-            <Text style={[styles.notificarText,{color: actualTheme.tertiary}]}>Notificar recordatorio</Text>
+            <Icon name='bell' size={27} color={currentTheme.primary}/>
+            <Text style={[styles.notificarText,{color: currentTheme.tertiary}]}>Notificar recordatorio</Text>
           </View> 
 
 
@@ -127,7 +127,7 @@ const AddRecordatorios = () =>{
           </View>
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.addButton,{backgroundColor: actualTheme.primary}]}>
+            <TouchableOpacity style={[styles.addButton,{backgroundColor: currentTheme.primary}]}>
               <Text style={styles.buttonText}>GUARDAR</Text>
             </TouchableOpacity>
           </View>

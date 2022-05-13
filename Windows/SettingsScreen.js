@@ -1,11 +1,14 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView, Dimensions, Image, Switch, TouchableOpacity} from 'react-native';
-import actualTheme from '../Components/actualTheme';
+import { StyleSheet, View, Text, TextInput, SafeAreaView, Dimensions, Image, ImageBackground, Switch, TouchableOpacity, TouchableHighlight, ImageBackgroundBase} from 'react-native';
+import { act } from 'react-test-renderer';
+import currentTheme from '../Components/currentTheme';
 
 const {width, height} = Dimensions.get("screen");
 const UserID = 1;
 
-const Settings = () => {
+const Settings = ( {navigation} ) => {
+
+  const [tag,setTag] = useState("Button1");
 
   const [username, setUsername] = useState('usuario');
   const [nombre, setNombre] = useState('usuario');
@@ -18,21 +21,25 @@ const Settings = () => {
     }
   }
 
-  const Tema1 = () => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
+  const Tema1 = () => {
+    setTag("Button1");
   }
   const Tema2 = () => {
-
+    setTag("Button2");
   }
   const Tema3 = () => {
-
+    setTag("Button3");
   }
 
   const GUARDAR = () => {
     var NombreUsuario = username;
+    navigation.navigate("HomeScreen");
   }
   const CERRAR = () => {
-
+    navigation.navigate("HomeScreen");
   }
 
   return (
@@ -56,38 +63,54 @@ const Settings = () => {
           marginTop: 15,}}
           onPress={cambiarUsername}
         >
+          <Text style={{marginTop: 3, fontSize: 25 }}>💽</Text>
         </TouchableOpacity>
       </View>
       {/* La siguiente view es utilizada para crear una linea vertical */}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 35, flex: 1, height: 1, backgroundColor: actualTheme.quinaryColor}} />
+        <View style={{marginTop: 35, flex: 1, height: 1, backgroundColor: currentTheme.quinaryColor}} />
       </View>
 
       {/* A partir de aqui es el apartado de notificaciones */}
       <Text style={styles.titulo2}>Habilitar nofiticaciones</Text>
-      <Switch style={{marginTop: 15}}></Switch>
+      <Switch 
+        style={{marginTop: 15}}
+        trackColor={{ false: "#767577", true: currentTheme.secondaryColor }}
+        thumbColor={isEnabled ? currentTheme.quinaryColor : "#f4f3f4"}
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+        ></Switch>
 
       {/* Aqui es la separación de Temas */}
       <View style={styles.Themes}>
-        <Text style={{fontSize: 20, paddingLeft: 50, marginTop: 10, color: actualTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
+        <Text style={{fontSize: 20, paddingLeft: 50, marginTop: 10, color: currentTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
       </View>
   
       {/* Aqui se contendran los temas */}
       <View style={{marginTop: 25, flexDirection:"row", justifyContent: "space-between"}}>
         
         {/* Funcionalidad Tema 1 */}
-        <TouchableOpacity style={styles.buttonTheme} onPress={Tema1}>
-          <Image></Image>
+        <TouchableOpacity style={[styles.buttonTheme, tag == 'Button1' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema1}>
+          <Image 
+            style={{marginTop: 30, width: 70, height: 40}}
+            source = {require("../imagenes/doryBlue.png")}>
+          </Image>
         </TouchableOpacity> 
 
         {/* Funcionalidad Tema 2 */}
-        <TouchableOpacity style={styles.buttonTheme} onPress={Tema2}>
-          <Image></Image>
+        <TouchableOpacity style={[styles.buttonTheme, tag == 'Button2' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema2}>
+          <Image 
+            style={{marginTop: 30, width: 70, height: 40}}
+            source = {require("../imagenes/doryPink.png")}> 
+          </Image>
         </TouchableOpacity>
 
         {/* Funcionalidad Tema 3 */}
-        <TouchableOpacity style={styles.buttonTheme} onPress={Tema3}>
-          <Image></Image>
+        <TouchableOpacity style={[styles.buttonTheme, tag == 'Button3' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema3}>
+          <Image 
+              style={{marginTop: 30, width: 70, height: 40}}
+              source = {require("../imagenes/doryGreen.png")}>
+          </Image> 
         </TouchableOpacity>
 
       </View>
@@ -120,13 +143,13 @@ const Settings = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 60,
+    marginTop: 0,
     alignItems: "center",
   },
 
   TituloUsuario: {
     marginTop: 40,
-    color: actualTheme.quaternaryColor,
+    color: currentTheme.quaternaryColor,
     textAlign: "center",
     justifyContent: "center",
     fontSize: 25,
@@ -135,7 +158,7 @@ const styles = StyleSheet.create({
   },
   titulo2: {
     marginTop: 35,
-    color: actualTheme.tertiaryColor,
+    color: currentTheme.tertiaryColor,
     fontSize: 19,
     fontWeight: "600",
   },
@@ -162,11 +185,11 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: actualTheme.quaternaryColor,
+    backgroundColor: currentTheme.quaternaryColor,
     width: 150,
     height: 42,
     borderRadius: 20,
-    marginHorizontal: 10,
+    marginHorizontal: 15,
   },
   buttonTheme: {
     alignItems: "center",

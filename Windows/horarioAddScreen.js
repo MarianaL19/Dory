@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions} from 'react-native';
 import actualTheme from '../Components/actualTheme';
+=======
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import currentTheme from '../Components/currentTheme';
+>>>>>>> b1c4222c136b7c462afbd082914ccab80b3d4334
 
 import MenuBar from '../hotBar';
 
@@ -29,15 +34,15 @@ export default class App extends Component {
         />
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 10, flex: 1, height: 2, backgroundColor: actualTheme.primary}} />
+        <View style={{marginTop: 10, flex: 1, height: 2, backgroundColor: currentTheme.primary}} />
       </View>
 
       <View style = {styles.containerTitulo}>
-        <Text style = {[styles.titulo,{color: actualTheme.primary}]}> Horario </Text>
+        <Text style = {[styles.titulo,{color: currentTheme.primary}]}> Horario </Text>
       </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 8, flex: 1, height: 2, backgroundColor: actualTheme.primary}} />
+        <View style={{marginTop: 8, flex: 1, height: 2, backgroundColor: currentTheme.primary}} />
       </View>
 
         <TextInput 
@@ -56,15 +61,15 @@ export default class App extends Component {
         />
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 2, flex: 1, height: 2, backgroundColor: actualTheme.primary}} />
+        <View style={{marginTop: 2, flex: 1, height: 2, backgroundColor: currentTheme.primary}} />
       </View>
 
       <View style = {styles.containerTitulo}>
-      <Text style = {[styles.titulo,{color: actualTheme.primary}]}> Información </Text>
+      <Text style = {[styles.titulo,{color: currentTheme.primary}]}> Información </Text>
       </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 6, flex: 1, height: 2, backgroundColor: actualTheme.primary}} />
+        <View style={{marginTop: 6, flex: 1, height: 2, backgroundColor: currentTheme.primary}} />
       </View>
 
         <TextInput 

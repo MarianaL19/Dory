@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native';
-import actualTheme from '../Components/actualTheme';
+import currentTheme from '../Components/currentTheme';
 
 export default class App extends Component {
   constructor(props) {
@@ -13,103 +13,103 @@ export default class App extends Component {
     return (
       <View style = {styles.container}>
 
-        <Text style = {[styles.dia,{color: actualTheme.tertiary}]}>                  Lun     Mar     Mié     Jue     Vie     Sab </Text>
+        <Text style = {[styles.dia,{color: currentTheme.tertiary}]}>                  Lun     Mar     Mié     Jue     Vie     Sab </Text>
         
         <ScrollView>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 10, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 10, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 07:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 07:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 08:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 08:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 09:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 09:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 10:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 10:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 11:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 11:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3 ,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3 ,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 12:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 12:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3 ,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3 ,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 13:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 13:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3 ,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3 ,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 14:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 14:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3, backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3, backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 15:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 15:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 16:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 16:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 17:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 17:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 18:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 18:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 19:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 19:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 20:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 20:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
-        <Text style = {[styles.hora,{color: actualTheme.tertiary}]}> 21:00 </Text>
+        <Text style = {[styles.hora,{color: currentTheme.tertiary}]}> 21:00 </Text>
 
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: actualTheme.primary}} />
+            <View style={{marginTop: 30, flex: 1, height: 1, opacity: .3,backgroundColor: currentTheme.primary}} />
         </View>
 
         </ScrollView>

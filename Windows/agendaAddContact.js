@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TextInput, Dimensions } from "react-native";
-import actualTheme from '../Components/actualTheme';
+import currentTheme from '../Components/currentTheme';
 import Contact from '../Components/ContactList';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -13,63 +13,63 @@ export default function AgendaAddContact() {
     const [tag, setTag] = useState('null');
 
     return (
-        <View style={[styles.wholeContainer, {backgroundColor: actualTheme.background}]}>
+        <View style={[styles.wholeContainer, {backgroundColor: currentTheme.background}]}>
                         
-            <View style={[styles.inputFormat, {backgroundColor: actualTheme.background}]}>
+            <View style={[styles.inputFormat, {backgroundColor: currentTheme.background}]}>
 
-              <Text style={[styles.modalTitle, {color: actualTheme.primary}]}>Ingrese nuevo contacto</Text>
+              <Text style={[styles.modalTitle, {color: currentTheme.primary}]}>Ingrese nuevo contacto</Text>
 
-              <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+              <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
 
               <TextInput style={styles.addInputFormat}
                   placeholder='Nombre del contacto'
                   placeholderTextColor='#C4C4C4'
               />
 
-              <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+              <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
 
               <TextInput style={styles.addInputFormat}
                   placeholder='Añadir número de teléfono'
                   placeholderTextColor='#C4C4C4'
               />
 
-              <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+              <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
 
               <TextInput style={styles.addInputFormat}
                   placeholder='Añadir correo'
                   placeholderTextColor='#C4C4C4'
               />
 
-              <View style={{borderBottomColor: actualTheme.quinary, borderBottomWidth:1, width: width}}/>
+              <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
 
             </View>
             
-            <View style={{backgroundColor: actualTheme.background}}>
+            <View style={{backgroundColor: currentTheme.background}}>
 
               <Text style={styles.tagFormat}>Etiqueta</Text>
 
               <View style={styles.buttonContainer}>
 
                   <TouchableOpacity onPress={() => setTag('Compañero')}
-                    style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: actualTheme.quinary} : {}]}>
-                    <Text style={[styles.searchText, tag == 'Compañero' ? {color: actualTheme.tertiary} : {}]}>Compañero</Text>
+                    style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: currentTheme.quinary} : {}]}>
+                    <Text style={[styles.searchText, tag == 'Compañero' ? {color: currentTheme.tertiary} : {}]}>Compañero</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => setTag('Profesor')}
-                    style={[styles.buttonFormat, tag == 'Profesor' ? {backgroundColor: actualTheme.quinary} : {}]}>
-                    <Text style={[styles.searchText, tag == 'Profesor' ? {color: actualTheme.tertiary} : {}]}>Profesor</Text>
+                    style={[styles.buttonFormat, tag == 'Profesor' ? {backgroundColor: currentTheme.quinary} : {}]}>
+                    <Text style={[styles.searchText, tag == 'Profesor' ? {color: currentTheme.tertiary} : {}]}>Profesor</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => setTag('Administrativo')}
-                    style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: actualTheme.quinary} : {}]}>
-                    <Text style={[styles.searchText, tag == 'Administrativo' ? {color: actualTheme.tertiary} : {}]}>Administrativo</Text>
+                    style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: currentTheme.quinary} : {}]}>
+                    <Text style={[styles.searchText, tag == 'Administrativo' ? {color: currentTheme.tertiary} : {}]}>Administrativo</Text>
                   </TouchableOpacity>
 
               </View>
 
             </View>
             
-            <View style={[styles.addButtonContainer, {backgroundColor: actualTheme.background}]}>
+            <View style={[styles.addButtonContainer, {backgroundColor: currentTheme.background}]}>
 
               <TouchableOpacity style={styles.addButtonFormat}>
                   <Text style={styles.addButtonText}>AÑADIR</Text>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
       padding: 20,
       marginTop: 60,
       height: 530,
-      backgroundColor: actualTheme.background,
+      backgroundColor: currentTheme.background,
     },
     modalTitle: {
       fontWeight: 'bold',

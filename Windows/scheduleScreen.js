@@ -4,9 +4,10 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FlatList } from 'react-native';
 import Task from '../Components/TasksList';
-import actualTheme from '../Components/actualTheme';
+import currentTheme from '../Components/currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getCurrentDate, cambioFormato } from '../Components/Date';
+import { NavigationContainer } from '@react-navigation/native';
 
 //Configuración local para personalizar los nombres dentro del Calendario
 LocaleConfig.locales['cf'] = {
@@ -19,7 +20,7 @@ LocaleConfig.locales['cf'] = {
 LocaleConfig.defaultLocale = "cf"
 
 //Función principal, la que genera la Screen
-export default function Schedule() {
+export default function Schedule( {navigation}) {
 
   //Función para añadir recordatorios manualmente
   function addTasks() {
@@ -52,10 +53,10 @@ export default function Schedule() {
   return (
     <>
     {/* Calendario */}
-      <View style={{ backgroundColor: actualTheme.background }}>
+      <View style={{ backgroundColor: currentTheme.background }}>
         <View style={styles.calendarWrapper}>
           <Calendar
-            style={{ backgroundColor: actualTheme.quinary, marginBottom: 30 }}
+            style={{ backgroundColor: currentTheme.quinary, marginBottom: 30 }}
           // Defino los parámetros del Calendario
             minDate={'2021-02-05'}
             maxDate={'2023-04-23'}
@@ -70,38 +71,38 @@ export default function Schedule() {
             // fechas de ejemplo para ver algunas marcaciones en el calendario
             markedDates={{
               [getCurrentDate()]: { selected: true },
-              '2022-04-16': { selected: false, marked: true, selectedColor: actualTheme.primary },
+              '2022-04-16': { selected: false, marked: true, selectedColor: currentTheme.primary },
               '2022-04-17': { marked: true },
-              '2022-04-18': { marked: true, dotColor: actualTheme.secondary, activeOpacity: 0 },
+              '2022-04-18': { marked: true, dotColor: currentTheme.secondary, activeOpacity: 0 },
             }}
           />
         </View>
         {/* Fecha que aparece abajo del calendario según el día señalado. Utilizo la misma función
         para cambiar el formato yyyy-mm-dd a texto simple, pero no he podido implementar los días de la semana */}
-        <Text style={[styles.dateText, { color: actualTheme.tertiary }]}> {cambioFormato(getCurrentDate())} </Text>
+        <Text style={[styles.dateText, { color: currentTheme.tertiary }]}> {cambioFormato(getCurrentDate())} </Text>
       </View>
 
 
       {/* Validación para saber si hay o no recordatorios ese día" */}
       {!tasks.length ?
         ( //Si no los hay, muestra un mensaje
-          <View style={[styles.emptyHeaderContainer, {backgroundColor: actualTheme.background}]}>
+          <View style={[styles.emptyHeaderContainer, {backgroundColor: currentTheme.background}]}>
             <Text style={styles.emptyHeader}>Sin nada k hacer</Text>
           </View>
         ) : 
           ( // Si sí existen recordatorios, muestra la lista de recordatorios
-          <FlatList data={tasks} keyExtractor={item => item.id.toString()} renderItem={({ item }) => <Task item={item} />} style={{ backgroundColor: actualTheme.background }} />
+          <FlatList data={tasks} keyExtractor={item => item.id.toString()} renderItem={({ item }) => <Task item={item} />} style={{ backgroundColor: currentTheme.background }} />
           ) }
 
 
       {/* Botón para agregar recordatorios */}
       <TouchableOpacity onPress={() => addTasks()} style={styles.addIcon} >
-        <Icon name='plus-circle' size={50} color={actualTheme.primary}/>
+        <Icon name='plus-circle' size={50} color={currentTheme.primary}/>
       </TouchableOpacity>
 
       {/* Botón para cambiar de pantalla a la lista de recordatorios */}
-      <TouchableOpacity onPress={() => {}} style={styles.clipIcon}>
-        <Icon name='clipboard-text-outline' size={50} color={actualTheme.primary}  />
+      <TouchableOpacity onPress={() => {navigation.navigate("Recordatorios");}} style={styles.clipIcon}>
+        <Icon name='clipboard-text-outline' size={50} color={currentTheme.primary}  />
       </TouchableOpacity>
     </>
   );
