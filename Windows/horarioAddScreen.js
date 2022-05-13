@@ -3,10 +3,9 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions} from 'react-native';
 import actualTheme from '../Components/actualTheme';
-=======
+
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import currentTheme from '../Components/currentTheme';
->>>>>>> b1c4222c136b7c462afbd082914ccab80b3d4334
 
 import MenuBar from '../hotBar';
 
