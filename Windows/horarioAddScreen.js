@@ -33,15 +33,15 @@ export default class App extends Component {
         />
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 10, flex: 1, height: 2, backgroundColor: currentTheme.primary}} />
+        <View style={{marginTop: 10, flex: 1, height: 2, backgroundColor: currentTheme.primaryColor}} />
       </View>
 
       <View style = {styles.containerTitulo}>
-        <Text style = {[styles.titulo,{color: currentTheme.primary}]}> Horario </Text>
+        <Text style = {[styles.titulo,{color: currentTheme.primaryColor}]}> Horario </Text>
       </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 8, flex: 1, height: 2, backgroundColor: currentTheme.primary}} />
+        <View style={{marginTop: 8, flex: 1, height: 2, backgroundColor: currentTheme.primaryColor}} />
       </View>
 
         <TextInput 
@@ -60,15 +60,15 @@ export default class App extends Component {
         />
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 2, flex: 1, height: 2, backgroundColor: currentTheme.primary}} />
+        <View style={{marginTop: 2, flex: 1, height: 2, backgroundColor: currentTheme.primaryColor}} />
       </View>
 
       <View style = {styles.containerTitulo}>
-      <Text style = {[styles.titulo,{color: currentTheme.primary}]}> Información </Text>
+      <Text style = {[styles.titulo,{color: currentTheme.primaryColor}]}> Información </Text>
       </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 6, flex: 1, height: 2, backgroundColor: currentTheme.primary}} />
+        <View style={{marginTop: 6, flex: 1, height: 2, backgroundColor: currentTheme.primaryColor}} />
       </View>
 
         <TextInput 
