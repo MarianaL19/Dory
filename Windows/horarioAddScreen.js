@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
+
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions} from 'react-native';
 import actualTheme from '../Components/actualTheme';
