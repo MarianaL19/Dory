@@ -1,12 +1,12 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView, Dimensions, Image, Switch, TouchableOpacity, TouchableHighlight} from 'react-native';
+import { StyleSheet, View, Text, TextInput, SafeAreaView, Dimensions, Image, ImageBackground, Switch, TouchableOpacity, TouchableHighlight, ImageBackgroundBase} from 'react-native';
 import { act } from 'react-test-renderer';
 import currentTheme from '../Components/currentTheme';
 
 const {width, height} = Dimensions.get("screen");
 const UserID = 1;
 
-const Settings = () => {
+const Settings = ( {navigation} ) => {
 
   const [tag,setTag] = useState("Button1");
 
@@ -36,9 +36,10 @@ const Settings = () => {
 
   const GUARDAR = () => {
     var NombreUsuario = username;
+    navigation.navigate("HomeScreen");
   }
   const CERRAR = () => {
-
+    navigation.navigate("HomeScreen");
   }
 
   return (
@@ -90,20 +91,26 @@ const Settings = () => {
         
         {/* Funcionalidad Tema 1 */}
         <TouchableOpacity style={[styles.buttonTheme, tag == 'Button1' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema1}>
-          <Text style={{fontSize:50, marginTop:15}}>🐠</Text>
-          <Image></Image>
+          <Image 
+            style={{marginTop: 30, width: 70, height: 40}}
+            source = {require("../imagenes/doryBlue.png")}>
+          </Image>
         </TouchableOpacity> 
 
         {/* Funcionalidad Tema 2 */}
         <TouchableOpacity style={[styles.buttonTheme, tag == 'Button2' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema2}>
-          <Text style={{fontSize:50, marginTop:15}}>🐠</Text>
-          <Image></Image>
+          <Image 
+            style={{marginTop: 30, width: 70, height: 40}}
+            source = {require("../imagenes/doryPink.png")}> 
+          </Image>
         </TouchableOpacity>
 
         {/* Funcionalidad Tema 3 */}
         <TouchableOpacity style={[styles.buttonTheme, tag == 'Button3' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema3}>
-          <Text style={{fontSize:50, marginTop:15}}>🐠</Text>
-          <Image></Image>
+          <Image 
+              style={{marginTop: 30, width: 70, height: 40}}
+              source = {require("../imagenes/doryGreen.png")}>
+          </Image> 
         </TouchableOpacity>
 
       </View>
@@ -136,7 +143,7 @@ const Settings = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 60,
+    marginTop: 0,
     alignItems: "center",
   },
 
