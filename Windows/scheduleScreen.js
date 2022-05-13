@@ -7,6 +7,7 @@ import Task from '../Components/TasksList';
 import currentTheme from '../Components/currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getCurrentDate, cambioFormato } from '../Components/Date';
+import { NavigationContainer } from '@react-navigation/native';
 
 //Configuración local para personalizar los nombres dentro del Calendario
 LocaleConfig.locales['cf'] = {
@@ -19,7 +20,7 @@ LocaleConfig.locales['cf'] = {
 LocaleConfig.defaultLocale = "cf"
 
 //Función principal, la que genera la Screen
-export default function Schedule() {
+export default function Schedule( {navigation}) {
 
   //Función para añadir recordatorios manualmente
   function addTasks() {
@@ -100,7 +101,7 @@ export default function Schedule() {
       </TouchableOpacity>
 
       {/* Botón para cambiar de pantalla a la lista de recordatorios */}
-      <TouchableOpacity onPress={() => {}} style={styles.clipIcon}>
+      <TouchableOpacity onPress={() => {navigation.navigate("Recordatorios");}} style={styles.clipIcon}>
         <Icon name='clipboard-text-outline' size={50} color={currentTheme.primary}  />
       </TouchableOpacity>
     </>

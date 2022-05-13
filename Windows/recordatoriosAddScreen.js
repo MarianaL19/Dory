@@ -6,7 +6,7 @@ import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
 import sqlite from 'react-native-sqlite-storage';
 
-const AddRecordatorios = () =>{
+const AddRecordatorios = ( {navigation} ) =>{
 
     // sqlite.openDatabase({
     //   name: 'bd_Dory.db',
