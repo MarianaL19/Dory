@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
+        Dimensions} from 'react-native';
 import actualTheme from '../Components/actualTheme';
+
+import MenuBar from '../hotBar';
+
+const {width, height} = Dimensions.get('screen');
 
 export default class App extends Component {
   constructor(props) {
@@ -13,6 +18,10 @@ export default class App extends Component {
     return (
       <View style = {styles.container}>
       <ScrollView>
+
+        <View style={styles.nav}>
+          <MenuBar/>
+        </View>
 
         <TextInput 
         placeholder = "Nombre de la materia"
@@ -90,11 +99,15 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
+  nav:{
+    width: width,
+    height: 60,
+  },
+
   container: {
     flex: 1,
     backgroundColor: '#F9FFF',
     justifyContent: 'center',
-    marginTop: 60,
   },
   containerTitulo: {
     backgroundColor: '#F9FFF',

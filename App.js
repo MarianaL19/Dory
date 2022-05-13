@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+
+import Menu from './Windows/Menu'
+
 import Schedule from './Windows/scheduleScreen';
 import AgendaC from './Windows/agendaScreen';
 import AgendaAddContact from './Windows/agendaAddContact';
@@ -19,8 +22,9 @@ export default function App(){
     //<HorarioAdd/>
     //<HorarioEmpty/>
     //<HorarioShow/>
-    <Settings/>
+    //<Settings/>
     //<RecordatoriosAdd/>
-    //<Recordatorios/>    
+    //<Recordatorios/> 
+    <Menu/>
   );
 }

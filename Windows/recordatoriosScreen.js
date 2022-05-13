@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity,
+        Dimensions} from 'react-native';
+
+import MenuBar from '../hotBar';
+
+const {width, height} = Dimensions.get('screen');
 
 export default class Recordatorios extends Component {
   constructor(props) {
@@ -11,6 +16,10 @@ export default class Recordatorios extends Component {
   render() {
     return (
       <View style={styles.sectionContainer}>
+
+        <View style={styles.nav}>
+          <MenuBar/>
+        </View>
         
         <View style={styles.filterButtonContainer}>
           
@@ -55,7 +64,7 @@ export default class Recordatorios extends Component {
           </TouchableOpacity>
         </View>
 
-        <View>
+        <View style={styles.tareas}>
           <TouchableOpacity
             style={styles.listingButton}
           >
@@ -93,9 +102,14 @@ export default class Recordatorios extends Component {
 }
 
 const styles = StyleSheet.create({
+  nav:{
+    width: width,
+    height: 60,
+  },
+
   sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+    //marginTop: 32,
+    //paddingHorizontal: 24,
   },
   popUpContainer: {
     marginTop: 50,
@@ -110,6 +124,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingBottom: 10,
+    marginTop: 20,
   },
   popUpButton: {
     alignItems: 'center',
@@ -160,5 +175,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: '#00456E',
+  },
+
+  tareas:{
+    marginLeft: 24,
+    marginTop: 15,
   },
 });
