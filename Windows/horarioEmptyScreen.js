@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Dimensions } from 'react-native';
+import MenuBar from '../hotBar';
+
+const {width, height} = Dimensions.get('screen');
 
 export default class App extends Component {
   constructor(props) {
@@ -11,17 +14,27 @@ export default class App extends Component {
   render() {
     return (
       <View style = {styles.container}>
+
+        <View style={styles.nav}>
+          <MenuBar/>
+        </View>
+
         <Text style = {styles.titulo}> Parece que no tienes </Text>
         <Text style = {styles.titulo}> ninguna materia añadida, </Text>
         <Text style = {styles.subTitle}> ¡empieza añadiendo una! </Text>
+
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  nav:{
+    width: width,
+    height: 60,
+    marginBottom:250,
+  },
   container: {
-    flex: 1,
     backgroundColor: '#F9FFF',
     alignItems: 'center',
     justifyContent: 'center',

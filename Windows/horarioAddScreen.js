@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions} from 'react-native';
-//import actualTheme from './Components/actualTheme';
-
 import currentTheme from '../Components/currentTheme';
 
 import MenuBar from '../hotBar';
@@ -32,42 +30,48 @@ export default class App extends Component {
         />
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 10, flex: 1, height: 2, backgroundColor: currentTheme.primaryColor}} />
+        <View style={{marginBottom:5.5 ,marginTop: 6, flex: 2, height: .5, backgroundColor: currentTheme.primaryColor}} />
       </View>
 
       <View style = {styles.containerTitulo}>
-        <Text style = {[styles.titulo,{color: currentTheme.primaryColor}]}> Horario </Text>
+        <Text style = {[styles.titulo,{color: currentTheme.quaternaryColor}]}> Horario </Text>
       </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 8, flex: 1, height: 2, backgroundColor: currentTheme.primaryColor}} />
+        <View style={{marginTop: 6, flex: 2, height: .5, backgroundColor: currentTheme.primaryColor}} />
       </View>
 
         <TextInput 
         placeholder = "Selecciona el día"
         style = {styles.input}
         />
+
+        {/* Sección para agregar las horas de inicio y fin */}
+
         <Text style = {styles.subTitle}> Inicio </Text>
         <TextInput 
-        placeholder = "Selecciona hora de inicio"
-        style = {styles.input}
+          placeholder = "Selecciona hora de inicio"
+          style = {styles.input}
         />
+
         <Text style = {styles.subTitle}> Fin </Text>
         <TextInput 
         placeholder = "Selecciona hora de fin"
         style = {styles.input}
         />
 
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 2, flex: 1, height: 2, backgroundColor: currentTheme.primaryColor}} />
-      </View>
-
-      <View style = {styles.containerTitulo}>
-      <Text style = {[styles.titulo,{color: currentTheme.primaryColor}]}> Información </Text>
-      </View>
+      {/* Sección para la información general de la materia */}
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 6, flex: 1, height: 2, backgroundColor: currentTheme.primaryColor}} />
+        <View style={{marginBottom:5.5 ,marginTop: 6, flex: 2, height: 1, backgroundColor: currentTheme.primaryColor}} />
+      </View>
+
+        <View style = {styles.containerTitulo}>
+        <Text style = {[styles.titulo,{color: currentTheme.quaternaryColor}]}> Información </Text>
+        </View>
+
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{marginTop: 6, flex: 2, height: .5, backgroundColor: currentTheme.primaryColor}} />
       </View>
 
         <TextInput 
@@ -89,9 +93,13 @@ export default class App extends Component {
 
       </ScrollView>
 
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{marginBottom:20 ,marginTop: 6, flex: 2, height: .5, backgroundColor: currentTheme.primaryColor}} />
+      </View>
+
       <View style = {{alignItems: 'center'}}>
-        <TouchableOpacity style = {styles.boton}> 
-          <Text style = {styles.textoBoton}> GUARDAR </Text>
+        <TouchableOpacity style = {[styles.boton, {backgroundColor: currentTheme.primaryColor}]}> 
+          <Text style = {styles.textoBoton}> AÑADIR </Text>
         </TouchableOpacity>
       </View>
 
@@ -123,20 +131,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   subTitle: {
-    fontSize: 22,
+    fontSize: 18,
     color: '#000',
     fontWeight: 'bold',
-    paddingLeft: 40,
+    paddingLeft: 30,
+    flexDirection: 'row',
   },
   input: {
-    fontSize: 19,
+    fontSize: 15,
     paddingLeft: 50,
     paddingRight: 50,
+    flexDirection: 'row',
   },
   boton: {
     width: 140,
     height: 60,
-    backgroundColor: "#0E63F4",
     borderRadius: 18,
     textAlign: 'center',
     marginBottom: 10,

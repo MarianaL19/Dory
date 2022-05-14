@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ScrollView, Dimensions } from 'react-native';
 import currentTheme from '../Components/currentTheme';
+import MenuBar from '../hotBar';
+
+const {width, height} = Dimensions.get('screen');
 
 export default class App extends Component {
   constructor(props) {
@@ -12,6 +15,10 @@ export default class App extends Component {
   render() {
     return (
       <View style = {styles.container}>
+
+      <View style={styles.nav}>
+        <MenuBar/>
+      </View>
 
         <Text style = {[styles.dia,{color: currentTheme.tertiaryColor}]}>                  Lun     Mar     Mié     Jue     Vie     Sab </Text>
         
@@ -120,11 +127,14 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
+  nav:{
+    width: width,
+    height: 60,
+  },
   container: {
     flex: 1,
     backgroundColor: '#F9FFF',
     justifyContent: 'center',
-    marginTop: 60,
   },
   titulo: {
     fontSize: 22,
@@ -139,5 +149,6 @@ const styles = StyleSheet.create({
     fontSize: 19,
     color: '#00456E',
     fontWeight: 'bold',
+
   },
 })
