@@ -28,59 +28,8 @@ export default function App(){
     //<HorarioShow/>
     //<Settings/>
     //<RecordatoriosAdd/>
-    //<Recordatorios/>    
-
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{headerShown: false}}
-      >
-
-      <Stack.Screen 
-          name="Settings"
-          component={Settings}>
-      </Stack.Screen>
-
-      <Stack.Screen 
-          name="Schedule"
-          component={Schedule}>
-      </Stack.Screen>
-
-      <Stack.Screen 
-          name="HomeScreen"
-          component={HorarioEmpty}>
-      </Stack.Screen>
-
-      <Stack.Screen 
-          name="HorarioAdd"
-          component={HorarioAdd}>
-      </Stack.Screen>
-
-      <Stack.Screen 
-          name="HorarioShow"
-          component={HorarioShow}>
-      </Stack.Screen>
-
-      <Stack.Screen 
-          name="AgendaC"
-          component={AgendaC}>
-      </Stack.Screen>
-
-      <Stack.Screen 
-          name="AgendaAdd"
-          component={AgendaAddContact}>
-      </Stack.Screen>
-
-      <Stack.Screen 
-          name="Recordatorios"
-          component={Recordatorios}>
-      </Stack.Screen>
-
-      <Stack.Screen 
-          name="RecordatoriosAdd"
-          component={RecordatoriosAdd}>
-      </Stack.Screen>
-
-      </Stack.Navigator>
-    </NavigationContainer>
+    //<Recordatorios/> 
+    <Menu/>
+    //<Recordatorios/>
   );
 }
