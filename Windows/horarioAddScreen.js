@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions} from 'react-native';
-import actualTheme from '../Components/actualTheme';
+//import actualTheme from './Components/actualTheme';
 
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import currentTheme from '../Components/currentTheme';
 
 import MenuBar from '../hotBar';

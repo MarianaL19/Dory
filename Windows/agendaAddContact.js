@@ -13,65 +13,89 @@ export default function AgendaAddContact() {
     const [tag, setTag] = useState('null');
 
     return (
-        <View style={[styles.wholeContainer, {backgroundColor: currentTheme.background}]}>
+        <View style={[styles.wholeContainer, {backgroundColor: currentTheme.backgroundColor}]}>
                         
-            <View style={[styles.inputFormat, {backgroundColor: currentTheme.background}]}>
+            <View style={[styles.inputFormat, {backgroundColor: currentTheme.backgroundColor}]}>
 
-              <Text style={[styles.modalTitle, {color: currentTheme.primary}]}>Ingrese nuevo contacto</Text>
+              <Text style={[styles.modalTitle, {color: currentTheme.primaryColor}]}>Ingrese nuevo contacto</Text>
 
-              <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
+              <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
-              <TextInput style={styles.addInputFormat}
-                  placeholder='Nombre del contacto'
-                  placeholderTextColor='#C4C4C4'
-              />
+              <View style={styles.iconContainer}>
 
-              <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
+                <Icon name='account-outline' size={40} color={'#E5E5E5'}/>
 
-              <TextInput style={styles.addInputFormat}
-                  placeholder='Añadir número de teléfono'
-                  placeholderTextColor='#C4C4C4'
-              />
+                <TextInput style={styles.addInputFormat}
+                    placeholder='Nombre del contacto'
+                    placeholderTextColor='#C4C4C4'
+                    // maxLength={70}
+                    clearTextOnFocus={true}
+                />
 
-              <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
+              </View>
 
-              <TextInput style={styles.addInputFormat}
-                  placeholder='Añadir correo'
-                  placeholderTextColor='#C4C4C4'
-              />
+              <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
-              <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
+              <View style={styles.iconContainer}>
+
+                <Icon name='phone' size={40} color={'#E5E5E5'}/>
+
+                <TextInput style={styles.addInputFormat}
+                    placeholder='Añadir número de teléfono'
+                    placeholderTextColor='#C4C4C4'
+                    // maxLength={10}
+                    clearTextOnFocus={true}
+                />
+
+              </View>
+
+              <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
+
+              <View style={styles.iconContainer}>
+
+                <Icon name='email' size={40} color={'#E5E5E5'}/>
+
+                <TextInput style={styles.addInputFormat}
+                    placeholder='Añadir correo'
+                    placeholderTextColor='#C4C4C4'
+                    // maxLength={64}
+                    clearTextOnFocus={true}
+                />
+
+              </View>
+
+              <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
             </View>
             
-            <View style={{backgroundColor: currentTheme.background}}>
+            <View style={{backgroundColor: currentTheme.backgroundColor, padding: 15}}>
 
               <Text style={styles.tagFormat}>Etiqueta</Text>
 
               <View style={styles.buttonContainer}>
 
                   <TouchableOpacity onPress={() => setTag('Compañero')}
-                    style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: currentTheme.quinary} : {}]}>
-                    <Text style={[styles.searchText, tag == 'Compañero' ? {color: currentTheme.tertiary} : {}]}>Compañero</Text>
+                    style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+                    <Text style={[styles.searchText, tag == 'Compañero' ? {color: currentTheme.tertiaryColor} : {}]}>Compañero</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => setTag('Profesor')}
-                    style={[styles.buttonFormat, tag == 'Profesor' ? {backgroundColor: currentTheme.quinary} : {}]}>
-                    <Text style={[styles.searchText, tag == 'Profesor' ? {color: currentTheme.tertiary} : {}]}>Profesor</Text>
+                    style={[styles.buttonFormat, tag == 'Profesor' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+                    <Text style={[styles.searchText, tag == 'Profesor' ? {color: currentTheme.tertiaryColor} : {}]}>Profesor</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => setTag('Administrativo')}
-                    style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: currentTheme.quinary} : {}]}>
-                    <Text style={[styles.searchText, tag == 'Administrativo' ? {color: currentTheme.tertiary} : {}]}>Administrativo</Text>
+                    style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+                    <Text style={[styles.searchText, tag == 'Administrativo' ? {color: currentTheme.tertiaryColor} : {}]}>Administrativo</Text>
                   </TouchableOpacity>
 
               </View>
 
             </View>
             
-            <View style={[styles.addButtonContainer, {backgroundColor: currentTheme.background}]}>
+            <View style={[styles.addButtonContainer, {backgroundColor: currentTheme.backgroundColor}]}>
 
-              <TouchableOpacity style={styles.addButtonFormat}>
+              <TouchableOpacity style={[styles.addButtonFormat, {backgroundColor: currentTheme.primaryColor}]}>
                   <Text style={styles.addButtonText}>AÑADIR</Text>
               </TouchableOpacity>
 
@@ -87,11 +111,16 @@ const height = Dimensions.get('screen').height;
 const styles = StyleSheet.create({
     //Estilos para formulario
     wholeContainer: {
-      padding: 20,
-      marginTop: 60,
-      height: 530,
-      backgroundColor: currentTheme.background,
+      flex: 1,
+      justifyContent: 'center',
     },
+    iconContainer: {
+      flexDirection: 'row',
+      marginBottom: 10,
+      marginTop: 10,
+      alignItems:'center',
+      marginLeft: 20,
+    }, 
     modalTitle: {
       fontWeight: 'bold',
       fontSize: 30,
@@ -121,7 +150,6 @@ const styles = StyleSheet.create({
       marginBottom: 40,
     },
     addButtonFormat: {
-      backgroundColor: '#0E63F4',
       padding: 5,
       borderRadius: 20,
       width: 140,
@@ -139,16 +167,15 @@ const styles = StyleSheet.create({
       fontStyle: 'normal',
       fontWeight: 'bold',
       fontSize: 18,
-      color: '#ffffff',
+      color: '#FFFFFF',
       marginTop: 10,
       display: 'flex',
       alignItems: 'center',
       textAlign: 'center',
     },
     inputFormat: {
-      marginTop: 20,
-      marginBottom: 20,
-      justifyContent: 'center',
+      marginTop: 15,
+      marginBottom: 15,
     },
     tagFormat: {
       fontFamily: 'Inter',
@@ -163,6 +190,8 @@ const styles = StyleSheet.create({
     },
     addInputFormat: {
       fontSize: 18,
-      textAlign: 'center',
+      textAlign: 'left',
+      alignSelf: 'center',
+      paddingLeft: 20,
     },
 });

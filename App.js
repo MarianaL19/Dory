@@ -28,10 +28,6 @@ export default function App(){
     //<HorarioShow/>
     //<Settings/>
     //<RecordatoriosAdd/>
-<<<<<<< HEAD
-    //<Recordatorios/> 
-    <Menu/>
-=======
     //<Recordatorios/>    
 
     <NavigationContainer>
@@ -86,6 +82,5 @@ export default function App(){
 
       </Stack.Navigator>
     </NavigationContainer>
->>>>>>> b1c4222c136b7c462afbd082914ccab80b3d4334
   );
 }

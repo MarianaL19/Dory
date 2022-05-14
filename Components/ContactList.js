@@ -40,11 +40,11 @@ const Contact = ({ item }) => {
                             </View>
 
                             {/* Apartado: nombre del contacto */}
-                            <Text style={[styles.modalTitle, { color: currentTheme.tertiary }]}>{item.nombre}</Text>
+                            <Text style={[styles.modalTitle, { color: currentTheme.tertiaryColor }]}>{item.nombre}</Text>
 
                             {/* Apartado: Tipo de contacto */}
                             {/* tipo de contacto */}
-                            <View style={[styles.modalTagContainer, {backgroundColor: currentTheme.quinary}]}>
+                            <View style={[styles.modalTagContainer, {backgroundColor: currentTheme.quinaryColor}]}>
 
                                 <Text style={[styles.modalTagText]}>{item.etiqueta}</Text>
 
@@ -79,7 +79,7 @@ const Contact = ({ item }) => {
 
                                 {/* Boton para salir */}
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}
-                                    style={[styles.closeButtonFormat, {backgroundColor: currentTheme.primary}]}>
+                                    style={[styles.closeButtonFormat, {backgroundColor: currentTheme.primaryColor}]}>
                                     <Text style={styles.closeButtonText}>CERRAR</Text>
                                 </TouchableOpacity>
 
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 7,
         marginTop: 7,
-    },
+    }, 
     title: {
         fontWeight: 'bold',
         fontSize: 16,

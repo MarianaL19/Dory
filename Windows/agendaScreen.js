@@ -49,7 +49,7 @@ export default function AgendaC() {
 
   return (
          
-    <View style={[styles.wholeContainer, {backgroundColor: currentTheme.background}]}>
+    <View style={[styles.wholeContainer, {backgroundColor: currentTheme.backgroundColor}]}>
       
       {/*Seccion de barra de busqueda*/}
       <View>
@@ -122,9 +122,7 @@ export default function AgendaC() {
 
 const styles = StyleSheet.create({
     wholeContainer: {
-      height: 530,
       flex: 1,
-      padding: 8,
       justifyContent: 'center',
     },
     //Estilos para ver contactos
