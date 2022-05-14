@@ -8,11 +8,6 @@ import sqlite from 'react-native-sqlite-storage';
 
 const AddRecordatorios = ( {navigation} ) =>{
 
-    // sqlite.openDatabase({
-    //   name: 'bd_Dory.db',
-    //   createFromLocation: 1,
-    // });
-
     const {width, height} = Dimensions.get('screen');
 
     // Variables para el estado del tag del recordatorio
@@ -25,41 +20,41 @@ const AddRecordatorios = ( {navigation} ) =>{
     const [hora, setHora] = useState(new Date())
     const [horaOpen, setHoraOpen] = useState(false)
     const [textHora, setTextHora] = useState('Selecciona la hora de entrega')
-
+    
 
     return (
 
       <View style={styles.container}>
         <ScrollView>
-          <Text style={[styles.title,{color: currentTheme.quaternary}]}>Nuevo recordatorio</Text>
+          <Text style={[styles.title,{color: currentTheme.quaternaryColor}]}>Nuevo recordatorio</Text>
 
-          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
+          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
           <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs,{marginVertical: 5, paddingHorizontal: 10}]}/>
           
-          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>          
+          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>          
 
           {/* ~~~~~~~~ Etiquetas de tipo de recordatorio ~~~~~~~~ */}
-          <Text style={[styles.subtitle, {color: currentTheme.tertiary}]}>Tipo de recordatorio</Text>
+          <Text style={[styles.subtitle, {color: currentTheme.tertiaryColor}]}>Tipo de recordatorio</Text>
 
           <View style={styles.filterButtonContainer}>
             <TouchableOpacity onPress={() => setTag('tarea')}
-                    style={[styles.filterButton, tag == 'tarea' ? { backgroundColor: currentTheme.quinary } : {}]}>
-              <Text style={[styles.filterText, tag == 'tarea' ? { color: currentTheme.primary } : {}]}>Tarea</Text>
+                    style={[styles.filterButton, tag == 'tarea' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
+              <Text style={[styles.filterText, tag == 'tarea' ? { color: currentTheme.primaryColor } : {}]}>Tarea</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setTag('examen')}
-                    style={[styles.filterButton, tag == 'examen' ? { backgroundColor: currentTheme.quinary } : {}]}>
-              <Text style={[styles.filterText, tag == 'examen' ? { color: currentTheme.primary } : {}]}>Examen</Text>
+                    style={[styles.filterButton, tag == 'examen' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
+              <Text style={[styles.filterText, tag == 'examen' ? { color: currentTheme.primaryColor } : {}]}>Examen</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setTag('otro')}
-                    style={[styles.filterButton, tag == 'otro' ? { backgroundColor: currentTheme.quinary } : {}]}>
-              <Text style={[styles.filterText, tag == 'otro' ? { color: currentTheme.primary } : {}]}>Otro</Text>
+                    style={[styles.filterButton, tag == 'otro' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
+              <Text style={[styles.filterText, tag == 'otro' ? { color: currentTheme.primaryColor } : {}]}>Otro</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
+          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
 
           {/* ~~~~~~~~ Materia ~~~~~~~~ */}
@@ -70,7 +65,7 @@ const AddRecordatorios = ( {navigation} ) =>{
               <Icon name='book-open-page-variant' size={25} color='#A9A9A9'/>
               <TextInput placeholder="Materia" keyboardType="default" style={styles.inputs}/>
             </View> 
-            <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
+            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
           </>
           ) : null}
 
@@ -91,7 +86,7 @@ const AddRecordatorios = ( {navigation} ) =>{
             </TouchableOpacity>
           </View>
 
-          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
+          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
           {/* ~~~~~~~~ Descripción ~~~~~~~~ */}
 
@@ -99,35 +94,35 @@ const AddRecordatorios = ( {navigation} ) =>{
             <Icon name='pencil' size={25} color='#A9A9A9'/>
             <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs,{width: width*0.8}]}/>
           </View> 
-          <View style={{borderBottomColor: currentTheme.quinary, borderBottomWidth:1, width: width}}/>
+          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
 
           {/* ~~~~~~~~ Notificar recordatorio ~~~~~~~~ */}
           
           <View style={[styles.iconContainer,{paddingTop: 10}]}>
-            <Icon name='bell' size={27} color={currentTheme.primary}/>
-            <Text style={[styles.notificarText,{color: currentTheme.tertiary}]}>Notificar recordatorio</Text>
+            <Icon name='bell' size={27} color={currentTheme.primaryColor}/>
+            <Text style={[styles.notificarText,{color: currentTheme.tertiaryColor}]}>Notificar recordatorio</Text>
           </View> 
 
 
           {/* ~~~~~~~~ Opciones de notificar recordatorio ~~~~~~~~ */}
 
           <View style={styles.opcRecordatorioContainer}>
-            <Text style={styles.recordatoriosText}>24 horas antes</Text>
+            <Text style={[styles.recordatoriosText,{color: currentTheme.tertiaryColor}]}>24 horas antes</Text>
             <Switch trackColor={{false:"grey", true:"grey"}}/>
           </View>
 
           <View style={styles.opcRecordatorioContainer}>
-            <Text style={styles.recordatoriosText}>12 horas antes</Text>
+            <Text style={[styles.recordatoriosText,{color: currentTheme.tertiaryColor}]}>12 horas antes</Text>
             <Switch trackColor={{false:"grey", true:"grey"}}/>
           </View>
 
           <View style={styles.opcRecordatorioContainer}>
-            <Text style={styles.recordatoriosText}>Seleccionar hora</Text>
+            <Text style={[styles.recordatoriosText,{color: currentTheme.tertiaryColor}]}>Seleccionar hora</Text>
           </View>
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.addButton,{backgroundColor: currentTheme.primary}]}>
+            <TouchableOpacity style={[styles.addButton,{backgroundColor: currentTheme.primaryColor}]}>
               <Text style={styles.buttonText}>GUARDAR</Text>
             </TouchableOpacity>
           </View>

@@ -52,7 +52,7 @@ export default function App(){
 
       <Stack.Screen 
           name="HorarioAdd"
-          component={HorarioShow}>
+          component={HorarioAdd}>
       </Stack.Screen>
 
       <Stack.Screen 
