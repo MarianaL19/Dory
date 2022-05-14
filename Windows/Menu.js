@@ -4,11 +4,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import colores from '../Components/currentTheme'
+
 {/*Importamos la ventana dentro de la variable*/}
 //import HOME from './Home.js';
 //import {HoraAjus, RecorAjus} from './Navegar'
 import Recordatorios from './recordatoriosScreen';
-import Agenda from './agendaScreen'
+import Agenda from './agendaAddContact'
 import Horario from './horarioAddScreen';
 
 export default class Menu extends Component {
@@ -48,7 +50,7 @@ export default class Menu extends Component {
               screenOptions={ ({ route }) => ({
               tabBarIcon: ({color}) => screenOptions(route, color),
               tabBarInactiveTintColor: 'gray',
-              tabBarActiveTintColor: '#0E63F4',
+              tabBarActiveTintColor: colores.quaternaryColor,
               headerShown: false,
                 })
               }  

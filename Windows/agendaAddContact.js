@@ -12,6 +12,19 @@ export default function AgendaAddContact() {
     // Variables para el estado del tag del recordatorio
     const [tag, setTag] = useState('null');
 
+    const [nombre, setNombre] = useState('');
+
+    const registro = () => {
+      var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                
+            }
+        };
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/horario.php?nombre=' + nombre, true);
+        xhttp.send();
+    }
+
     return (
         <View style={[styles.wholeContainer, {backgroundColor: currentTheme.backgroundColor}]}>
                         
@@ -30,6 +43,7 @@ export default function AgendaAddContact() {
                     placeholderTextColor='#C4C4C4'
                     // maxLength={70}
                     clearTextOnFocus={true}
+                    onChangeText = {(value) => setNombre(value)}
                 />
 
               </View>
@@ -43,6 +57,7 @@ export default function AgendaAddContact() {
                 <TextInput style={styles.addInputFormat}
                     placeholder='Añadir número de teléfono'
                     placeholderTextColor='#C4C4C4'
+                    keyboardType='number-pad'
                     // maxLength={10}
                     clearTextOnFocus={true}
                 />
@@ -95,7 +110,10 @@ export default function AgendaAddContact() {
             
             <View style={[styles.addButtonContainer, {backgroundColor: currentTheme.backgroundColor}]}>
 
-              <TouchableOpacity style={[styles.addButtonFormat, {backgroundColor: currentTheme.primaryColor}]}>
+              <TouchableOpacity
+                style={[styles.addButtonFormat, {backgroundColor: currentTheme.primaryColor}]}
+                onPress={registro}
+              >
                   <Text style={styles.addButtonText}>AÑADIR</Text>
               </TouchableOpacity>
 
