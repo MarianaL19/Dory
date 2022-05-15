@@ -1,14 +1,18 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Switch, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Switch, Dimensions, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import currentTheme from '../Components/currentTheme';
 import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
+import { NavigationContext } from '@react-navigation/native';
+
 
 
 const { width, height } = Dimensions.get('screen');
 
 export default class RecordatoriosAddScreen extends Component {
+  static contextType = NavigationContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -23,26 +27,81 @@ export default class RecordatoriosAddScreen extends Component {
       textHora: 'Selecciona la hora de entrega',
       descripcion: '',
       estado: 'pendiente',
+      usuarios: [],
     };
 
   }
 
   render() {
+    const navigation = this.context;
+
+    // function RegistrarUsuario() {
+    //   handleonSubmit('fabian');
+    //   // console.log(this.usuarios)
+    // }
+
+    // const handleonSubmit = async (nombre) => {
+    //   const usuario = { id: addUsuario(nombre), nombre: nombre};
+    //   const updateUsuarios = await [...this.usuarios, usuario];
+    //   setTasks(updateUsuarios);
+    //   await AsyncStorage.setItem('usuarios', JSON.stringify(updateUsuarios));
+    // }
+
+    // const addUsuario = (nombreU) => {
+    //   var xhttp = new XMLHttpRequest();
+    //     xhttp.onreadystatechange = function() {
+    //         if (this.readyState == 4 && this.status == 200) {
+                
+    //         }
+    //     };
+    //     xhttp.open("GET", 'https://dory69420.000webhostapp.com/usuarios.php?nombre=' + nombreU, true);
+    //     xhttp.send();
+    //     console.log('RESPUESTA: ' + xhttp.responseText);
+    //     return(xhttp.responseText);
+    // }
+
+    const restaurarValores = () => {
+      this.setState({nombre: '', etiqueta: 'null', materia: 0, textFecha: 'Selecciona la fecha de entrega',
+      textHora: 'Selecciona la hora de entrega',descripcion: ''})
+    }
 
     const registro = () => {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+      let regex = new RegExp("^[a-zA-Z ]+$");
 
-        }
-      };
-      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recordatorios.php?nombre=' + this.state.nombre
-        + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
-        + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado, true);
-      xhttp.send();
+      if(this.state.nombre == "" || this.state.etiqueta == "null" || this.state.materia == 0 || 
+        this.state.textFecha == "Selecciona la fecha de entrega" || this.state.textHora == "Selecciona la hora de entrega"){
+        Alert.alert("Campos vacíos", "Es necesario llenar todos los campos obligatorios", [
+          {
+              text:"ok", onPress: ()=> console.log("Campos Vacios")
+          }
+        ]);
+      }
+      
+      else if(!regex.test(this.state.nombre)){
+        Alert.alert("Error", "Nombre Inválido", [
+          {
+              text:"ok", onPress: ()=> console.log("Nombre Invalido")
+          }
+        ]);
+      }
 
-      console.log('nombre: '+ this.state.nombre + '  etiqueta: '+ this.state.etiqueta + '  materia: '+ this.state.materia + '  estado: ' + this.state.estado +
-      '  fecha: ' + this.state.textFecha + '  hora: ' + this.state.textHora)
+      else{
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+
+          }
+        };
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/recordatorios.php?nombre=' + this.state.nombre
+          + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
+          + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado, true);
+        xhttp.send();
+
+        console.log('nombre: '+ this.state.nombre + '  etiqueta: '+ this.state.etiqueta + '  materia: '+ this.state.materia + '  estado: ' + this.state.estado +
+        '  fecha: ' + this.state.textFecha + '  hora: ' + this.state.textHora)
+        restaurarValores();
+        // navigation.navigate("Horario");
+      }
     }
 
     return (
@@ -53,7 +112,7 @@ export default class RecordatoriosAddScreen extends Component {
           <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
 
           <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs, { marginVertical: 5, paddingHorizontal: 10 }]}
-            onChangeText={(value) => this.setState({ nombre: value })} />
+            onChangeText={(value) => this.setState({ nombre: value })} onFocus={() => this.setState({nombre: ''})} value={this.state.nombre}/>
 
           <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
 
@@ -71,7 +130,7 @@ export default class RecordatoriosAddScreen extends Component {
               <Text style={[styles.filterText, this.state.etiqueta == 'examen' ? { color: currentTheme.primaryColor } : {}]}>Examen</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.setState({ etiqueta: 'otro' })}
+            <TouchableOpacity onPress={() => {this.setState({ etiqueta: 'otro' }); this.setState({materia: -1})}}
               style={[styles.filterButton, this.state.etiqueta == 'otro' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
               <Text style={[styles.filterText, this.state.etiqueta == 'otro' ? { color: currentTheme.primaryColor } : {}]}>Otro</Text>
             </TouchableOpacity>
@@ -117,7 +176,7 @@ export default class RecordatoriosAddScreen extends Component {
           <View style={styles.iconContainer}>
             <Icon name='pencil' size={25} color='#A9A9A9' />
             <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs, { width: width * 0.8 }]}
-              onChangeText={(value) => this.setState({ descripcion: value })} />
+              onChangeText={(value) => this.setState({ descripcion: value })} onFocus={() => this.setState({descripcion: ''})} value={this.state.descripcion} />
           </View>
           <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
 

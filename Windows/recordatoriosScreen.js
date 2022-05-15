@@ -3,10 +3,20 @@ import { StyleSheet, View, Text, TouchableOpacity,
         Dimensions} from 'react-native';
 
 import MenuBar from '../hotBar';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import currentTheme from '../Components/currentTheme';
+import AddRecordatorios from './recordatoriosAddScreen';
+import { NavigationContext } from '@react-navigation/native';
+
+
+
 
 const {width, height} = Dimensions.get('screen');
 
 export default class Recordatorios extends Component {
+
+  static contextType = NavigationContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -14,6 +24,8 @@ export default class Recordatorios extends Component {
   }
 
   render() {
+    const navigation = this.context;
+
     return (
       <View style={styles.sectionContainer}>
 
@@ -95,6 +107,10 @@ export default class Recordatorios extends Component {
             </Text>
           </TouchableOpacity>
         </View>
+              {/* Botón para agregar recordatorios */}
+      <TouchableOpacity onPress={() => {navigation.navigate("Horario");}} style={styles.addIcon}>
+        <Icon name='plus-circle' size={50} color={currentTheme.primary}/>
+      </TouchableOpacity>
 
       </View>
     );
