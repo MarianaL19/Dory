@@ -4,169 +4,171 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import currentTheme from '../Components/currentTheme';
 import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
-import sqlite from 'react-native-sqlite-storage';
-
-const AddRecordatorios = ( {navigation} ) =>{
-
-    const {width, height} = Dimensions.get('screen');
-
-    // Variables para el estado del tag del recordatorio
-    const [tag, setTag] = useState('null');
-
-    // Variables para el estado del DatePicker
-    const [fecha, setFecha] = useState(new Date())
-    const [fechaOpen, setFechaOpen] = useState(false)
-    const [textFecha, setTextFecha] = useState('Selecciona la fecha de entrega')
-    const [hora, setHora] = useState(new Date())
-    const [horaOpen, setHoraOpen] = useState(false)
-    const [textHora, setTextHora] = useState('Selecciona la hora de entrega')
-    
-
-    return (
-
-      <View style={styles.container}>
-        <ScrollView>
-          <Text style={[styles.title,{color: currentTheme.quaternaryColor}]}>Nuevo recordatorio</Text>
-
-          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
-
-          <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs,{marginVertical: 5, paddingHorizontal: 10}]}/>
-          
-          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>          
-
-          {/* ~~~~~~~~ Etiquetas de tipo de recordatorio ~~~~~~~~ */}
-          <Text style={[styles.subtitle, {color: currentTheme.tertiaryColor}]}>Tipo de recordatorio</Text>
-
-          <View style={styles.filterButtonContainer}>
-            <TouchableOpacity onPress={() => setTag('tarea')}
-                    style={[styles.filterButton, tag == 'tarea' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
-              <Text style={[styles.filterText, tag == 'tarea' ? { color: currentTheme.primaryColor } : {}]}>Tarea</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => setTag('examen')}
-                    style={[styles.filterButton, tag == 'examen' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
-              <Text style={[styles.filterText, tag == 'examen' ? { color: currentTheme.primaryColor } : {}]}>Examen</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => setTag('otro')}
-                    style={[styles.filterButton, tag == 'otro' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
-              <Text style={[styles.filterText, tag == 'otro' ? { color: currentTheme.primaryColor } : {}]}>Otro</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
 
-          {/* ~~~~~~~~ Materia ~~~~~~~~ */}
+const { width, height } = Dimensions.get('screen');
 
-          {tag != 'otro' ? (
-          <>
-            <View style={styles.iconContainer}>
-              <Icon name='book-open-page-variant' size={25} color='#A9A9A9'/>
-              <TextInput placeholder="Materia" keyboardType="default" style={styles.inputs}/>
-            </View> 
-            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
-          </>
-          ) : null}
+export default class RecordatoriosAddScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tag: 'null',
+      fecha: new Date(),
+      fechaOpen: false,
+      textFecha: 'Selecciona la fecha de entrega',
+      hora: new Date(),
+      horaOpen: false,
+      textHora: 'Selecciona la hora de entrega',
+  };
 
-
-          {/* ~~~~~~~~ Seleccionar la fecha y hora de entrega ~~~~~~~~ */}
-
-          <View style={styles.iconContainer}>
-            <Icon name='calendar-blank-outline' size={25} color='#A9A9A9'/>
-            <TouchableOpacity onPress={() => setFechaOpen(true)}>
-              <Text style={styles.inputs}>{cambioFormato(textFecha)}</Text> 
-            </TouchableOpacity>
-          </View> 
-
-          <View style={styles.iconContainer}>
-            <Icon name='clock-time-four-outline' size={25} color='#A9A9A9'/>
-            <TouchableOpacity onPress={() => setHoraOpen(true)}>
-              <Text style={styles.inputs}>{textHora}</Text> 
-            </TouchableOpacity>
-          </View>
-
-          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
-
-          {/* ~~~~~~~~ Descripción ~~~~~~~~ */}
-
-          <View style={styles.iconContainer}>
-            <Icon name='pencil' size={25} color='#A9A9A9'/>
-            <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs,{width: width*0.8}]}/>
-          </View> 
-          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
-
-
-          {/* ~~~~~~~~ Notificar recordatorio ~~~~~~~~ */}
-          
-          <View style={[styles.iconContainer,{paddingTop: 10}]}>
-            <Icon name='bell' size={27} color={currentTheme.primaryColor}/>
-            <Text style={[styles.notificarText,{color: currentTheme.tertiaryColor}]}>Notificar recordatorio</Text>
-          </View> 
-
-
-          {/* ~~~~~~~~ Opciones de notificar recordatorio ~~~~~~~~ */}
-
-          <View style={styles.opcRecordatorioContainer}>
-            <Text style={[styles.recordatoriosText,{color: currentTheme.tertiaryColor}]}>24 horas antes</Text>
-            <Switch trackColor={{false:"grey", true:"grey"}}/>
-          </View>
-
-          <View style={styles.opcRecordatorioContainer}>
-            <Text style={[styles.recordatoriosText,{color: currentTheme.tertiaryColor}]}>12 horas antes</Text>
-            <Switch trackColor={{false:"grey", true:"grey"}}/>
-          </View>
-
-          <View style={styles.opcRecordatorioContainer}>
-            <Text style={[styles.recordatoriosText,{color: currentTheme.tertiaryColor}]}>Seleccionar hora</Text>
-          </View>
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.addButton,{backgroundColor: currentTheme.primaryColor}]}>
-              <Text style={styles.buttonText}>GUARDAR</Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* ~~~~~~~~ Dates pickers ~~~~~~~~ */}
-          <DatePicker
-            modal
-            open={fechaOpen}
-            date={fecha}
-            locale={'es'}
-            mode={'date'}
-            onConfirm={(date) => {
-              setFechaOpen(false)
-              setFecha(date)
-              setTextFecha(date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate())
-            }}
-            onCancel={() => {
-              setFechaOpen(false)
-            }}
-          />
-          
-          
-          <DatePicker
-            modal
-            open={horaOpen}
-            date={hora}
-            mode={'time'}
-            onConfirm={(date) => {
-              setHoraOpen(false)
-              setHora(date)
-              setTextHora(date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes() ): date.getMinutes()))
-            }}
-            onCancel={() => {
-              setHoraOpen(false)
-            }}
-          />
-
-        </ScrollView>
-
-      </View>
-    );  
 }
 
-export default AddRecordatorios;
+render() {
+  return (
+    <View style={styles.container}>
+    <ScrollView>
+      <Text style={[styles.title, { color: currentTheme.quaternaryColor }]}>Nuevo recordatorio</Text>
+
+      <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+
+      <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs, { marginVertical: 5, paddingHorizontal: 10 }]} />
+
+      <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+
+      {/* ~~~~~~~~ Etiquetas de tipo de recordatorio ~~~~~~~~ */}
+      <Text style={[styles.subtitle, { color: currentTheme.tertiaryColor }]}>Tipo de recordatorio</Text>
+
+      <View style={styles.filterButtonContainer}>
+        <TouchableOpacity onPress={() => this.setState({tag: 'tarea'})}
+          style={[styles.filterButton, this.state.tag == 'tarea' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
+          <Text style={[styles.filterText, this.state.tag == 'tarea' ? { color: currentTheme.primaryColor } : {}]}>Tarea</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => this.setState({tag: 'examen'})}
+          style={[styles.filterButton, this.state.tag == 'examen' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
+          <Text style={[styles.filterText, this.state.tag == 'examen' ? { color: currentTheme.primaryColor } : {}]}>Examen</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => this.setState({tag: 'otro'})}
+          style={[styles.filterButton, this.state.tag == 'otro' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
+          <Text style={[styles.filterText, this.state.tag == 'otro' ? { color: currentTheme.primaryColor } : {}]}>Otro</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+
+
+      {/* ~~~~~~~~ Materia ~~~~~~~~ */}
+
+      {this.state.tag != 'otro' ? (
+        <>
+          <View style={styles.iconContainer}>
+            <Icon name='book-open-page-variant' size={25} color='#A9A9A9' />
+            <TextInput placeholder="Materia" keyboardType="default" style={styles.inputs} />
+          </View>
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+        </>
+      ) : null}
+
+
+      {/* ~~~~~~~~ Seleccionar la fecha y hora de entrega ~~~~~~~~ */}
+
+      <View style={styles.iconContainer}>
+        <Icon name='calendar-blank-outline' size={25} color='#A9A9A9' />
+        <TouchableOpacity onPress={() => this.setState({fechaOpen: true})}> 
+          <Text style={styles.inputs}>{cambioFormato(this.state.textFecha)}</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.iconContainer}>
+        <Icon name='clock-time-four-outline' size={25} color='#A9A9A9' />
+        <TouchableOpacity onPress={() => this.setState({horaOpen: true})}>
+          <Text style={styles.inputs}>{this.state.textHora}</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+
+      {/* ~~~~~~~~ Descripción ~~~~~~~~ */}
+
+      <View style={styles.iconContainer}>
+        <Icon name='pencil' size={25} color='#A9A9A9' />
+        <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs, { width: width * 0.8 }]} />
+      </View>
+      <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+
+
+      {/* ~~~~~~~~ Notificar recordatorio ~~~~~~~~ */}
+
+      <View style={[styles.iconContainer, { paddingTop: 10 }]}>
+        <Icon name='bell' size={27} color={currentTheme.primaryColor} />
+        <Text style={[styles.notificarText, { color: currentTheme.tertiaryColor }]}>Notificar recordatorio</Text>
+      </View>
+
+
+      {/* ~~~~~~~~ Opciones de notificar recordatorio ~~~~~~~~ */}
+
+      <View style={styles.opcRecordatorioContainer}>
+        <Text style={[styles.recordatoriosText, { color: currentTheme.tertiaryColor }]}>24 horas antes</Text>
+        <Switch trackColor={{ false: "grey", true: "grey" }} />
+      </View>
+
+      <View style={styles.opcRecordatorioContainer}>
+        <Text style={[styles.recordatoriosText, { color: currentTheme.tertiaryColor }]}>12 horas antes</Text>
+        <Switch trackColor={{ false: "grey", true: "grey" }} />
+      </View>
+
+      <View style={styles.opcRecordatorioContainer}>
+        <Text style={[styles.recordatoriosText, { color: currentTheme.tertiaryColor }]}>Seleccionar hora</Text>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.addButton, { backgroundColor: currentTheme.primaryColor }]}>
+          <Text style={styles.buttonText}>GUARDAR</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* ~~~~~~~~ Dates pickers ~~~~~~~~ */}
+      <DatePicker
+        modal
+        open={this.state.fechaOpen}
+        date={this.state.fecha}
+        locale={'es'}
+        mode={'date'}
+        onConfirm={(date) => {
+          this.setState({fechaOpen: false})
+          this.setState({fecha: date})
+          this.setState({textFecha: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()})
+        }}
+        onCancel={() => {
+          this.setState({fechaOpen: false})
+        }}
+      />
+
+
+      <DatePicker
+        modal
+        open={this.state.horaOpen}
+        date={this.state.hora}
+        mode={'time'}
+        onConfirm={(date) => {
+          this.setState({horaOpen: false})
+          this.setState({hora: date})
+          this.setState({textHora: date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes())})
+        }}
+        onCancel={() => {
+          this.setState({horaOpen: false})
+        }}
+      />
+
+    </ScrollView>
+
+  </View>
+  );
+}
+}
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -186,9 +188,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
     marginTop: 10,
-    alignItems:'center',
+    alignItems: 'center',
     marginLeft: 20,
-  }, 
+  },
   addButton: {
     borderRadius: 5,
     padding: 3,
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginHorizontal: 20,
-    marginTop: 15, 
+    marginTop: 15,
     marginBottom: 10,
   },
   notificarText: {
@@ -229,7 +231,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 3,
   },
-  inputs:{
+  inputs: {
     fontSize: 15,
     fontWeight: '500',
     marginLeft: 8,
