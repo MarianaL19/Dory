@@ -1,4 +1,5 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
+
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions} from 'react-native';
 import currentTheme from '../Components/currentTheme';
@@ -14,21 +15,7 @@ export default class App extends Component {
     };
   }
 
-
-
   render() {
-    
-    const registro = () => {
-      var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                
-            }
-        };
-        xhttp.open("GET", 'https://dory69420.000webhostapp.com/materias.php?nombre=' + this.state.nombre, true);
-        xhttp.send();
-    }
-    
     return (
       <View style = {styles.container}>
       <ScrollView>
@@ -38,10 +25,8 @@ export default class App extends Component {
         </View>
 
         <TextInput 
-          placeholder = "Nombre de la materia"
-          style = {styles.input}
-          clearTextOnFocus={true}
-          onChangeText={(nombre => this.setState({nombre}))}
+        placeholder = "Nombre de la materia"
+        style = {styles.input}
         />
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -113,9 +98,7 @@ export default class App extends Component {
       </View>
 
       <View style = {{alignItems: 'center'}}>
-        <TouchableOpacity style = {[styles.boton, {backgroundColor: currentTheme.primaryColor}]} 
-        onPress={registro}
-        > 
+        <TouchableOpacity style = {[styles.boton, {backgroundColor: currentTheme.primaryColor}]}> 
           <Text style = {styles.textoBoton}> AÑADIR </Text>
         </TouchableOpacity>
       </View>
