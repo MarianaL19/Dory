@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
-        Dimensions} from 'react-native';
+        Dimensions, Alert} from 'react-native';
 import currentTheme from '../Components/currentTheme';
 
 import MenuBar from '../hotBar';
@@ -17,14 +17,31 @@ export default class App extends Component {
   render() {
 
     const registro = () => {
-      var xhttp = new XMLHttpRequest();
+
+      if(this.state.nombre == "" || this.state.profesor == "" || this.state.aula == "" || 
+      this.state.nrc == "" || this.state.color == ""){
+        Alert.alert("Campos Vacios", "Es necesario que llenes todos los campos", [
+          {
+            text:"ok", onPress: ()=> console.log("Campos Vacios")
+          }
+        ]);
+
+      } else {
+
+        var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+          if (this.readyState == 4 && this.status == 200) {
                 
-            }
+          }
         };
-        xhttp.open("GET", 'https://dory69420.000webhostapp.com/materias.php?nombre=' + this.state.nombre, true);
+
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/materias.php?nombre=' + this.state.nombre + 
+        '&profesor=' + this.state.profesor + '&aula=' + this.state.aula + '&nrc=' + this.state.nrc + 
+        '&color=' + this.state.color, true);
         xhttp.send();
+
+      }
+      
     }
 
     return (
@@ -80,7 +97,7 @@ export default class App extends Component {
       </View>
 
         <View style = {styles.containerTitulo}>
-        <Text style = {[styles.titulo,{color: currentTheme.quaternaryColor}]}> Información </Text>
+          <Text style = {[styles.titulo,{color: currentTheme.quaternaryColor}]}> Información </Text>
         </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -90,14 +107,31 @@ export default class App extends Component {
         <TextInput 
           placeholder = "Nombre del profesor"
           style = {styles.input}
+          clearTextOnFocus={true}
+          onChangeText={(profesor => this.setState({profesor}))}
         />
+
         <TextInput 
-          placeholder = "Aula"
+          placeholder = "Aula (Max. 5 Carácteres)"
           style = {styles.input}
+          clearTextOnFocus={true}
+          onChangeText={(aula => this.setState({aula}))}
+          maxLength={5}
         />
+
         <TextInput 
-          placeholder = "NRC"
+          placeholder = "NRC (Max. 6 Carácteres)"
           style = {styles.input}
+          clearTextOnFocus={true}
+          onChangeText={(nrc => this.setState({nrc}))}
+          maxLength={6}
+        />
+
+        <TextInput 
+          placeholder = "Color"
+          style = {styles.input}
+          clearTextOnFocus={true}
+          onChangeText={(color => this.setState({color}))}
         />
 
       </ScrollView>
