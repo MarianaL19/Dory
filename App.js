@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Menu from './Windows/Menu'
+import { InicioMenu } from './Windows/Navegar';
 
 import Schedule from './Windows/scheduleScreen';
 import AgendaC from './Windows/agendaScreen';
@@ -29,7 +30,10 @@ export default function App(){
     //<Settings/>
     //<RecordatoriosAdd/>
     //<Recordatorios/> 
-    <Menu/>
+    //<Menu/>
+    <NavigationContainer>
+      <InicioMenu/>
+    </NavigationContainer>
     //<Recordatorios/>
   );
 }

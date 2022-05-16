@@ -8,7 +8,7 @@ import colores from '../Components/currentTheme';
 
 {/*Importamos la ventana dentro de la variable*/}
 //import HOME from './Home.js';
-//import {HoraAjus, RecorAjus} from './Navegar'
+import {InicioMenu} from './Navegar'
 import Recordatorios from './recordatoriosAddScreen';
 import Agenda from './agendaAddContact';
 import Horario from './horarioAddScreen';
@@ -45,7 +45,6 @@ export default class Menu extends Component {
       )
     }
     return (
-        <NavigationContainer>
             <Tab.Navigator
               screenOptions={ ({ route }) => ({
               tabBarIcon: ({color}) => screenOptions(route, color),
@@ -59,10 +58,10 @@ export default class Menu extends Component {
                 Dentro de componente va la variable donde se almacena la ventana*/}
                 <Tab.Screen name="Horario" component={Horario} />
                 <Tab.Screen name="Recordatorios" component={Recordatorios} />
-                <Tab.Screen name="Agenda" component={Agenda} />
+                <Tab.Screen name="Agenda" component={Agenda}
+                tabBarVisible={false}/>
             </Tab.Navigator>
 
-        </NavigationContainer>
     )
   }
 }
