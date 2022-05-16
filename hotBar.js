@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { createIconSetFromFontello } from 'react-native-vector-icons';
 import fontelloConfig from './config.json';
+import colores from './Components/currentTheme';
+
 const Icon2 = createIconSetFromFontello(fontelloConfig);
 
 const {width, height} = Dimensions.get('screen');
@@ -18,7 +20,7 @@ export default function MenuBar() {
             <View style={styles.menuUno}>
               <Icon2
                 name='dory'
-                color='#0E63F4'
+                color={colores.quaternaryColor}
                 size={20}
               />
             </View>
@@ -33,7 +35,7 @@ export default function MenuBar() {
                 <Icon    
                 name='cog'
                 //onPress={moverse}
-                color='#0E63F4'
+                color={colores.quaternaryColor}
                 size={35}
                 />
             </View>
