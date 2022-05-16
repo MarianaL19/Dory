@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Inicio from './Inicio'
 import Menu from './Menu'
+import Settings from './SettingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,9 @@ const InicioMenu = () => {
   
         <Stack.Screen name="Menu"
         component={Menu}/>
+
+        <Stack.Screen name="Conf"
+        component={Settings}/>
   
       </Stack.Navigator>
     )
