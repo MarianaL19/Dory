@@ -7,7 +7,6 @@ import { cambioFormato } from '../Components/Date';
 import { NavigationContext } from '@react-navigation/native';
 
 
-
 const { width, height } = Dimensions.get('screen');
 
 export default class RecordatoriosAddScreen extends Component {
@@ -66,7 +65,7 @@ export default class RecordatoriosAddScreen extends Component {
     }
 
     const registro = () => {
-      let regex = new RegExp("^[a-zA-Z ]+$");
+      let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
 
       if(this.state.nombre == "" || this.state.etiqueta == "null" || this.state.materia == 0 || 
         this.state.textFecha == "Selecciona la fecha de entrega" || this.state.textHora == "Selecciona la hora de entrega"){
@@ -112,7 +111,7 @@ export default class RecordatoriosAddScreen extends Component {
           <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
 
           <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs, { marginVertical: 5, paddingHorizontal: 10 }]}
-            onChangeText={(value) => this.setState({ nombre: value })} onFocus={() => this.setState({nombre: ''})} value={this.state.nombre}/>
+            onChangeText={(value) => this.setState({ nombre: value })} value={this.state.nombre} maxLength={100}/>
 
           <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
 
@@ -176,7 +175,7 @@ export default class RecordatoriosAddScreen extends Component {
           <View style={styles.iconContainer}>
             <Icon name='pencil' size={25} color='#A9A9A9' />
             <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs, { width: width * 0.8 }]}
-              onChangeText={(value) => this.setState({ descripcion: value })} onFocus={() => this.setState({descripcion: ''})} value={this.state.descripcion} />
+              onChangeText={(value) => this.setState({ descripcion: value })} value={this.state.descripcion} maxLength={280}/>
           </View>
           <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
 
