@@ -1,128 +1,213 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TextInput, Dimensions } from "react-native";
+import React, { Component, useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, Dimensions, Alert, ScrollView } from "react-native";
 import currentTheme from '../Components/currentTheme';
 import Contact from '../Components/ContactList';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+export default class AgendaAddContact extends Component {
+  // Variables para la ventana
+  constructor(props) {
+    super(props);
+    this.state = {
+      nombre: "",
+      telefono: "",
+      correo: "",
+      etiqueta: "",
+    };
+  }
 
-//Pedir ayuda para las lineas y terminar de comentar, tambien iconos
+  render() {
+    // Expresion regular para nombres
+    let exregNom = new RegExp("^[a-zA-Z ]+$");
+    // Expresion regular para numeros telefonicos
+    let exregTelefono = new RegExp("^([0-9]{10})$");
+    // Expresion regular para correos
+    let exregCorreo = new RegExp("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
 
-export default function AgendaAddContact() {
-
-    // Variables para el estado del tag del recordatorio
-    const [tag, setTag] = useState('null');
-
-    const [nombre, setNombre] = useState('');
-
+    // Funcion para registro de informacion
     const registro = () => {
-      var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                
+      //Aqui van las validaciones
+      //Validacion de espacio vacio
+      if(this.state.nombre == "" || this.state.telefono == "" || this.state.correo == "" || this.state.etiqueta == ""){
+          Alert.alert("Hay ampos vacios, necesita llenar todos los campos", [
+            {
+              text: "OK", onPress: () => console.log("Campos Vacios")
             }
-        };
-        xhttp.open("GET", 'https://dory69420.000webhostapp.com/horario.php?nombre=' + nombre, true);
-        xhttp.send();
+          ]);
+      }
+      // Nombre no valido
+      else if(!exregNom.test(this.state.nombre)){
+        Alert.alert("Error", "Nombre invalido", [
+          {
+            text: "OK", onPress: () => console.log("Nombre Invalido")
+          }
+        ]);
+      }
+      // Telefono no valido
+      else if(!exregTelefono.test(this.state.telefono)){
+        Alert.alert("Error", "Telefono invalido", [
+          {
+            text: "OK", onPress: () => console.log("Telefono invalido")
+          }
+        ]);
+      }
+      // Correo no valido
+      else if(!exregCorreo.test(this.state.correo)){
+        Alert.alert("Error", "Correo electronico invalido", [
+          {
+            text: "OK", onPress: () => console.log("Correo electronico invalido")
+          }
+        ]);
+      }
+      //TODOS los campos validos
+      else{
+        var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                  //???
+              }
+          };
+          // Comando que se comunica con un PHP que hace los Query en la base de datos
+          xhttp.open("GET", 'https://dory69420.000webhostapp.com/horario.php?nombre=' + this.state.nombre +
+          '&telefono=' + this.state.telefono + '&correo=' + this.state.correo + '&etiqueta=' + this.state.etiqueta, true);
+          xhttp.send();
+        }
     }
 
     return (
-        <View style={[styles.wholeContainer, {backgroundColor: currentTheme.backgroundColor}]}>
-                        
-            <View style={[styles.inputFormat, {backgroundColor: currentTheme.backgroundColor}]}>
+      // Contenedor general
+      <View style={[styles.wholeContainer, {backgroundColor: currentTheme.backgroundColor}]}>
+        
+        {/* Scrollview para que el teclado no desplace toda la ventana */}
+        <ScrollView>   
 
-              <Text style={[styles.modalTitle, {color: currentTheme.primaryColor}]}>Ingrese nuevo contacto</Text>
+          {/* Vista que contiene los campos de entradas de informacion */}
+          <View style={[styles.inputFormat, {backgroundColor: currentTheme.backgroundColor}]}>
+            
+            {/* Titulo de la ventana */}
+            <Text style={[styles.modalTitle, {color: currentTheme.primaryColor}]}>Ingrese nuevo contacto</Text>
 
-              <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
+            {/* Linea divisoria 1 */}
+            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
-              <View style={styles.iconContainer}>
+            {/* Contenedor de icono e input: nombre */}
+            <View style={styles.iconContainer}>
 
-                <Icon name='account-outline' size={40} color={'#E5E5E5'}/>
+              {/* Icono de persona */}
+              <Icon name='account-outline' size={40} color={'#E5E5E5'}/>
 
-                <TextInput style={styles.addInputFormat}
-                    placeholder='Nombre del contacto'
-                    placeholderTextColor='#C4C4C4'
-                    // maxLength={70}
-                    clearTextOnFocus={true}
-                    onChangeText = {(value) => setNombre(value)}
-                />
-
-              </View>
-
-              <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
-
-              <View style={styles.iconContainer}>
-
-                <Icon name='phone' size={40} color={'#E5E5E5'}/>
-
-                <TextInput style={styles.addInputFormat}
-                    placeholder='Añadir número de teléfono'
-                    placeholderTextColor='#C4C4C4'
-                    keyboardType='number-pad'
-                    // maxLength={10}
-                    clearTextOnFocus={true}
-                />
-
-              </View>
-
-              <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
-
-              <View style={styles.iconContainer}>
-
-                <Icon name='email' size={40} color={'#E5E5E5'}/>
-
-                <TextInput style={styles.addInputFormat}
-                    placeholder='Añadir correo'
-                    placeholderTextColor='#C4C4C4'
-                    // maxLength={64}
-                    clearTextOnFocus={true}
-                />
-
-              </View>
-
-              <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
+              {/* Input para nombre del contacto */}
+              <TextInput style={styles.addInputFormat}
+                  placeholder='Nombre del contacto'
+                  placeholderTextColor='#C4C4C4'
+                  maxLength={70}
+                  clearTextOnFocus={true}
+                  onChangeText = {(nombre => this.setState({nombre}))}
+              />
 
             </View>
-            
-            <View style={{backgroundColor: currentTheme.backgroundColor, padding: 15}}>
 
-              <Text style={styles.tagFormat}>Etiqueta</Text>
+            {/* Linea divisoria 2 */}
+            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
 
-              <View style={styles.buttonContainer}>
+            {/* Contenedor de icono e input: telefono */}
+            <View style={styles.iconContainer}>
 
-                  <TouchableOpacity onPress={() => setTag('Compañero')}
-                    style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-                    <Text style={[styles.searchText, tag == 'Compañero' ? {color: currentTheme.tertiaryColor} : {}]}>Compañero</Text>
-                  </TouchableOpacity>
+              {/* Icono de teledono */}
+              <Icon name='phone' size={40} color={'#E5E5E5'}/>
 
-                  <TouchableOpacity onPress={() => setTag('Profesor')}
-                    style={[styles.buttonFormat, tag == 'Profesor' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-                    <Text style={[styles.searchText, tag == 'Profesor' ? {color: currentTheme.tertiaryColor} : {}]}>Profesor</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity onPress={() => setTag('Administrativo')}
-                    style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-                    <Text style={[styles.searchText, tag == 'Administrativo' ? {color: currentTheme.tertiaryColor} : {}]}>Administrativo</Text>
-                  </TouchableOpacity>
-
-              </View>
+              {/* Input para telefono del contacto */}
+              <TextInput style={styles.addInputFormat}
+                  placeholder='Añadir número de teléfono'
+                  placeholderTextColor='#C4C4C4'
+                  keyboardType='number-pad'
+                  maxLength={10}
+                  clearTextOnFocus={true}
+                  onChangeText = {(telefono => this.setState({telefono}))}
+              />
 
             </View>
-            
-            <View style={[styles.addButtonContainer, {backgroundColor: currentTheme.backgroundColor}]}>
 
-              <TouchableOpacity
-                style={[styles.addButtonFormat, {backgroundColor: currentTheme.primaryColor}]}
-                onPress={registro}
-              >
-                  <Text style={styles.addButtonText}>AÑADIR</Text>
+            {/* Linea divisoria 3 */}
+            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
+
+            {/* Contenedor de icono e input: email */}
+            <View style={styles.iconContainer}>
+
+              {/* Icono de email */}
+              <Icon name='email' size={40} color={'#E5E5E5'}/>
+
+              {/* Input para email del contacto */}
+              <TextInput style={styles.addInputFormat}
+                  placeholder='Añadir correo electronico'
+                  placeholderTextColor='#C4C4C4'
+                  maxLength={64}
+                  clearTextOnFocus={true}
+                  onChangeText = {(correo => this.setState({correo}))}
+              />
+
+            </View>
+
+            {/* Linea divisoria 4 */}
+            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
+
+          </View>
+
+          {/* Contenedor para menu de etiquetas */}
+          <View style={{backgroundColor: currentTheme.backgroundColor, padding: 15}}>
+
+            {/* Titulo de seccion */}
+            <Text style={styles.tagFormat}>Etiqueta</Text>
+
+            {/* Contenedor de los botones */}
+            <View style={styles.buttonContainer}>
+
+              {/* Boton para asignar Compañero */}
+              <TouchableOpacity onPress={() => this.setState({etiqueta: 'Compañero'})}
+                style={[styles.buttonFormat, this.state.etiqueta == 'Compañero' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+                <Text style={[styles.searchText, this.state.etiqueta == 'Compañero' ? {color: currentTheme.tertiaryColor} : {}]}>Compañero</Text>
+              </TouchableOpacity>
+
+              {/* Boton para asignar Profesor */}
+              <TouchableOpacity onPress={() => this.setState({etiqueta: 'Profesor'})}
+                style={[styles.buttonFormat, this.state.etiqueta == 'Profesor' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+                <Text style={[styles.searchText, this.state.etiqueta == 'Profesor' ? {color: currentTheme.tertiaryColor} : {}]}>Profesor</Text>
+              </TouchableOpacity>
+
+              {/* Boton para asignar Administrativo */}
+              <TouchableOpacity onPress={() => this.setState({etiqueta: 'Administrativo'})}
+                style={[styles.buttonFormat, this.state.etiqueta == 'Administrativo' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+                <Text style={[styles.searchText, this.state.etiqueta == 'Administrativo' ? {color: currentTheme.tertiaryColor} : {}]}>Administrativo</Text>
               </TouchableOpacity>
 
             </View>
 
-        </View>
+          </View>
+
+          {/* Contenedor de boton de Añador */}
+          <View style={[styles.addButtonContainer, {backgroundColor: currentTheme.backgroundColor}]}>
+
+            {/* boton Añadir, manda a llamar a la funcion registro */}
+            <TouchableOpacity
+              style={[styles.addButtonFormat, {backgroundColor: currentTheme.primaryColor}]}
+              onPress={registro}
+            >
+                
+              {/* Texto de botono */}
+              <Text style={styles.addButtonText}>AÑADIR</Text>
+
+            </TouchableOpacity>
+
+          </View>
+
+        </ScrollView>
+
+      </View>
     );
+  }
 }
 
+// Variable de tamaño de pantalla para estilos
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
