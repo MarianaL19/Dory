@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#F9FFF',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
   },
   titulo: {

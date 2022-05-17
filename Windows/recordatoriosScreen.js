@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity,
-        Dimensions} from 'react-native';
+        Dimensions, FlatList} from 'react-native';
+import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import MenuBar from '../hotBar';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import currentTheme from '../Components/currentTheme';
 import AddRecordatorios from './recordatoriosAddScreen';
 import { NavigationContext } from '@react-navigation/native';
-
-
-
 
 const {width, height} = Dimensions.get('screen');
 
@@ -20,6 +18,7 @@ export default class Recordatorios extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      nombreRecordatorio: 'aaa mi pichula',
     };
   }
 
@@ -27,7 +26,7 @@ export default class Recordatorios extends Component {
     const navigation = this.context;
 
     return (
-      <View style={styles.sectionContainer}>
+      <View>
 
         <View style={styles.nav}>
           <MenuBar/>
@@ -76,37 +75,40 @@ export default class Recordatorios extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.tareas}>
-          <TouchableOpacity
-            style={styles.listingButton}
-          >
-            <Text
-            style={styles.listingText}
-            >
-              Anteriores
-            </Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-          style={styles.listingButton}
-          >
-            <Text
-            style={styles.listingText}
-            >
-              Hoy
-            </Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-          style={styles.listingButton}
-          >
-            <Text
-            style={styles.listingText}
-            >
-              Más tarde
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <Collapse>
+        <CollapseHeader>
+          <Text style={styles.collapseTitle}>Completados</Text>
+        </CollapseHeader>
+        <CollapseBody>
+          <Text> Hola! </Text>
+        </CollapseBody>
+        </Collapse>
+
+        <Collapse>
+        <CollapseHeader>
+          <Text style={styles.collapseTitle}>Omitidos</Text>
+        </CollapseHeader>
+        <CollapseBody>
+          <Text> Hola! </Text>
+        </CollapseBody>
+        </Collapse>
+
+        <Collapse>
+        <CollapseHeader>
+          <Text style={styles.collapseTitle}>Pendientes</Text>
+        </CollapseHeader>
+        <CollapseBody>
+          <FlatList
+              data = {[
+                {key: this.state.nombreRecordatorio},
+                {key: 'Recordatorio 2'},
+                {key: 'Recordatorio 3'},
+              ]}
+              renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.key}</Text></TouchableOpacity>}
+          />
+        </CollapseBody>
+        </Collapse>
+
               {/* Botón para agregar recordatorios */}
       <TouchableOpacity onPress={() => {navigation.navigate("Horario");}} style={styles.addIcon}>
         <Icon name='plus-circle' size={50} color={currentTheme.primary}/>
@@ -122,31 +124,11 @@ const styles = StyleSheet.create({
     width: width,
     height: 60,
   },
-
-  sectionContainer: {
-    //marginTop: 32,
-    //paddingHorizontal: 24,
-  },
-  popUpContainer: {
-    marginTop: 50,
-    marginHorizontal: 50,
-    paddingHorizontal: 24,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: 'black',
-    backgroundColor: "white",
-  },
   filterButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingBottom: 10,
     marginTop: 20,
-  },
-  popUpButton: {
-    alignItems: 'center',
-    backgroundColor: '#0E63F4',
-    borderRadius: 5,
-    padding: 3,
   },
   filterButton: {
     alignItems: 'center',
@@ -155,46 +137,28 @@ const styles = StyleSheet.create({
     width: 80,
     padding: 3,
   },
-  popUpTitle: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: '500',
-    color: 'black',
-    padding: 10,
-  },
-  popUpSubtitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#00456E',
-    padding: 5,
-  },
-  popUpText: {
-    color: "#00456E",
-    fontSize: 14,
-    padding: 5,
-  },
-  popUpTButtonText: {
-    color: "#FAF9F3",
-    fontSize: 18,
-    fontWeight: "600",
-    padding: 5,
-  },
   filterText: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#00456E',
   },
-  listingButton: {
-    padding: 5,
-  },
-  listingText: {
+  collapseTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#00456E',
+    fontWeight: 'bold',
+    color: currentTheme.tertiaryColor,
+    marginHorizontal: 15,
+    paddingBottom: 15,
   },
-
-  tareas:{
-    marginLeft: 24,
-    marginTop: 15,
+  collapseItems: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
+    color: currentTheme.tertiaryColor,
+    backgroundColor: currentTheme.quinaryColor,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: currentTheme.secondaryColor,
+    marginHorizontal: 30,
+    padding: 10,
   },
 });
