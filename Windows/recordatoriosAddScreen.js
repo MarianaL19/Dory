@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Switch, Dimensions, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import currentTheme from '../Components/currentTheme';
 import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
@@ -15,6 +16,7 @@ export default class RecordatoriosAddScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       nombre: '',
       etiqueta: 'null',
       materia: 0,
@@ -26,38 +28,24 @@ export default class RecordatoriosAddScreen extends Component {
       textHora: 'Selecciona la hora de entrega',
       descripcion: '',
       estado: 'pendiente',
-      usuarios: [],
     };
 
   }
 
+  recuperarDatos = async() => {
+    const jsonValue = await AsyncStorage.getItem('dataStorage');
+    var data = JSON.parse(jsonValue);
+
+    this.setState({id: data[0]});
+    console.log(this.state.id);
+  }
+
+  componentDidMount(){
+    this.recuperarDatos();
+  }
+
   render() {
     const navigation = this.context;
-
-    // function RegistrarUsuario() {
-    //   handleonSubmit('fabian');
-    //   // console.log(this.usuarios)
-    // }
-
-    // const handleonSubmit = async (nombre) => {
-    //   const usuario = { id: addUsuario(nombre), nombre: nombre};
-    //   const updateUsuarios = await [...this.usuarios, usuario];
-    //   setTasks(updateUsuarios);
-    //   await AsyncStorage.setItem('usuarios', JSON.stringify(updateUsuarios));
-    // }
-
-    // const addUsuario = (nombreU) => {
-    //   var xhttp = new XMLHttpRequest();
-    //     xhttp.onreadystatechange = function() {
-    //         if (this.readyState == 4 && this.status == 200) {
-                
-    //         }
-    //     };
-    //     xhttp.open("GET", 'https://dory69420.000webhostapp.com/usuarios.php?nombre=' + nombreU, true);
-    //     xhttp.send();
-    //     console.log('RESPUESTA: ' + xhttp.responseText);
-    //     return(xhttp.responseText);
-    // }
 
     const restaurarValores = () => {
       this.setState({nombre: '', etiqueta: 'null', materia: 0, textFecha: 'Selecciona la fecha de entrega',
@@ -91,15 +79,16 @@ export default class RecordatoriosAddScreen extends Component {
 
           }
         };
-        xhttp.open("GET", 'https://dory69420.000webhostapp.com/recordatorios.php?nombre=' + this.state.nombre
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/addRecordatorio.php?nombre=' + this.state.nombre
           + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
-          + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado, true);
+          + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
+          + '&id=' + this.state.id,true);
         xhttp.send();
 
         console.log('nombre: '+ this.state.nombre + '  etiqueta: '+ this.state.etiqueta + '  materia: '+ this.state.materia + '  estado: ' + this.state.estado +
         '  fecha: ' + this.state.textFecha + '  hora: ' + this.state.textHora)
         restaurarValores();
-        // navigation.navigate("Horario");
+        navigation.navigate("Recordatorios");
       }
     }
 
