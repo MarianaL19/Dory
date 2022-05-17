@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
-import { cambioFormato } from '../Components/Date';
 
 import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
@@ -14,12 +13,12 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fecha: new Date(),
-      fechaOpen: false,
-      textFecha: 'Selecciona la hora',
-      hora: new Date(),
-      horaOpen: false,
-      textHora: 'Selecciona la hora de entrega',
+      horaInicio: new Date(),
+      horaInicioOpen: false,
+      textHoraInicio: 'Selecciona la hora',
+      horaFin: new Date(),
+      horaFinOpen: false,
+      textHoraFin: 'Selecciona la hora',
     };
   }
 
@@ -112,16 +111,16 @@ export default class App extends Component {
         <Text style = {styles.subTitle}> Inicio </Text>
 
         <View style={styles.iconContainer}>
-            <TouchableOpacity onPress={() => this.setState({ fechaOpen: true })}>
-              <Text style={styles.input}>{cambioFormato(this.state.textFecha)}</Text>
+            <TouchableOpacity onPress={() => this.setState({ horaInicioOpen: true })}>
+              <Text style={styles.input}>{this.state.textHoraInicio}</Text>
             </TouchableOpacity>
         </View>
 
         <Text style = {styles.subTitle}> Fin </Text>
 
         <View style={styles.iconContainer}>
-            <TouchableOpacity onPress={() => this.setState({ fechaOpen: true })}>
-              <Text style={styles.input}>{cambioFormato(this.state.textFecha)}</Text>
+            <TouchableOpacity onPress={() => this.setState({ horaFinOpen: true })}>
+              <Text style={styles.input}>{this.state.textHoraFin}</Text>
             </TouchableOpacity>
         </View>
 
@@ -173,36 +172,37 @@ export default class App extends Component {
 
         {/* DatePicker */}
 
-        <DatePicker
+          <DatePicker
             modal
-            open={this.state.fechaOpen}
-            date={this.state.fecha}
-            locale={'es'}
+            open={this.state.horaInicioOpen}
+            date={this.state.horaInicio}
             mode={'time'}
+            minuteInterval={10}
             onConfirm={(date) => {
-              this.setState({ fechaOpen: false })
-              this.setState({ fecha: date })
-              this.setState({ textFecha: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() })
+              this.setState({ horaInicioOpen: false })
+              this.setState({ horaInicio: date })
+              this.setState({ textHoraInicio: date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()) })
             }}
             onCancel={() => {
-              this.setState({ fechaOpen: false })
+              this.setState({ horaInicioOpen: false })
             }}
           />
 
           <DatePicker
             modal
-            open={this.state.horaOpen}
-            date={this.state.hora}
+            open={this.state.horaFinOpen}
+            date={this.state.horaFin}
             mode={'time'}
+            minuteInterval={10}
             onConfirm={(date) => {
-              this.setState({ horaOpen: false })
-              this.setState({ hora: date })
-              this.setState({ textHora: date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()) })
+              this.setState({ horaFinOpen: false })
+              this.setState({ horaFin: date })
+              this.setState({ textHoraFin: date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()) })
             }}
             onCancel={() => {
-              this.setState({ horaOpen: false })
+              this.setState({ horaFinOpen: false })
             }}
-          />
+          />  
 
       </ScrollView>
 
