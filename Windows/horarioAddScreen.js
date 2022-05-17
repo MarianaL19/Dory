@@ -14,19 +14,12 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id:"",
-      nombre: '',
-      etiqueta: 'null',
-      materia: 0,
       fecha: new Date(),
       fechaOpen: false,
-      textFecha: 'Selecciona la fecha de entrega',
+      textFecha: 'Selecciona la hora',
       hora: new Date(),
       horaOpen: false,
       textHora: 'Selecciona la hora de entrega',
-      descripcion: '',
-      estado: 'pendiente',
-      usuarios: [],
     };
   }
 
@@ -87,9 +80,7 @@ export default class App extends Component {
         <MenuBar/>
       </View>
 
-
       <ScrollView>
-
         
         <TextInput 
           placeholder = "Nombre de la materia"
@@ -180,41 +171,38 @@ export default class App extends Component {
           onChangeText={(color => this.setState({color}))}
         />
 
-        {/* DatePickers */}
+        {/* DatePicker */}
 
         <DatePicker
-          modal
-          open={this.state.fechaOpen}
-          date={this.state.fecha}
-          locale={'es'}
-          mode={'date'}
-          onConfirm={(date) => {
-            this.setState({ fechaOpen: false })
-            this.setState({ fecha: date })
-            this.setState({ textFecha: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() })
-          }}
-          onCancel={() => {
-            this.setState({ fechaOpen: false })
-          }}
-        />
+            modal
+            open={this.state.fechaOpen}
+            date={this.state.fecha}
+            locale={'es'}
+            mode={'time'}
+            onConfirm={(date) => {
+              this.setState({ fechaOpen: false })
+              this.setState({ fecha: date })
+              this.setState({ textFecha: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() })
+            }}
+            onCancel={() => {
+              this.setState({ fechaOpen: false })
+            }}
+          />
 
-        <DatePicker
-          modal
-          open={this.state.fechaOpen}
-          date={this.state.fecha}
-          locale={'es'}
-          mode={'date'}
-          onConfirm={(date) => {
-            this.setState({ fechaOpen: false })
-            this.setState({ fecha: date })
-            this.setState({ textFecha: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() })
-          }}
-          onCancel={() => {
-            this.setState({ fechaOpen: false })
-          }}
-        />
-
-        
+          <DatePicker
+            modal
+            open={this.state.horaOpen}
+            date={this.state.hora}
+            mode={'time'}
+            onConfirm={(date) => {
+              this.setState({ horaOpen: false })
+              this.setState({ hora: date })
+              this.setState({ textHora: date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()) })
+            }}
+            onCancel={() => {
+              this.setState({ horaOpen: false })
+            }}
+          />
 
       </ScrollView>
 
