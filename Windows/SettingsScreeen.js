@@ -18,6 +18,21 @@ export default class SettingsScreeen extends Component {
         tag: "Button1",
     };
   }
+  
+  Button1Blue = () => {
+    this.setState({tag: "Button1"})
+
+  }
+
+  Button2Pink = () => {
+    this.setState({tag: "Button2"})
+
+  }
+
+  Button3Green = () => {
+    this.setState({tag: "Button3"})
+
+  }
 
   recuperarDatos = async() => {
     const jsonValue = await AsyncStorage.getItem('dataStorage');
@@ -51,29 +66,29 @@ export default class SettingsScreeen extends Component {
         <View style={styles.container}>
             <Text style={styles.TituloUsuario}>¡Hola, {this.state.username}!</Text>
   
-            <View style={{flexDirection:"row", justifyContent: "space-around"}}>
-            {/* Casilla de input para texto (nombre de usuario) */}
-            <TextInput 
-                style={styles.inputTexto}
-                placeholder="nombre de usuario"
-                //onChangeText={(value)=>setNombre(value)}
-                maxLength={20}
-            />
-            <TouchableOpacity style={{
-                alignItems: "center",
-                backgroundColor: "#E7E7E7",
-                width: 42,
-                height: 42,
-                borderRadius: 25,
-                marginTop: 15,}}
-                //onPress={cambiarUsername}
-            >
-                <Text style={{marginTop: 3, fontSize: 25 }}>💽</Text>
-            </TouchableOpacity>
+            <View style={{flexDirection:"row", justifyContent: "space-around", backgroundColor: currentTheme.backgroundColor}}>
+              {/* Casilla de input para texto (nombre de usuario) */}
+              <TextInput 
+                  style={styles.inputTexto}
+                  placeholder="nombre de usuario"
+                  //onChangeText={(value)=>setNombre(value)}
+                  maxLength={20}
+              />
+              <TouchableOpacity style={{
+                  alignItems: "center",
+                  backgroundColor: "#E7E7E7",
+                  width: 42,
+                  height: 42,
+                  borderRadius: 25,
+                  marginTop: 15,}}
+                  //onPress={cambiarUsername}
+              >
+                  <Text style={{marginTop: 3, fontSize: 25 }}>💽</Text>
+              </TouchableOpacity>
             </View>
             {/* La siguiente view es utilizada para crear una linea vertical */}
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{marginTop: 35, flex: 1, height: 1, backgroundColor: currentTheme.quinaryColor}} />
+              <View style={{marginTop: 35, flex: 1, height: 1, backgroundColor: currentTheme.quinaryColor}} />
             </View>
     
             {/* A partir de aqui es el apartado de notificaciones */}
@@ -88,50 +103,47 @@ export default class SettingsScreeen extends Component {
     
             {/* Aqui es la separación de Temas */}
             <View style={styles.Themes}>
-            <Text style={{fontSize: 20, paddingLeft: 50, marginTop: 10, color: currentTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
+              <Text style={{fontSize: 20, paddingLeft: 50, marginTop: 10, color: currentTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
             </View>
         
             {/* Aqui se contendran los temas */}
             <View style={{marginTop: 25, flexDirection:"row", justifyContent: "space-between"}}>
-            
-            {/* Funcionalidad Tema 1  */}
-            <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button1' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={()=>{this.setState({tag: "Button1"})}}>
-                
-            </TouchableOpacity>
-            
-            {/* Funcionalidad Tema 2 */}
-            <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button2' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={()=>{this.setState({tag: "Button2"})}}>
-                
-            </TouchableOpacity>
-    
-            {/* Funcionalidad Tema 3 */}
-            <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button3' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={()=>{this.setState({tag: "Button3"})}}>
-                
-            </TouchableOpacity>
-            
+              
+              {/* Funcionalidad Tema 1  */}
+              <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button1' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={this.Button1Blue}>
+                  
+              </TouchableOpacity>
+              
+              {/* Funcionalidad Tema 2 */}
+              <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button2' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={this.Button2Pink}>
+                  
+              </TouchableOpacity>
+      
+              {/* Funcionalidad Tema 3 */}
+              <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button3' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={this.Button3Green}>
+                  
+              </TouchableOpacity>
+              
             </View>
-    
             {/* Aqui son los botones cerrar y guardar */}
-            <View style={{marginTop: 40, flexDirection: "row", justifyContent: "space-between"}}>
-            
-            {/* Boton Cerrar */}
-            <TouchableOpacity 
-                style={styles.button}
-                onPress={() => navigation.goBack()}
-                >
-                <Text style={{color: "white", marginTop: 8, fontSize: 18}}>CERRAR</Text>
-            </TouchableOpacity>
-            
-            {/* Boton Guardar */}
-            <TouchableOpacity 
-                style={styles.button}
-                //onPress={GUARDAR}
-                >
-                <Text style={{color: "white", marginTop: 8, fontSize: 18}}>GUARDAR</Text>
-            </TouchableOpacity>
-  
+            <View style={{marginBottom: 100, marginTop: 100, flexDirection: "row", justifyContent: "space-between", backgroundColor: currentTheme.backgroundColor}}>
+              {/* Boton Cerrar */}
+              <TouchableOpacity 
+                  style={styles.button}
+                  onPress={() => navigation.goBack()}
+                  >
+                  <Text style={{color: "white", marginTop: 8, fontSize: 18}}>CERRAR</Text>
+              </TouchableOpacity>
+              
+              {/* Boton Guardar */}
+              <TouchableOpacity 
+                  style={styles.button}
+                  //onPress={GUARDAR}
+                  >
+                  <Text style={{color: "white", marginTop: 8, fontSize: 18}}>GUARDAR</Text>
+              </TouchableOpacity>
+            </View>
         </View>
-      </View>
     );
   }
 }
@@ -140,6 +152,7 @@ const styles = StyleSheet.create({
     container: {
       marginTop: 0,
       alignItems: "center",
+      backgroundColor: currentTheme.backgroundColor,
     },
   
     TituloUsuario: {
@@ -172,7 +185,7 @@ const styles = StyleSheet.create({
       height: 50,
       width: width,
       marginTop: 35,
-      backgroundColor: "white",
+      backgroundColor: currentTheme.backgroundColor,
       shadowOpacity: 0.5,
       shadowRadius: 25,
       elevation: 12,

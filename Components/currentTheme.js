@@ -1,9 +1,10 @@
 
 import React, { Component, useState } from 'react';
 import { blueTheme, pinkTheme, greenTheme } from "./themes";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 var currentTheme;
-var themeID = "1";
+var themeID = "2";
 
 if (themeID == "1") {
     currentTheme = blueTheme;
