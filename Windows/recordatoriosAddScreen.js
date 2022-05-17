@@ -6,6 +6,7 @@ import currentTheme from '../Components/currentTheme';
 import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
 import { NavigationContext } from '@react-navigation/native';
+import { parseSync } from '@babel/core';
 
 
 const { width, height } = Dimensions.get('screen');
@@ -28,6 +29,9 @@ export default class RecordatoriosAddScreen extends Component {
       textHora: 'Selecciona la hora de entrega',
       descripcion: '',
       estado: 'pendiente',
+      notificacion24: false,
+      notificacion12: false,
+      idTemporalRecordatorio: 0,
     };
 
   }
@@ -52,6 +56,24 @@ export default class RecordatoriosAddScreen extends Component {
       textHora: 'Selecciona la hora de entrega',descripcion: ''})
     }
 
+    
+    //Función para enviar notificaciones, aún no la hago, necesito recuperar el puto ID
+    const notificaciones = () => {
+      var xhttp2 = new XMLHttpRequest();
+
+        xhttp2.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+
+          }
+        };
+        xhttp2.open("GET", 'https://dory69420.000webhostapp.com/addRecordatorio.php?nombre=' + this.state.nombre
+          + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
+          + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
+          + '&id=' + this.state.id,true);
+        xhttp2.send();
+    }
+
+
     const registro = () => {
       let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
 
@@ -70,20 +92,32 @@ export default class RecordatoriosAddScreen extends Component {
               text:"ok", onPress: ()=> console.log("Nombre Invalido")
           }
         ]);
-      }
-
-      else{
+      }else if(this.state.fecha < new Date()){
+        Alert.alert("Error", "Fecha Inválida", [
+          {
+              text:"ok", onPress: ()=> console.log("Fecha Invalida")
+          }
+        ]);
+      }else{
         var xhttp = new XMLHttpRequest();
+        let _this = this;       // Esto es para usar 'this' dentro de la función
+
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
+             let idTemporal = parseInt(xhttp.responseText);
+             _this.setState({idTemporalRecordatorio: idTemporal});
 
+             console.log(_this.state.idTemporalRecordatorio);
+             console.log(idTemporal);
           }
         };
+
         xhttp.open("GET", 'https://dory69420.000webhostapp.com/addRecordatorio.php?nombre=' + this.state.nombre
           + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
           + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
           + '&id=' + this.state.id,true);
         xhttp.send();
+      
 
         console.log('nombre: '+ this.state.nombre + '  etiqueta: '+ this.state.etiqueta + '  materia: '+ this.state.materia + '  estado: ' + this.state.estado +
         '  fecha: ' + this.state.textFecha + '  hora: ' + this.state.textHora)
@@ -181,7 +215,10 @@ export default class RecordatoriosAddScreen extends Component {
 
           <View style={styles.opcRecordatorioContainer}>
             <Text style={[styles.recordatoriosText, { color: currentTheme.tertiaryColor }]}>24 horas antes</Text>
-            <Switch trackColor={{ false: "grey", true: "grey" }} />
+            <Switch
+            value={this.state.notificacion24}
+            onValueChange={(value) => this.setState({notificacion24: value})}
+            trackColor={{ false: "grey", true: "grey" }} />
           </View>
 
           <View style={styles.opcRecordatorioContainer}>
