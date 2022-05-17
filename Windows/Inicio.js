@@ -10,8 +10,20 @@ export default class Inicio extends Component {
     super(props);
     this.state = {
       nombre:"",
-      id:""
+      id:"",
     };
+  }
+
+  recuperarDatos = async() => {
+    const jsonValue = await AsyncStorage.getItem('dataStorage');
+    var data = JSON.parse(jsonValue);
+
+    this.setState({id: data[0]});
+    console.log(this.state.id);
+  }
+
+  componentDidMount(){
+    this.recuperarDatos();
   }
 
   render() {

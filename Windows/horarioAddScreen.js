@@ -1,8 +1,9 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions, Alert} from 'react-native';
-import currentTheme from '../Components/currentTheme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
 
 const {width, height} = Dimensions.get('screen');
@@ -11,7 +12,20 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id:"",
     };
+  }
+
+  recuperarDatos = async() => {
+    const jsonValue = await AsyncStorage.getItem('dataStorage');
+    var data = JSON.parse(jsonValue);
+
+    this.setState({id: data[0]});
+    //console.log(this.state.id);
+  }
+
+  componentDidMount(){
+    this.recuperarDatos();
   }
 
   render() {
