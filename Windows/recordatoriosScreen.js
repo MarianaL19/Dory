@@ -18,41 +18,54 @@ export default class Recordatorios extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //listaRecordatorios: [],
-      nombreRecordatorio: '',
-      etiquetaRecordatorio: '',
-      materiaRecordatorio: '',
-      estadoRecordatorio: '',
-      fechaRecordatorio: '',
-      horaRecordatorio: '',
-      decripcionRecordatorio: '',
+      listaRecordatorios: [],
     };
   }
 
   recuperarDatos = () => {
     var xhttp = new XMLHttpRequest();
-    let _this = this;       // Esto es para usar 'this' dentro de la función 
+    let _this = this;       // Esto es para usar 'this' dentro de la función
+
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+          let nombreRecordatorio = '';
+          let etiquetaRecordatorio = '';
+          let materiaRecordatorio = '';
+          let estadoRecordatorio = '';
+          let fechaRecordatorio = '';
+          let horaRecordatorio = '';
+          let descripcionRecordatorio = '';
+          let idRecordatorio = -1;
+
           var recordatorio = xhttp.responseText;
           
-          var registros = recordatorio.split('¨');
-          
-          var datos = recordatorio.split('¬');
-          _this.setState({nombreRecordatorio : datos[0]});
-          _this.setState({etiquetaRecordatorio : datos[1]});
-          _this.setState({materiaRecordatorio : datos[2]});
-          _this.setState({estadoRecordatorio : datos[3]});
-          _this.setState({fechaRecordatorio : datos[4]});
-          _this.setState({horaRecordatorio : datos[5]});
-          _this.setState({descripcionRecordatorio : datos[6]});
+          var registros = recordatorio.split('|');
 
-          //objetoRecordatorio = {nombreRecordatorio, etiquetaRecordatorio, materiaRecordatorio};
-          //const nuevoArreglo = [...listaRecordatorios, objetoRecordatorio];
-          //_this.setState({listaRecordatorios : nuevoArreglo});
+          var numeroRegistros = registros[0];
 
-          //console.log(listaRecordatorios);
+          for (let i=1; i<=numeroRegistros; i++){
+            var datos = registros[i].split('¬');
+            console.log('datos: ' + datos[0]);
+            nombreRecordatorio = datos[0];
+            etiquetaRecordatorio = datos[1];
+            materiaRecordatorio = datos[2];
+            estadoRecordatorio = datos[3];
+            fechaRecordatorio = datos[4];
+            horaRecordatorio = datos[5];
+            descripcionRecordatorio = datos[6];
+            idRecordatorio = datos[7];
 
+            const objetoRecordatorio =
+            {nombre: nombreRecordatorio, etiqueta: etiquetaRecordatorio,
+             materia: materiaRecordatorio, estado: estadoRecordatorio,
+             fecha: fechaRecordatorio, hora: horaRecordatorio,
+             descripcion: descripcionRecordatorio, id: idRecordatorio};
+
+            const nuevoArreglo = [..._this.state.listaRecordatorios, objetoRecordatorio];
+            _this.setState({listaRecordatorios: nuevoArreglo});
+            console.log(objetoRecordatorio);
+          }
+          console.log(_this.state.listaRecordatorios);
         }
     };
     xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php'
@@ -150,7 +163,7 @@ export default class Recordatorios extends Component {
         </Collapse>
 
               {/* Botón para agregar recordatorios */}
-      <TouchableOpacity onPress={() => {navigation.navigate("Horario");}} style={styles.addIcon}>
+      <TouchableOpacity onPress={() => {navigation.navigate("AddRecordatorio");}} style={styles.addIcon}>
         <Icon name='plus-circle' size={50} color={currentTheme.primaryColor}/>
       </TouchableOpacity>
 
