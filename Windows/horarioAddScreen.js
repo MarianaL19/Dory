@@ -60,12 +60,10 @@ export default class App extends Component {
 
     return (
       <View style = {styles.container}>
-      <ScrollView>
-
         <View style={styles.nav}>
           <MenuBar/>
         </View>
-
+      <ScrollView>
         <TextInput 
           placeholder = "Nombre de la materia"
           style = {styles.input}
