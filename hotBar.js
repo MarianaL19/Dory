@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { createIconSetFromFontello } from 'react-native-vector-icons';
 import fontelloConfig from './config.json';
+import { NavigationContext } from '@react-navigation/native';
+
 import colores from './Components/currentTheme';
 
 const Icon2 = createIconSetFromFontello(fontelloConfig);
@@ -11,7 +13,8 @@ const Icon2 = createIconSetFromFontello(fontelloConfig);
 const {width, height} = Dimensions.get('screen');
 
 export default function MenuBar() {
-  
+
+  const navigation = React.useContext(NavigationContext);
 
     return(
         <View style={styles.menu}>
@@ -32,12 +35,13 @@ export default function MenuBar() {
 
                 {/* Botón Ajustes */}
             <View style={styles.menuTres}>
-                <Icon    
+              <Icon    
                 name='cog'
                 //onPress={moverse}
                 color={colores.quaternaryColor}
                 size={35}
-                />
+                onPress={() => navigation.push('Conf')}
+              />
             </View>
         </View>
     )
