@@ -2,6 +2,8 @@ import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DatePicker from 'react-native-date-picker';
+import { cambioFormato } from '../Components/Date';
 
 import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
@@ -13,6 +15,18 @@ export default class App extends Component {
     super(props);
     this.state = {
       id:"",
+      nombre: '',
+      etiqueta: 'null',
+      materia: 0,
+      fecha: new Date(),
+      fechaOpen: false,
+      textFecha: 'Selecciona la fecha de entrega',
+      hora: new Date(),
+      horaOpen: false,
+      textHora: 'Selecciona la hora de entrega',
+      descripcion: '',
+      estado: 'pendiente',
+      usuarios: [],
     };
   }
 
@@ -32,11 +46,19 @@ export default class App extends Component {
 
     const registro = () => {
 
-      if(this.state.nombre == "" || this.state.profesor == "" || this.state.aula == "" || 
-      this.state.nrc == "" || this.state.color == ""){
-        Alert.alert("Campos Vacios", "Es necesario que llenes todos los campos", [
+      let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
+
+      if(this.state.nombre == ""){
+        Alert.alert("Campos Vacios", "Es necesario llenar todos los campos obligatorios", [
           {
-            text:"ok", onPress: ()=> console.log("Campos Vacios")
+              text:"ok", onPress: ()=> console.log("Campos Vacios")
+          }
+        ]);
+
+      } else if(!regex.test(this.state.nombre)){
+        Alert.alert("Error", "Nombre de materia invalido", [
+          {
+              text:"ok", onPress: ()=> console.log("Nombre invalido")
           }
         ]);
 
@@ -60,17 +82,21 @@ export default class App extends Component {
 
     return (
       <View style = {styles.container}>
+
+      <View style={styles.nav}>
+        <MenuBar/>
+      </View>
+
+
       <ScrollView>
 
-        <View style={styles.nav}>
-          <MenuBar/>
-        </View>
-
+        
         <TextInput 
           placeholder = "Nombre de la materia"
           style = {styles.input}
           clearTextOnFocus={true}
           onChangeText={(nombre => this.setState({nombre}))}
+          maxLength={60}
         />
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -93,16 +119,20 @@ export default class App extends Component {
         {/* Sección para agregar las horas de inicio y fin */}
 
         <Text style = {styles.subTitle}> Inicio </Text>
-        <TextInput 
-          placeholder = "Selecciona hora de inicio"
-          style = {styles.input}
-        />
+
+        <View style={styles.iconContainer}>
+            <TouchableOpacity onPress={() => this.setState({ fechaOpen: true })}>
+              <Text style={styles.input}>{cambioFormato(this.state.textFecha)}</Text>
+            </TouchableOpacity>
+        </View>
 
         <Text style = {styles.subTitle}> Fin </Text>
-        <TextInput 
-        placeholder = "Selecciona hora de fin"
-        style = {styles.input}
-        />
+
+        <View style={styles.iconContainer}>
+            <TouchableOpacity onPress={() => this.setState({ fechaOpen: true })}>
+              <Text style={styles.input}>{cambioFormato(this.state.textFecha)}</Text>
+            </TouchableOpacity>
+        </View>
 
       {/* Sección para la información general de la materia */}
 
@@ -123,10 +153,11 @@ export default class App extends Component {
           style = {styles.input}
           clearTextOnFocus={true}
           onChangeText={(profesor => this.setState({profesor}))}
+          maxLength={70}
         />
 
         <TextInput 
-          placeholder = "Aula (Max. 5 Carácteres)"
+          placeholder = "Aula"
           style = {styles.input}
           clearTextOnFocus={true}
           onChangeText={(aula => this.setState({aula}))}
@@ -134,11 +165,12 @@ export default class App extends Component {
         />
 
         <TextInput 
-          placeholder = "NRC (Max. 6 Carácteres)"
+          placeholder = "NRC"
           style = {styles.input}
           clearTextOnFocus={true}
           onChangeText={(nrc => this.setState({nrc}))}
           maxLength={6}
+          keyboardType='number-pad'
         />
 
         <TextInput 
@@ -147,6 +179,42 @@ export default class App extends Component {
           clearTextOnFocus={true}
           onChangeText={(color => this.setState({color}))}
         />
+
+        {/* DatePickers */}
+
+        <DatePicker
+          modal
+          open={this.state.fechaOpen}
+          date={this.state.fecha}
+          locale={'es'}
+          mode={'date'}
+          onConfirm={(date) => {
+            this.setState({ fechaOpen: false })
+            this.setState({ fecha: date })
+            this.setState({ textFecha: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() })
+          }}
+          onCancel={() => {
+            this.setState({ fechaOpen: false })
+          }}
+        />
+
+        <DatePicker
+          modal
+          open={this.state.fechaOpen}
+          date={this.state.fecha}
+          locale={'es'}
+          mode={'date'}
+          onConfirm={(date) => {
+            this.setState({ fechaOpen: false })
+            this.setState({ fecha: date })
+            this.setState({ textFecha: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() })
+          }}
+          onCancel={() => {
+            this.setState({ fechaOpen: false })
+          }}
+        />
+
+        
 
       </ScrollView>
 
@@ -176,11 +244,11 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#F9FFF',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
   },
   containerTitulo: {
-    backgroundColor: '#F9FFF',
+    backgroundColor: '#FFFFFF',
     textAlign: 'left',
     paddingLeft: 50,
   },
@@ -195,6 +263,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingLeft: 30,
     flexDirection: 'row',
+    marginBottom: 10,
   },
   input: {
     fontSize: 15,
