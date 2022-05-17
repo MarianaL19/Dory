@@ -17,19 +17,20 @@ export default class AgendaAddContact extends Component {
   }
 
   render() {
-    // Expresion regular para nombres
-    let exregNom = new RegExp("^[a-zA-Z ]+$");
-    // Expresion regular para numeros telefonicos
-    let exregTelefono = new RegExp("^([0-9]{10})$");
-    // Expresion regular para correos
-    let exregCorreo = new RegExp("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
-
     // Funcion para registro de informacion
     const registro = () => {
+
+      // Expresion regular para nombres
+      let exregNom = new RegExp("^[a-zA-Z ]+$");
+      // Expresion regular para numeros telefonicos
+      let exregTelefono = new RegExp("^([0-9]{10})$");
+      // Expresion regular para correos
+      let exregCorreo = new RegExp("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+
       //Aqui van las validaciones
       //Validacion de espacio vacio
       if(this.state.nombre == "" || this.state.telefono == "" || this.state.correo == "" || this.state.etiqueta == ""){
-          Alert.alert("Hay ampos vacios, necesita llenar todos los campos", [
+          Alert.alert("Hay campos vacios", "Necesita llenar todos los campos", [
             {
               text: "OK", onPress: () => console.log("Campos Vacios")
             }
