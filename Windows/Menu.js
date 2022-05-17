@@ -9,7 +9,7 @@ import colores from '../Components/currentTheme';
 {/*Importamos la ventana dentro de la variable*/}
 //import HOME from './Home.js';
 import {InicioMenu} from './Navegar'
-import Recordatorios from './recordatoriosAddScreen';
+import Recordatorios from './recordatoriosScreen';
 import Agenda from './agendaAddContact';
 import Horario from './horarioAddScreen';
 

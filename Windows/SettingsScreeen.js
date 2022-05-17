@@ -15,6 +15,7 @@ export default class SettingsScreeen extends Component {
     this.state = {
         username: "",
         id: "",
+        tag: "Button1",
     };
   }
 
@@ -93,30 +94,21 @@ export default class SettingsScreeen extends Component {
             {/* Aqui se contendran los temas */}
             <View style={{marginTop: 25, flexDirection:"row", justifyContent: "space-between"}}>
             
-            {/* Funcionalidad Tema 1 */}
-            {/* <TouchableOpacity style={[styles.buttonTheme, tag == 'Button1' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema1}>
-                <Image 
-                style={{marginTop: 30, width: 70, height: 40}}
-                source = {require("../imagenes/doryBlue.png")}>
-                </Image>
-            </TouchableOpacity>  */}
-    
+            {/* Funcionalidad Tema 1  */}
+            <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button1' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={()=>{this.setState({tag: "Button1"})}}>
+                
+            </TouchableOpacity>
+            
             {/* Funcionalidad Tema 2 */}
-            {/* <TouchableOpacity style={[styles.buttonTheme, tag == 'Button2' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema2}>
-                <Image 
-                style={{marginTop: 30, width: 70, height: 40}}
-                source = {require("../imagenes/doryPink.png")}> 
-                </Image>
-            </TouchableOpacity> */}
+            <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button2' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={()=>{this.setState({tag: "Button2"})}}>
+                
+            </TouchableOpacity>
     
             {/* Funcionalidad Tema 3 */}
-            {/* <TouchableOpacity style={[styles.buttonTheme, tag == 'Button3' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={Tema3}>
-                <Image 
-                    style={{marginTop: 30, width: 70, height: 40}}
-                    source = {require("../imagenes/doryGreen.png")}>
-                </Image> 
-            </TouchableOpacity> */}
-    
+            <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button3' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={()=>{this.setState({tag: "Button3"})}}>
+                
+            </TouchableOpacity>
+            
             </View>
     
             {/* Aqui son los botones cerrar y guardar */}
@@ -139,8 +131,6 @@ export default class SettingsScreeen extends Component {
             </TouchableOpacity>
   
         </View>
-        
-  
       </View>
     );
   }
