@@ -17,9 +17,14 @@ export default class Inicio extends Component {
   recuperarDatos = async() => {
     const jsonValue = await AsyncStorage.getItem('dataStorage');
     var data = JSON.parse(jsonValue);
+    var menu = "Menu";
 
     this.setState({id: data[0]});
     console.log(this.state.id);
+    if(this.state.id != 0){
+      console.log("Hola");
+      AsyncStorage.setItem('dataStorage2', JSON.stringify([menu]));
+    }
   }
 
   componentDidMount(){
