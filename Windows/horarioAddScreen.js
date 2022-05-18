@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import SelectDropdown from 'react-native-select-dropdown'
 
 import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
@@ -20,6 +21,7 @@ export default class App extends Component {
       horaFin: new Date(),
       horaFinOpen: false,
       textHoraFin: 'Selecciona la hora',
+      dia: '',
     };
   }
 
@@ -36,6 +38,8 @@ export default class App extends Component {
   }
 
   render() {
+
+    const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
 
     const registro = () => {
 
@@ -70,6 +74,9 @@ export default class App extends Component {
         xhttp.send();
 
       }
+
+      console.log('  horaInicio: ' + this.state.textHoraInicio + ' horaFin: ' + this.state.textHoraFin)
+      console.log('Dia: ' + this.setState.dia)
       
     }
 
@@ -108,10 +115,28 @@ export default class App extends Component {
       <View style={styles.iconContainer}>
        <Icon name='calendar-month' size={30} color={'#C2C2C2'}/>
 
-        <TextInput 
-        placeholder = "Selecciona el día"
-        style = {styles.input}
-        />
+       {/* Selector */}
+
+       <SelectDropdown
+        data={dias}
+        defaultButtonText={'Selecciona el día'}
+        buttonStyle={styles.selector}
+        buttonTextStyle={styles.selectorTexto}
+        dropdownBackgroundColor = {'#FFFFFF'}
+        onSelect={(selectedItem, index) => {
+          console.log(selectedItem, index)
+          {(dia => this.setState({dia}))}
+        }}
+
+        buttonTextAfterSelection={(selectedItem, index) => {
+          return selectedItem
+        }}
+
+        rowTextForSelection={(item, index) => {
+          return item
+
+        }}
+      />
       </View>
 
         {/* Sección para agregar las horas de inicio y fin */}
@@ -189,12 +214,12 @@ export default class App extends Component {
         />
       </View>
 
-        <TextInput 
-          placeholder = "Color"
-          style = {styles.input}
-          clearTextOnFocus={true}
-          onChangeText={(color => this.setState({color}))}
-        />
+      <TextInput 
+        placeholder = "Color"
+        style = {styles.input}
+        clearTextOnFocus={true}
+        onChangeText={(color => this.setState({color}))}
+      />
 
         {/* DatePicker */}
 
@@ -228,7 +253,7 @@ export default class App extends Component {
             onCancel={() => {
               this.setState({ horaFinOpen: false })
             }}
-          />  
+          /> 
 
       </ScrollView>
 
@@ -255,11 +280,20 @@ const styles = StyleSheet.create({
     width: width,
     height: 60,
   },
-
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
+  },
+  selector: {
+    backgroundColor: '#FFFFFF'
+  },
+  selectorTexto: {
+      fontSize: 15,
+      paddingRight: 50,
+      flexDirection: 'row',
+      color: '#A9A9A9',
+      textAlign: 'left',
   },
   containerTitulo: {
     backgroundColor: '#FFFFFF',
