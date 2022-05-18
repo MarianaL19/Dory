@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity,
-        Dimensions, FlatList} from 'react-native';
+        Dimensions, FlatList, ScrollView} from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import MenuBar from '../hotBar';
@@ -86,7 +86,7 @@ export default class Recordatorios extends Component {
         <View style={styles.nav}>
           <MenuBar/>
         </View>
-        
+
         <View style={styles.filterButtonContainer}>
           
           <TouchableOpacity
@@ -130,6 +130,8 @@ export default class Recordatorios extends Component {
           </TouchableOpacity>
         </View>
 
+        <ScrollView>
+
         <Collapse>
         <CollapseHeader>
           <Text style={styles.collapseTitle}>Completados</Text>
@@ -154,13 +156,13 @@ export default class Recordatorios extends Component {
         </CollapseHeader>
         <CollapseBody>
           <FlatList
-              data = {[
-                {key: this.state.descripcionRecordatorio},
-              ]}
-              renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.key}</Text></TouchableOpacity>}
+              data = {this.state.listaRecordatorios}
+              renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
           />
         </CollapseBody>
         </Collapse>
+
+      </ScrollView>
 
               {/* Botón para agregar recordatorios */}
       <TouchableOpacity onPress={() => {navigation.navigate("AddRecordatorio");}} style={styles.addIcon}>
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     alignItems: 'center',
-    backgroundColor: '#C2E6FF',
+    backgroundColor: currentTheme.quinaryColor,
     borderRadius: 5,
     width: 80,
     padding: 3,
@@ -193,7 +195,7 @@ const styles = StyleSheet.create({
   filterText: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#00456E',
+    color: currentTheme.tertiaryColor,
   },
   collapseTitle: {
     fontSize: 18,
