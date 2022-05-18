@@ -20,18 +20,20 @@ export default class SettingsScreeen extends Component {
   }
   
   Button1Blue = () => {
-    this.setState({tag: "Button1"})
+    this.setState({tag: "Button1"});
+    AsyncStorage.setItem('Theme', JSON.stringify(["1"]));
 
   }
 
   Button2Pink = () => {
-    this.setState({tag: "Button2"})
+    this.setState({tag: "Button2"});
+    AsyncStorage.setItem('Theme', JSON.stringify(["2"]));
 
   }
 
   Button3Green = () => {
-    this.setState({tag: "Button3"})
-
+    this.setState({tag: "Button3"});
+    AsyncStorage.setItem('Theme', JSON.stringify(["3"]));
   }
 
   recuperarDatos = async() => {

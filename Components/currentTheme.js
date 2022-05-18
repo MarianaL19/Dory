@@ -3,8 +3,25 @@ import React, { Component, useState } from 'react';
 import { blueTheme, pinkTheme, greenTheme } from "./themes";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const recuperarTema = async() => {
+    const jsonValue = await AsyncStorage.getItem('Theme');
+    var data = JSON.parse(jsonValue);
+
+    var ID = data[0];
+    console.log(ID);
+    return ID;
+  }
+
 var currentTheme;
+//var themeID = JSON.stringify(recuperarTema());
+
 var themeID = "2";
+
+const validar = () => {
+    console.log(themeID);
+}
+
+validar();
 
 if (themeID == "1") {
     currentTheme = blueTheme;
