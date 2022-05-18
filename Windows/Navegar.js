@@ -8,6 +8,7 @@ import Inicio from './Inicio'
 import AddRecordatorio from './recordatoriosAddScreen'
 import Menu from './Menu'
 import Settings from './SettingsScreeen';
+import Calendario from './calendarioScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,9 +36,10 @@ const InicioMenu = () => {
     }, []);
 
     return (
-      <Stack.Navigator screenOptions={{headerShown: false}}
-        initialRouteName={input}
-      >
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        
+        {/* <Stack.Screen name="Calendario"
+        component={Calendario}/> */}
 
         <Stack.Screen name="Inicio"
         component={Inicio}/>
