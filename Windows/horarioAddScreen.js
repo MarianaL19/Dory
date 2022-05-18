@@ -21,7 +21,7 @@ export default class App extends Component {
       horaFin: new Date(),
       horaFinOpen: false,
       textHoraFin: 'Selecciona la hora',
-      dia: '',
+      dia: 0,
     };
   }
 
@@ -30,7 +30,7 @@ export default class App extends Component {
     var data = JSON.parse(jsonValue);
 
     this.setState({id: data[0]});
-    //console.log(this.state.id);
+    console.log(this.state.id);
   }
 
   componentDidMount(){
@@ -39,9 +39,14 @@ export default class App extends Component {
 
   render() {
 
-    const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+    const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
 
-    const registro = () => {
+    const registroMaximo = () => {
+      registroMateria;
+      registroHorario;
+    }
+
+    const registroMateria = () => {
 
       let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
 
@@ -53,7 +58,7 @@ export default class App extends Component {
         ]);
 
       } else if(!regex.test(this.state.nombre)){
-        Alert.alert("Error", "Nombre de materia invalido", [
+         Alert.alert("Error", "Nombre de materia invalido", [
           {
               text:"ok", onPress: ()=> console.log("Nombre invalido")
           }
@@ -71,15 +76,32 @@ export default class App extends Component {
         xhttp.open("GET", 'https://dory69420.000webhostapp.com/materias.php?nombre=' + this.state.nombre + 
         '&profesor=' + this.state.profesor + '&aula=' + this.state.aula + '&nrc=' + this.state.nrc + 
         '&color=' + this.state.color, true);
+
         xhttp.send();
 
       }
 
-      console.log('  horaInicio: ' + this.state.textHoraInicio + ' horaFin: ' + this.state.textHoraFin)
-      console.log('Dia: ' + this.setState.dia)
-      
     }
 
+    const registroHorario = () => {
+
+      let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
+  
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+                  
+          }
+          
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/horario.php?dia=' + this.state.dia + 
+        '&hora_inicio=' + this.state.textHoraInicio + '&hora_fin=' + this.state.textHoraFin, true);
+  
+        xhttp.send();
+  
+      }
+  
+    }
+    
     return (
       <View style = {styles.container}>
 
@@ -100,20 +122,17 @@ export default class App extends Component {
           />
       </View> 
 
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginBottom:5.5 ,marginTop: 6, flex: 2, height: 1, backgroundColor: currentTheme.primaryColor}} />
-      </View>
+      {/* Linea divisoria 1 */}
+      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width}}/>
 
       <View style = {styles.containerTitulo}>
         <Text style = {[styles.titulo,{color: currentTheme.quaternaryColor}]}> Horario </Text>
       </View>
 
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 6, flex: 2, height: 1, backgroundColor: currentTheme.primaryColor}} />
-      </View>
+      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width}}/>
 
       <View style={styles.iconContainer}>
-       <Icon name='calendar-month' size={30} color={'#C2C2C2'}/>
+       <Icon name='calendar-blank-outline' size={30} color={'#C2C2C2'}/>
 
        {/* Selector */}
 
@@ -124,8 +143,8 @@ export default class App extends Component {
         buttonTextStyle={styles.selectorTexto}
         dropdownBackgroundColor = {'#FFFFFF'}
         onSelect={(selectedItem, index) => {
+          this.setState({ dia: index })
           console.log(selectedItem, index)
-          {(dia => this.setState({dia}))}
         }}
 
         buttonTextAfterSelection={(selectedItem, index) => {
@@ -134,9 +153,9 @@ export default class App extends Component {
 
         rowTextForSelection={(item, index) => {
           return item
-
         }}
       />
+
       </View>
 
         {/* Sección para agregar las horas de inicio y fin */}
@@ -166,17 +185,14 @@ export default class App extends Component {
 
       {/* Sección para la información general de la materia */}
 
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginBottom:5.5 ,marginTop: 6, flex: 2, height: 1, backgroundColor: currentTheme.primaryColor}} />
-      </View>
+      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width}}/>
+
 
         <View style = {styles.containerTitulo}>
           <Text style = {[styles.titulo,{color: currentTheme.quaternaryColor}]}> Información </Text>
         </View>
 
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 6, flex: 2, height: 1, backgroundColor: currentTheme.primaryColor}} />
-      </View>
+        <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width}}/>
 
 
       <View style={styles.iconContainer}>
@@ -255,19 +271,17 @@ export default class App extends Component {
             }}
           /> 
 
-      </ScrollView>
-
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginBottom:20 ,marginTop: 6, flex: 2, height: .5, backgroundColor: currentTheme.primaryColor}} />
-      </View>
+      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width, marginBottom: 10}}/>
 
       <View style = {{alignItems: 'center'}}>
-      <TouchableOpacity style = {[styles.boton, {backgroundColor: currentTheme.primaryColor}]} 
-        onPress={registro}
-      > 
+        <TouchableOpacity style = {[styles.boton, {backgroundColor: currentTheme.primaryColor}]} 
+          onPress={registroMaximo}
+        > 
           <Text style = {styles.textoBoton}> AÑADIR </Text>
         </TouchableOpacity>
       </View>
+
+      </ScrollView>
 
       </View>
       

@@ -131,12 +131,12 @@ export default class RecordatoriosAddScreen extends Component {
         <ScrollView>
           <Text style={[styles.title, { color: currentTheme.quaternaryColor }]}>Nuevo recordatorio</Text>
 
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
 
           <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs, { marginVertical: 5, paddingHorizontal: 10 }]}
             onChangeText={(value) => this.setState({ nombre: value })} value={this.state.nombre} maxLength={100}/>
 
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
 
           {/* ~~~~~~~~ Etiquetas de tipo de recordatorio ~~~~~~~~ */}
           <Text style={[styles.subtitle, { color: currentTheme.tertiaryColor }]}>Tipo de recordatorio</Text>
@@ -158,7 +158,7 @@ export default class RecordatoriosAddScreen extends Component {
             </TouchableOpacity>
           </View>
 
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
 
 
           {/* ~~~~~~~~ Materia ~~~~~~~~ */}
@@ -166,11 +166,11 @@ export default class RecordatoriosAddScreen extends Component {
           {this.state.etiqueta != 'otro' ? (
             <>
               <View style={styles.iconContainer}>
-                <Icon name='book-open-page-variant' size={25} color='#A9A9A9' />
+                <Icon name='notebook' size={25} color='#A9A9A9' />
                 <TextInput placeholder="Materia" keyboardType="default" style={styles.inputs}
                   onChangeText={(value) => this.setState({ materia: value })} />
               </View>
-              <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+              <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
             </>
           ) : null}
 
@@ -191,7 +191,7 @@ export default class RecordatoriosAddScreen extends Component {
             </TouchableOpacity>
           </View>
 
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
 
           {/* ~~~~~~~~ Descripción ~~~~~~~~ */}
 
@@ -200,7 +200,7 @@ export default class RecordatoriosAddScreen extends Component {
             <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs, { width: width * 0.8 }]}
               onChangeText={(value) => this.setState({ descripcion: value })} value={this.state.descripcion} maxLength={280}/>
           </View>
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 1, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
 
 
           {/* ~~~~~~~~ Notificar recordatorio ~~~~~~~~ */}
