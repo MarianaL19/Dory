@@ -13,7 +13,7 @@ import Calendario from './calendarioScreen';
 const Stack = createNativeStackNavigator();
 
 const InicioMenu = () => {
-    const [input, setInput] = useState('');
+    const [input, setInput] = useState(false);
 
     const readData = async () => {
       try {
@@ -22,7 +22,7 @@ const InicioMenu = () => {
         if (value !== null) {
           //console.log(value);
           if(value == '["Menu"]'){
-            setInput('Menu');
+            setInput(true);
             //console.log(input);
           }
         }
@@ -35,26 +35,48 @@ const InicioMenu = () => {
       readData();
     }, []);
 
-    return (
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        
-        {/* <Stack.Screen name="Calendario"
-        component={Calendario}/> */}
-
-        <Stack.Screen name="Inicio"
-        component={Inicio}/>
+    if(input){
+      return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          
+          {/* <Stack.Screen name="Calendario"
+          component={Calendario}/> */}
   
-        <Stack.Screen name="Menu"
-        component={Menu}/>
-
-        <Stack.Screen name="Conf"
-        component={Settings}/>
-
-        <Stack.Screen name="AddRecordatorio"
-        component={AddRecordatorio}/>
+    
+          <Stack.Screen name="Menu"
+          component={Menu}/>
   
-      </Stack.Navigator>
-    )
+          <Stack.Screen name="Conf"
+          component={Settings}/>
+  
+          <Stack.Screen name="AddRecordatorio"
+          component={AddRecordatorio}/>
+    
+        </Stack.Navigator>
+      );
+    }
+    else{
+      return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          
+          {/* <Stack.Screen name="Calendario"
+          component={Calendario}/> */}
+  
+          <Stack.Screen name="Inicio"
+          component={Inicio}/>
+    
+          <Stack.Screen name="Menu"
+          component={Menu}/>
+  
+          <Stack.Screen name="Conf"
+          component={Settings}/>
+  
+          <Stack.Screen name="AddRecordatorio"
+          component={AddRecordatorio}/>
+    
+        </Stack.Navigator>
+      );
+    }
   }
   
   export {InicioMenu}
