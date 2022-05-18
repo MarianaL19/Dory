@@ -81,7 +81,8 @@ export default class Recordatorios extends Component {
     const navigation = this.context;
 
     return (
-      <View>
+      <>
+      <View style = {{backgroundColor: currentTheme.backgroundColor, flex: 1}}>
 
         <View style={styles.nav}>
           <MenuBar/>
@@ -131,13 +132,18 @@ export default class Recordatorios extends Component {
         </View>
 
         <ScrollView>
-
+        <View style = {{marginBottom: '50%'}}>
         <Collapse>
         <CollapseHeader>
           <Text style={styles.collapseTitle}>Completados</Text>
         </CollapseHeader>
         <CollapseBody>
-          <Text> Hola! </Text>
+        <FlatList
+              data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
+              return objetoRecordatorio.estado.includes('completado');})}
+
+              renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
+          />
         </CollapseBody>
         </Collapse>
 
@@ -146,7 +152,12 @@ export default class Recordatorios extends Component {
           <Text style={styles.collapseTitle}>Omitidos</Text>
         </CollapseHeader>
         <CollapseBody>
-          <Text> Hola! </Text>
+        <FlatList
+              data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
+              return objetoRecordatorio.estado.includes('omitido');})}
+
+              renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
+          />
         </CollapseBody>
         </Collapse>
 
@@ -156,20 +167,23 @@ export default class Recordatorios extends Component {
         </CollapseHeader>
         <CollapseBody>
           <FlatList
-              data = {this.state.listaRecordatorios}
+              data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
+              return objetoRecordatorio.estado.includes('pendiente');})}
+
               renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
           />
         </CollapseBody>
         </Collapse>
+        </View>
+        </ScrollView>
 
-      </ScrollView>
+      </View>
 
-              {/* Botón para agregar recordatorios */}
+      {/* Botón para agregar recordatorios */}
       <TouchableOpacity onPress={() => {navigation.navigate("AddRecordatorio");}} style={styles.addIcon}>
         <Icon name='plus-circle' size={50} color={currentTheme.primaryColor}/>
       </TouchableOpacity>
-
-      </View>
+      </>
     );
   }
 }
@@ -178,6 +192,12 @@ const styles = StyleSheet.create({
   nav:{
     width: width,
     height: 60,
+  },
+  addIcon: {
+    position: 'absolute',
+    zIndex: 1,
+    bottom: 10,
+    right: 10,
   },
   filterButtonContainer: {
     flexDirection: 'row',

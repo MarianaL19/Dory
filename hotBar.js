@@ -18,7 +18,6 @@ export default function MenuBar() {
 
     return(
         <View style={styles.menu}>
-
                 {/* Logo */}
             <View style={styles.menuUno}>
               <Icon2
