@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
         Dimensions, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
@@ -80,17 +81,20 @@ export default class App extends Component {
       </View>
 
       <ScrollView>
-        
-        <TextInput 
-          placeholder = "Nombre de la materia"
-          style = {styles.input}
-          clearTextOnFocus={true}
-          onChangeText={(nombre => this.setState({nombre}))}
-          maxLength={60}
-        />
+
+      <View style={styles.iconContainer}>
+        <Icon name='notebook' size={30} color={'#C2C2C2'}/>
+          <TextInput 
+            placeholder = "Nombre de la materia"
+            style = {styles.input}
+            clearTextOnFocus={true}
+            onChangeText={(nombre => this.setState({nombre}))}
+            maxLength={60}
+          />
+      </View> 
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginBottom:5.5 ,marginTop: 6, flex: 2, height: .5, backgroundColor: currentTheme.primaryColor}} />
+        <View style={{marginBottom:5.5 ,marginTop: 6, flex: 2, height: 1, backgroundColor: currentTheme.primaryColor}} />
       </View>
 
       <View style = {styles.containerTitulo}>
@@ -98,30 +102,41 @@ export default class App extends Component {
       </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 6, flex: 2, height: .5, backgroundColor: currentTheme.primaryColor}} />
+        <View style={{marginTop: 6, flex: 2, height: 1, backgroundColor: currentTheme.primaryColor}} />
       </View>
+
+      <View style={styles.iconContainer}>
+       <Icon name='calendar-month' size={30} color={'#C2C2C2'}/>
 
         <TextInput 
         placeholder = "Selecciona el día"
         style = {styles.input}
         />
+      </View>
 
         {/* Sección para agregar las horas de inicio y fin */}
 
-        <Text style = {styles.subTitle}> Inicio </Text>
-
         <View style={styles.iconContainer}>
-            <TouchableOpacity onPress={() => this.setState({ horaInicioOpen: true })}>
-              <Text style={styles.input}>{this.state.textHoraInicio}</Text>
-            </TouchableOpacity>
+          <Icon name='clock-outline' size={30} color={'#C2C2C2'}/>
+
+          <Text style = {styles.subTitle}> Inicio </Text>
+
+          <View style={styles.iconContainer}>
+              <TouchableOpacity onPress={() => this.setState({ horaInicioOpen: true })}>
+                <Text style={styles.input}>{this.state.textHoraInicio}</Text>
+              </TouchableOpacity>
+          </View>
         </View>
 
-        <Text style = {styles.subTitle}> Fin </Text>
-
         <View style={styles.iconContainer}>
-            <TouchableOpacity onPress={() => this.setState({ horaFinOpen: true })}>
-              <Text style={styles.input}>{this.state.textHoraFin}</Text>
-            </TouchableOpacity>
+          <Icon name='clock-time-three-outline' size={30} color={'#C2C2C2'}/>
+          <Text style = {styles.subTitle}> Fin </Text>
+
+          <View style={styles.iconContainer}>
+              <TouchableOpacity onPress={() => this.setState({ horaFinOpen: true })}>
+                <Text style={styles.input}>{this.state.textHoraFin}</Text>
+              </TouchableOpacity>
+          </View>
         </View>
 
       {/* Sección para la información general de la materia */}
@@ -135,9 +150,12 @@ export default class App extends Component {
         </View>
 
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{marginTop: 6, flex: 2, height: .5, backgroundColor: currentTheme.primaryColor}} />
+        <View style={{marginTop: 6, flex: 2, height: 1, backgroundColor: currentTheme.primaryColor}} />
       </View>
 
+
+      <View style={styles.iconContainer}>
+       <Icon name='human-male-board' size={30} color={'#C2C2C2'}/>
         <TextInput 
           placeholder = "Nombre del profesor"
           style = {styles.input}
@@ -145,7 +163,11 @@ export default class App extends Component {
           onChangeText={(profesor => this.setState({profesor}))}
           maxLength={70}
         />
+      </View>
 
+
+      <View style={styles.iconContainer}>
+       <Icon name='chair-school' size={30} color={'#C2C2C2'}/>
         <TextInput 
           placeholder = "Aula"
           style = {styles.input}
@@ -153,7 +175,10 @@ export default class App extends Component {
           onChangeText={(aula => this.setState({aula}))}
           maxLength={5}
         />
+      </View>
 
+      <View style={styles.iconContainer}>
+       <Icon name='magnify' size={30} color={'#C2C2C2'}/>
         <TextInput 
           placeholder = "NRC"
           style = {styles.input}
@@ -162,6 +187,7 @@ export default class App extends Component {
           maxLength={6}
           keyboardType='number-pad'
         />
+      </View>
 
         <TextInput 
           placeholder = "Color"
@@ -249,13 +275,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#000',
     fontWeight: 'bold',
-    paddingLeft: 30,
+    paddingTop: 7,
+    paddingLeft: 10,
     flexDirection: 'row',
     marginBottom: 10,
   },
   input: {
     fontSize: 15,
-    paddingLeft: 50,
     paddingRight: 50,
     flexDirection: 'row',
   },
@@ -272,5 +298,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 13,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    marginTop: 10,
+    alignItems: 'center',
+    marginLeft: 20,
   },
 })
