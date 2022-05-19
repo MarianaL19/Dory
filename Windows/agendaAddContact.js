@@ -49,7 +49,7 @@ export default class AgendaAddContact extends Component {
       // Expresion regular para numeros telefonicos
       let exregTelefono = new RegExp("^([0-9]{10})$");
       // Expresion regular para correos
-      let exregCorreo = new RegExp("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+      let exregCorreo = new RegExp("^[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
 
       //Aqui van las validaciones
       //Validacion de espacio vacio
