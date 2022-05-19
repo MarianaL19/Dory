@@ -7,11 +7,16 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Contact from '../Components/ContactList';
 import { NavigationContext } from '@react-navigation/native';
+import MenuBar from '../hotBar';
+
+// Variable de dimensiones
+const {width, height} = Dimensions.get('screen');
 
 export default class AgendaScreen extends Component {
   
@@ -85,6 +90,13 @@ export default class AgendaScreen extends Component {
       
       <View style={[styles.wholeContainer, {backgroundColor: currentTheme.backgroundColor}]}>
       
+        {/* Menu header */}
+        <View style={styles.nav}>
+
+          <MenuBar/>
+          
+        </View>
+
         {/*Seccion de barra de busqueda*/}
         <View>
 
@@ -158,6 +170,10 @@ const styles = StyleSheet.create({
     wholeContainer: {
       flex: 1,
       justifyContent: 'center',
+    },
+    nav:{
+      width: width,
+      height: 60,
     },
     //Estilos para ver contactos
     buttonContainer: {

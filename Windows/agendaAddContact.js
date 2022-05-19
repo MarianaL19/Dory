@@ -62,7 +62,7 @@ export default class AgendaAddContact extends Component {
       }
       // Nombre no valido
       else if(!exregNom.test(this.state.nombre)){
-        Alert.alert("Error", "Nombre invalido", [
+        Alert.alert("Nombre invalido", "El nombre solo puede contener caracteres alfabeticos", [
           {
             text: "OK", onPress: () => console.log("Nombre Invalido")
           }
@@ -70,7 +70,7 @@ export default class AgendaAddContact extends Component {
       }
       // Telefono no valido
       else if(!exregTelefono.test(this.state.telefono)){
-        Alert.alert("Error", "Telefono invalido", [
+        Alert.alert("Telefono invalido", "El telefono solo puede contener caracteres numericos", [
           {
             text: "OK", onPress: () => console.log("Telefono invalido")
           }
@@ -78,7 +78,7 @@ export default class AgendaAddContact extends Component {
       }
       // Correo no valido
       else if(!exregCorreo.test(this.state.correo)){
-        Alert.alert("Error", "Correo electronico invalido", [
+        Alert.alert("Correo electronico invalido", "El correo ingresado no cumple con la estructura de un correo electronico", [
           {
             text: "OK", onPress: () => console.log("Correo electronico invalido")
           }
