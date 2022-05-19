@@ -21,7 +21,7 @@ export default class AgendaScreen extends Component {
     super(props);
     this.state = {
       // variables para filtro y busquedas
-      tagfilter: "",
+      tagfilter: "Todos",
       search: "",
       listContact: [],
       // Variables de contacto por si acaso
@@ -45,6 +45,7 @@ export default class AgendaScreen extends Component {
         let etiqueta = "";
 
         var contacto = xhttp.responseText;
+        console.log(contacto);
 
         var registros = contacto.split('|'); //Delimitador de registro
 
@@ -70,7 +71,7 @@ export default class AgendaScreen extends Component {
         console.log(_this.state.listContact);
       }
     };
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/',  true);
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarContacto.php',  true);
     xhttp.send();
   }
 
@@ -78,6 +79,9 @@ export default class AgendaScreen extends Component {
     this.recuperarDatos();
   }
 
+  //Prueba
+  //nota: forceupdate?
+  
   render() {
 
     const navigation = this.context;
@@ -138,8 +142,9 @@ export default class AgendaScreen extends Component {
               ( // Si hay contactos los muestra
                 <FlatList
                   data={this.state.listContact}
-                  keyExtractor={item => item.nombre}
-                  renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
+                  //keyExtractor={item => item.nombre}
+                  //renderItem={({ item }) => <Contact item={item.nombreC}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
+                  renderItem={({item}) => <TouchableOpacity><Text>{item.nombreC}</Text></TouchableOpacity>}
                 />
               ) 
         }
