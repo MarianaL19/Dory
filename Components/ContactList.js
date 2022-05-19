@@ -9,7 +9,7 @@ const Contact = ({ item }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     //Aún no descifro pa k es esto
-    const { nombre, telefono, correo, etiqueta } = item;
+    const { nombreC, telefonoC, correoC, etiquetaC } = item;
 
     return (
         <>
@@ -40,13 +40,13 @@ const Contact = ({ item }) => {
                             </View>
 
                             {/* Apartado: nombre del contacto */}
-                            <Text style={[styles.modalTitle, { color: currentTheme.tertiaryColor }]}>{item.nombre}</Text>
+                            <Text style={[styles.modalTitle, { color: currentTheme.tertiaryColor }]}>{item.nombreC}</Text>
 
                             {/* Apartado: Tipo de contacto */}
                             {/* tipo de contacto */}
                             <View style={[styles.modalTagContainer, {backgroundColor: currentTheme.quinaryColor}]}>
 
-                                <Text style={[styles.modalTagText]}>{item.etiqueta}</Text>
+                                <Text style={[styles.modalTagText]}>{item.etiquetaC}</Text>
 
                             </View>  
 
@@ -66,10 +66,10 @@ const Contact = ({ item }) => {
                                 <View style={styles.contactInconFormat}>
                                 
                                     <Text style={styles.styleHeader}>Telefono</Text>
-                                    <Text style={styles.styleInfo}>{item.telefono}</Text>
+                                    <Text style={styles.styleInfo}>{item.telefonoC}</Text>
                                     <View style={{marginBottom: 40}} />
                                     <Text style={styles.styleHeader}>Correo</Text>
-                                    <Text style={styles.styleInfo}>{item.correo}</Text>
+                                    <Text style={styles.styleInfo}>{item.correoC}</Text>
 
                                 </View>
 
@@ -101,7 +101,7 @@ const Contact = ({ item }) => {
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         
                         {/* nombre del contacto */}
-                        <Text numberOfLines={2} style={styles.title}>{nombre}</Text>
+                        <Text numberOfLines={2} style={styles.title}>{nombreC}</Text>
 
                     </View>
                 </TouchableOpacity>

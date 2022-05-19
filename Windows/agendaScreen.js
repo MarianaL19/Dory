@@ -24,11 +24,6 @@ export default class AgendaScreen extends Component {
       tagfilter: "Todos",
       search: "",
       listContact: [],
-      // Variables de contacto por si acaso
-      // nombre: "",
-      // telefono: "",
-      // correo: "",
-      // etiqueta: "",
     };
   }
 
@@ -142,9 +137,7 @@ export default class AgendaScreen extends Component {
               ( // Si hay contactos los muestra
                 <FlatList
                   data={this.state.listContact}
-                  //keyExtractor={item => item.nombre}
-                  //renderItem={({ item }) => <Contact item={item.nombreC}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
-                  renderItem={({item}) => <TouchableOpacity><Text>{item.nombreC}</Text></TouchableOpacity>}
+                  renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
                 />
               ) 
         }
