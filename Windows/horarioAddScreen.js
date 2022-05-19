@@ -64,6 +64,20 @@ export default class App extends Component {
           }
         ]);
 
+      } else if(!regex.test(this.state.profesor)){
+        Alert.alert("Error", "Nombre de profesor invalido", [
+         {
+             text:"ok", onPress: ()=> console.log("Nombre invalido")
+         }
+       ]);
+
+      } else if(!regex.test(this.state.aula)){
+        Alert.alert("Error", "Nombre de aula invalido", [
+        {
+            text:"ok", onPress: ()=> console.log("Nombre invalido")
+        }
+      ]);
+
       } else {
 
         var xhttp = new XMLHttpRequest();
@@ -123,13 +137,13 @@ export default class App extends Component {
       </View> 
 
       {/* Linea divisoria 1 */}
-      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width}}/>
+      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2.5, width: width}}/>
 
       <View style = {styles.containerTitulo}>
         <Text style = {[styles.titulo,{color: currentTheme.quaternaryColor}]}> Horario </Text>
       </View>
 
-      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width}}/>
+      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2.5, width: width}}/>
 
       <View style={styles.iconContainer}>
        <Icon name='calendar-blank-outline' size={30} color={'#C2C2C2'}/>
@@ -185,14 +199,14 @@ export default class App extends Component {
 
       {/* Sección para la información general de la materia */}
 
-      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width}}/>
+      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2.5, width: width}}/>
 
 
         <View style = {styles.containerTitulo}>
           <Text style = {[styles.titulo,{color: currentTheme.quaternaryColor}]}> Información </Text>
         </View>
 
-        <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width}}/>
+        <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2.5, width: width}}/>
 
 
       <View style={styles.iconContainer}>
@@ -271,7 +285,7 @@ export default class App extends Component {
             }}
           /> 
 
-      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:3.5, width: width, marginBottom: 10}}/>
+      <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2.5, width: width, marginBottom: 10}}/>
 
       <View style = {{alignItems: 'center'}}>
         <TouchableOpacity style = {[styles.boton, {backgroundColor: currentTheme.primaryColor}]} 
