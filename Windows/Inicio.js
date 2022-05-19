@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions, StyleSheet,
+        Image, KeyboardAvoidingView} from 'react-native';
 import {Button, Input} from 'react-native-elements'
 import { NavigationContext } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import currentTheme from '../Components/currentTheme';
+
+const {width, height} = Dimensions.get('screen');
 
 export default class Inicio extends Component {
   static contextType = NavigationContext;
@@ -48,18 +53,112 @@ export default class Inicio extends Component {
     }
 
     return (
-      <View>
-        <Text> Por favor ingrese su nombre </Text>
-        <Input
-          onChangeText={(nombre => this.setState({nombre}))}
-        />
-        <Button title={"Checa"}
-          onPress={Registro}
-        />
-        <Button title={"ENTRAR"}
-            onPress={() => navigation.push('Menu')}
-        />
-      </View>
+      <KeyboardAvoidingView style={styles.bg}
+        behavior='position'
+      >
+        <View style={styles.bg}>
+          <Image source={require('../imagenes/encabezado.png')}
+            style={styles.encabezado}
+          />
+          <Image source={require('../imagenes/Dory_texto.png')}
+            style={styles.textoDory}
+          />
+          <Text style={styles.hola}> ¡Hola! </Text>
+          <Text style={styles.textoWelcome}>Bienvenido a</Text>
+          <Text style={styles.textoWelcome}>Dory</Text>
+          <Text style={styles.alias}>Por favor ingrese un alías</Text>
+          <View>
+            <Input
+              onChangeText={(nombre => this.setState({nombre}))}
+              maxLength = {15}
+              inputContainerStyle={{
+                width: width-50,
+                borderColor: 'white',
+                borderRadius: 50,
+                shadowColor: '#000000',
+                shadowOpacity: 0.5,
+                shadowRadius: 25,
+                elevation: 12,
+                backgroundColor: 'white',
+            }}
+            inputStyle={{
+                fontSize: 22,
+                fontWeight: 'bold',
+                color: 'black',
+                textAlign: 'center',
+            }}
+            />
+          </View>
+      
+          <Button title={"ACEPTAR"}
+            onPress={Registro}
+            buttonStyle={{
+              backgroundColor: currentTheme.quaternaryColor,
+              borderWidth: 2,
+              borderColor: currentTheme.quaternaryColor,
+              borderRadius: 50,
+              height: 60,
+          }}
+          containerStyle={{
+              width: width/2,
+              alignContent: 'center',
+          }}
+          titleStyle={{
+            fontWeight: 'bold',
+          }}
+          />
+
+          {/* Boton para probar la app */}
+          {/* <Button title={"ENTRAR"}
+              onPress={() => navigation.push('Menu')}
+          /> */}
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  bg :{
+    backgroundColor: 'white',
+    alignItems: 'center',
+    width: width,
+    height: height,
+  },
+
+  encabezado: {
+    width: width,
+    height: width*0.8,
+    position: 'absolute',
+  },
+
+  textoDory: {
+    width: 270,
+    height: 40,
+    marginTop: 80,
+  },
+
+  hola: {
+    fontSize: 80,
+    fontWeight: '600',
+    color: 'black',
+    marginTop: 100,
+    marginBottom: 10,
+  },
+
+  textoWelcome:{
+    fontSize: 38,
+    fontWeight: '600',
+    color: 'black',
+  },
+
+  alias: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#737373',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+}
+)
