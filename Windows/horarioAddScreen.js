@@ -72,18 +72,25 @@ export default class App extends Component {
       }
       
       else if(!regex.test(this.state.nombre)){
-        Alert.alert("Error", "Nombre de materia invalido", [
+        Alert.alert("Error", "Nombre de materia invalido, no se permiten caracteres especiales", [
           {
               text:"ok", onPress: ()=> console.log("Nombre Invalido")
           }
         ]);
       }else if(!regex.test(this.state.profesor)){
-        Alert.alert("Error", "Nombre de maestro invalido", [
+        Alert.alert("Error", "Nombre de maestro invalido, no se permiten caracteres especiales", [
           {
               text:"ok", onPress: ()=> console.log("Nombre Invalido")
           }
         ]);
-      }else{
+      } else if(!regex.test(this.state.aula)){
+        Alert.alert("Error", "Aula invalida, no se permiten caracteres especiales", [
+          {
+              text:"ok", onPress: ()=> console.log("Nombre Invalido")
+          }
+        ]);
+      
+      } else{
         var xhttp = new XMLHttpRequest();
         let _this = this;       // Esto es para usar 'this' dentro de la función
 
