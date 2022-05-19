@@ -16,6 +16,7 @@ const Stack = createNativeStackNavigator();
 
 const InicioMenu = () => {
     const [input, setInput] = useState(false);
+    const [prueba, setPrueba] = useState(false);
 
     const readData = async () => {
       try {
@@ -37,7 +38,7 @@ const InicioMenu = () => {
       readData();
     }, []);
 
-    if(input){
+    if(prueba){
       return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
           
