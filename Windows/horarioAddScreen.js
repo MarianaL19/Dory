@@ -27,7 +27,7 @@ export default class App extends Component {
       horaFin: new Date(),
       horaFinOpen: false,
       textHoraFin: 'Selecciona la hora',
-      dia: 0,
+      dia: 8,
     };
   }
 
@@ -52,27 +52,12 @@ export default class App extends Component {
       this.setState({})
     }
 
-    const registroHorario = () => {
-      var xhttp2 = new XMLHttpRequest();
-
-        xhttp2.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-
-          }
-        };
-        xhttp2.open("GET", 'https://dory69420.000webhostapp.com/addHorario.php?dia=' + this.state.dia
-          + '&hora_inicio=' + this.state.textHoraInicio + '&hora_fin=' + this.state.textHoraFin + 
-          '&id_usuario=' + this.state.id_usuario + '&id_materia=' + this.state.id_materia, true);
-        xhttp2.send();
-
-        console.log('dia: '+ this.state.dia + '  hora_inicio: '+ this.state.textHoraInicio + '  hora_fin: '+ this.state.textHoraFin + 
-        '  id_usuario: ' + this.state.id_usuario + '  id_materia: ' + this.state.id_materia)
-    }
-
     const registroMateria = () => {
       let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
 
-      if(this.state.nombre == "" || this.state.profesor == "" || this.state.aula == ""){
+      if(this.state.nombre == "" || this.state.profesor == "" || this.state.aula == "" 
+      || this.state.dia == 8 || this.state.textHoraInicio == 'Selecciona la hora'
+      || this.state.textHoraFin == 'Selecciona la hora'){
         Alert.alert("Campos vacíos", "Es necesario llenar todos los campos obligatorios", [
           {
               text:"ok", onPress: ()=> console.log("Campos Vacios")
@@ -104,12 +89,15 @@ export default class App extends Component {
 
         xhttp.open("GET", 'https://dory69420.000webhostapp.com/addMateria.php?nombre=' + this.state.nombre
           + '&profesor=' + this.state.profesor + '&aula=' + this.state.aula + '&nrc=' + this.state.nrc
-          + '&color=' + this.state.color + '&id_usuario=' + this.state.id_usuario, true);
+          + '&color=' + this.state.color + '&dia=' + this.state.dia + '&hora_inicio=' + this.state.textHoraInicio +
+          '&hora_fin=' + this.state.textHoraFin + '&id_usuario=' + this.state.id_usuario, true);
         xhttp.send();
       
 
         console.log('nombre: '+ this.state.nombre + '  profesor: '+ this.state.profesor + '  aula: '+ this.state.aula + 
         '  nrc: ' + this.state.nrc + '  color: ' + this.state.color + '  id_usuario: ' + this.state.id_usuario)
+
+        console.log('dia: ' + this.state.dia + ' hora_inicio: ' + this.state.textHoraInicio + ' hora_fin: ' + this.state.textHoraFin)
         restaurarValores();
 
       }
@@ -288,7 +276,7 @@ export default class App extends Component {
 
       <View style = {{alignItems: 'center'}}>
         <TouchableOpacity style = {[styles.boton, {backgroundColor: currentTheme.primaryColor}]} 
-          onPress={registroHorario}
+          onPress={registroMateria}
         > 
           <Text style = {styles.textoBoton}> AÑADIR </Text>
         </TouchableOpacity>
