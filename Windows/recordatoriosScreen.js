@@ -2,12 +2,13 @@ import React, { Component, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity,
         Dimensions, FlatList, ScrollView} from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
+import { NavigationContext } from '@react-navigation/native';
+import Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 import MenuBar from '../hotBar';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import currentTheme from '../Components/currentTheme';
-import AddRecordatorios from './recordatoriosAddScreen';
-import { NavigationContext } from '@react-navigation/native';
+import RenderRecordatorio from '../Components/renderRecordatorio';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -132,49 +133,49 @@ export default class Recordatorios extends Component {
         </View>
 
         <ScrollView>
-        <View style = {{marginBottom: '50%'}}>
-        <Collapse>
-        <CollapseHeader>
-          <Text style={styles.collapseTitle}>Completados</Text>
-        </CollapseHeader>
-        <CollapseBody>
-        <FlatList
-              data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
-              return objetoRecordatorio.estado.includes('completado');})}
+          <View style = {{marginBottom: '10%'}}>
+            <Collapse>
+              <CollapseHeader>
+                <Text style={styles.collapseTitle}>Completados</Text>
+              </CollapseHeader>
+              <CollapseBody>
+              <FlatList
+                    data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
+                    return objetoRecordatorio.estado.includes('completado');})}
 
-              renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
-          />
-        </CollapseBody>
-        </Collapse>
+                    renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
+                />
+              </CollapseBody>
+            </Collapse>
 
-        <Collapse>
-        <CollapseHeader>
-          <Text style={styles.collapseTitle}>Omitidos</Text>
-        </CollapseHeader>
-        <CollapseBody>
-        <FlatList
-              data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
-              return objetoRecordatorio.estado.includes('omitido');})}
+            <Collapse>
+              <CollapseHeader>
+                <Text style={styles.collapseTitle}>Omitidos</Text>
+              </CollapseHeader>
+              <CollapseBody>
+              <FlatList
+                    data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
+                    return objetoRecordatorio.estado.includes('omitido');})}
 
-              renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
-          />
-        </CollapseBody>
-        </Collapse>
+                    renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
+                />
+              </CollapseBody>
+            </Collapse>
 
-        <Collapse>
-        <CollapseHeader>
-          <Text style={styles.collapseTitle}>Pendientes</Text>
-        </CollapseHeader>
-        <CollapseBody>
-          <FlatList
-              data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
-              return objetoRecordatorio.estado.includes('pendiente');})}
+            <Collapse>
+              <CollapseHeader>
+                <Text style={styles.collapseTitle}>Pendientes</Text>
+              </CollapseHeader>
+              <CollapseBody>
+                <FlatList
+                    data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
+                    return objetoRecordatorio.estado.includes('pendiente');})}
 
-              renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
-          />
-        </CollapseBody>
-        </Collapse>
-        </View>
+                    renderItem={({item}) => <RenderRecordatorio item={item} />}
+                />
+              </CollapseBody>
+            </Collapse>
+          </View>
         </ScrollView>
 
       </View>
