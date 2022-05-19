@@ -3,6 +3,7 @@ import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, But
 import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cambioFormato } from './Date';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const eliminarRecordatorio = (id_recordatorio) => {
     var xhttp = new XMLHttpRequest();
@@ -12,31 +13,47 @@ const eliminarRecordatorio = (id_recordatorio) => {
         if (this.readyState == 4 && this.status == 200) {
           }
     };
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/eliminarRecordatorio.php?id=' + id_recordatorio, true);
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/eliminarRecordatorio.php?id='+ id_recordatorio, true);
     xhttp.send();
-
-    // var newArray = myArray.filter((item) => item.id !== 1);
 }
+
+// Marcar como completado (o no)
+const checkRecordatorio = (id_recordatorio, estado_recordatorio) => {
+    var xhttp = new XMLHttpRequest();
+    let _this = this;       // Esto es para usar 'this' dentro de la función
+    let estado = estado_recordatorio;
+
+    if(estado === 'pendiente'){
+        estado = 'completado';
+    }else if (estado === 'completado'){
+        estado = 'pendiente';
+    }else if (estado === 'omitido'){
+        estado = 'completado';
+    }
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          }
+    };
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/checkRecordatorio.php?id=' + id_recordatorio + '&estado=' + estado, true);
+    xhttp.send();
+}
+
 
 //Esta función principal se realiza por cada item
 const RenderRecordatorio = ({ item }) => {
     //Variable para saber el estado del popUp (si se ve o no)
     const [modalVisible, setModalVisible] = useState(false);
+    const [check, setCheck] = useState(false);
 
     //Aún no descifro pa k es esto
-    const { id, nombre, etiqueta, materia, fecha, hora, descripcion } = item;
+    const { id, nombre, etiqueta, materia, fecha, hora, descripcion, estado } = item;
 
     return (
         <>
-            {/* PopUp donde se muestra la información del recordatorio */}
             <View style={{ alignItems: 'center' }}>
-                {/* Estilo con el que se van a renderizar los recordatorios */}
-
-                {/* Encapsulé todo el componente en un TouchableOpacity, donde al hacer click sobre el recordatorio
-                    activa el evento que hace visible el popUp, este PopUp muestra información del elemento que se presionó,
-                    -> !!!Se debe optimizar esta parte, haciendo al popUp un componente independiente de cada objeto Task
-                */}
-
+                
+                {/* PopUp donde se muestra la información del recordatorio */}
                 <Modal
                     animationType='sliced'
                     transparent={true}
@@ -104,26 +121,35 @@ const RenderRecordatorio = ({ item }) => {
                         </View>
                     </View>
                 </Modal> 
-
+                
+                {/* Estilo con el que se van a renderizar los recordatorios */}
                 <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.container}>
+
                     {/* Título del recordatorio */}
-                    <Text numberOfLines={2} style={styles.title}>{nombre}</Text>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>                          
-                        <Text numberOfLines={2} style={styles.materia}>Materia</Text>
-                        <Icon name='delete-outline' size={24} color={currentTheme.primaryColor}/>
-                    </View>
-
                     <View style={{ flexDirection: 'row'}}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingRight: 25}}>
-                            <Icon name='calendar-blank-outline' size={24} style={{paddingRight: 3}}/>
-                            <Text numberOfLines={2} style={styles.fecha}>{fecha}</Text>
+                    <BouncyCheckbox
+                        onPress={(isChecked=check) => {checkRecordatorio(id, estado)}}
+                        fillColor={currentTheme.primaryColor}
+                    />
+                    <View style={{flex: 1}}>
+                        <Text numberOfLines={2} style={styles.title}>{nombre}</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>                          
+                                <Text numberOfLines={2} style={styles.materia}>Materia</Text>
+                                <Icon name='delete-outline' size={24} color={currentTheme.primaryColor}/>
+                            </View>
+
+                            <View style={{ flexDirection: 'row'}}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', paddingRight: 25}}>
+                                    <Icon name='calendar-blank-outline' size={24} style={{paddingRight: 3}}/>
+                                    <Text numberOfLines={2} style={styles.fecha}>{fecha}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                    <Icon name='clock-time-four-outline' size={24} style={{paddingRight: 3}}/>
+                                    <Text numberOfLines={2} style={styles.fecha}>{hora.substr(0,5)}</Text>
+                                </View>
+                            </View>
                         </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                            <Icon name='clock-time-four-outline' size={24} style={{paddingRight: 3}}/>
-                            <Text numberOfLines={2} style={styles.fecha}>{hora.substr(0,5)}</Text>
-                        </View>
-                    </View>
+                    </View> 
                 </TouchableOpacity>
 
             </View>
