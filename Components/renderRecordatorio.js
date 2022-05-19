@@ -141,7 +141,7 @@ const height = Dimensions.get('screen').height;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#D3EFFF',
+        backgroundColor: currentTheme.quinaryColor,
         width: width,
         paddingHorizontal: 20,
         paddingVertical: 10,

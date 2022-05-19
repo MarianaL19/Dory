@@ -99,6 +99,7 @@ export default class Recordatorios extends Component {
           >
             <Text
             style={styles.filterText}
+            onPress={() => {this.state.recordatoriosPendientes = this.state.recordatoriosPendientes.slice(0, 1); console.log(this.state.listaRecordatorios)}}
             >
               Todos
             </Text>
@@ -148,8 +149,7 @@ export default class Recordatorios extends Component {
               </CollapseHeader>
               <CollapseBody>
               <FlatList
-                    data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
-                    return objetoRecordatorio.estado.includes('completado');})}
+                    data = {this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'completado')}
 
                     renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
                 />
@@ -167,8 +167,7 @@ export default class Recordatorios extends Component {
               </CollapseHeader>
               <CollapseBody>
               <FlatList
-                    data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
-                    return objetoRecordatorio.estado.includes('omitido');})}
+                    data = {this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'omitido')}
 
                     renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
                 />
@@ -186,8 +185,7 @@ export default class Recordatorios extends Component {
               </CollapseHeader>
               <CollapseBody>
                 <FlatList
-                    data = {this.state.listaRecordatorios.filter(objetoRecordatorio => {
-                    return objetoRecordatorio.estado.includes('pendiente');})}
+                    data = {this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'pendiente')}
 
                     renderItem={({item}) => <RenderRecordatorio item={item} />}
                 />
