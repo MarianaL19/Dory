@@ -105,9 +105,10 @@ export default class Inicio extends Component {
           <Button title={"ACEPTAR"}
             onPress={Registro}
             buttonStyle={{
-              backgroundColor: currentTheme.quaternaryColor,
+              marginTop: 15,
+              backgroundColor: currentTheme.primaryColor,
               borderWidth: 2,
-              borderColor: currentTheme.quaternaryColor,
+              borderColor: currentTheme.primaryColor,
               borderRadius: 50,
               height: 60,
           }}
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
     width: width,
     height: width*0.8,
     position: 'absolute',
+    minHeight: 60,
   },
 
   textoDory: {
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
     fontSize: 80,
     fontWeight: '600',
     color: 'black',
-    marginTop: 100,
+    marginTop: 140,
     marginBottom: 10,
   },
 

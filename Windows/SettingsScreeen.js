@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions,
-        TextInput, TouchableOpacity, Switch} from 'react-native';
+        TextInput, TouchableOpacity, Switch, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContext } from '@react-navigation/native';
 
@@ -82,24 +82,23 @@ export default class SettingsScreeen extends Component {
               <TouchableOpacity style={{
                   alignItems: "center",
                   backgroundColor: "#E7E7E7",
-                  width: 42,
-                  height: 42,
-                  borderRadius: 25,
-                  marginTop: 15,}}
+                  width: width/10,
+                  height: width/10,
+                  borderRadius: 20,
+                  marginTop: 30,}}
                   //onPress={cambiarUsername}
               >
-                  <Text style={{marginTop: 3, fontSize: 25 }}>💽</Text>
               </TouchableOpacity>
             </View>
             {/* La siguiente view es utilizada para crear una linea vertical */}
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <View style={{marginTop: 35, flex: 1, height: 1, backgroundColor: currentTheme.quinaryColor}} />
+              <View style={{marginTop: 70, flex: 1, height: 1, backgroundColor: currentTheme.quinaryColor}} />
             </View>
-    
+
             {/* A partir de aqui es el apartado de notificaciones */}
             <Text style={styles.titulo2}>Habilitar nofiticaciones</Text>
             <Switch 
-            style={{marginTop: 15}}
+            style={{marginTop: 30}}
             trackColor={{ false: "#767577", true: currentTheme.secondaryColor }}
             //thumbColor={isEnabled ? currentTheme.quinaryColor : "#f4f3f4"}
             //onValueChange={toggleSwitch}
@@ -108,7 +107,7 @@ export default class SettingsScreeen extends Component {
     
             {/* Aqui es la separación de Temas */}
             <View style={styles.Themes}>
-              <Text style={{fontSize: 20, paddingLeft: 50, marginTop: 10, color: currentTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
+              <Text style={{fontSize: width*0.05, paddingLeft: 46, marginTop: 15, color: currentTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
             </View>
         
             {/* Aqui se contendran los temas */}
@@ -116,20 +115,21 @@ export default class SettingsScreeen extends Component {
               
               {/* Funcionalidad Tema 1  */}
               <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button1' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={this.Button1Blue}>
-                  
+                <Image style={{marginTop: 30, width: 70, height: 40}} source={require('../imagenes/doryBlue.png')}/>
               </TouchableOpacity>
               
               {/* Funcionalidad Tema 2 */}
               <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button2' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={this.Button2Pink}>
-                  
+                <Image style={{marginTop: 30, width: 70, height: 40}} source={require('../imagenes/doryPink.png')}/>
               </TouchableOpacity>
       
               {/* Funcionalidad Tema 3 */}
               <TouchableOpacity style={[styles.buttonTheme, this.state.tag == 'Button3' ? {backgroundColor: currentTheme.quinaryColor} : {}]} onPress={this.Button3Green}>
-                  
+                <Image style={{marginTop: 30, width: 70, height: 40}} source={require('../imagenes/doryGreen.png')}/>
               </TouchableOpacity>
               
             </View>
+
             {/* Aqui son los botones cerrar y guardar */}
             <View style={{marginBottom: 100, marginTop: 100, flexDirection: "row", justifyContent: "space-between", backgroundColor: currentTheme.backgroundColor}}>
               {/* Boton Cerrar */}
@@ -158,36 +158,38 @@ const styles = StyleSheet.create({
       marginTop: 0,
       alignItems: "center",
       backgroundColor: currentTheme.backgroundColor,
+      width: width,
+      height: height,
+
     },
   
     TituloUsuario: {
-      marginTop: 40,
+      marginTop: 100,
       color: currentTheme.quaternaryColor,
       textAlign: "center",
       justifyContent: "center",
-      fontSize: 25,
+      fontSize: width*0.08,
       fontWeight: "600",
       
     },
     titulo2: {
-      marginTop: 35,
+      marginTop: 30,
       color: currentTheme.tertiaryColor,
-      fontSize: 19,
+      fontSize: width*0.05,
       fontWeight: "600",
     },
   
     inputTexto: {
       backgroundColor: "#E7E7E7",
-      marginTop: 15,
-      alignContent: "center",
+      marginTop: 30,
       borderRadius: 20,
-      paddingLeft: 15,
+      textAlign: 'center',
       marginHorizontal: 5,
-      width: 250,
-      height: 42,
+      width: width/1.5,
+      height: width/10,
     },
     Themes: {
-      height: 50,
+      height: 60,
       width: width,
       marginTop: 35,
       backgroundColor: currentTheme.backgroundColor,
