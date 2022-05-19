@@ -10,6 +10,7 @@ import Menu from './Menu'
 import Settings from './SettingsScreeen';
 import AddContact from './agendaAddContact';
 import Calendario from './calendarioScreen';
+import AddMateria from './horarioAddScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +56,9 @@ const InicioMenu = () => {
 
           <Stack.Screen name="AddContact"
           component={AddContact}/>
+
+          <Stack.Screen name="AddMateria"
+          component={AddMateria}/>
     
         </Stack.Navigator>
       );
@@ -80,6 +84,9 @@ const InicioMenu = () => {
 
           <Stack.Screen name="AddContact"
           component={AddContact}/>
+
+          <Stack.Screen name="AddMateria"
+          component={AddMateria}/>
     
         </Stack.Navigator>
       );

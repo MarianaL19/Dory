@@ -19,9 +19,9 @@ export default class App extends Component {
           <MenuBar/>
         </View>
 
-        <Text style = {styles.titulo}> Parece que no tienes </Text>
-        <Text style = {styles.titulo}> ninguna materia añadida, </Text>
-        <Text style = {styles.subTitle}> ¡empieza añadiendo una! </Text>
+        <Text style = {styles.titulo2}> Parece que no tienes </Text>
+        <Text style = {styles.titulo2}> ninguna materia añadida, </Text>
+        <Text style = {styles.subTitle2}> ¡empieza añadiendo una! </Text>
 
       </View>
     );
@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  titulo: {
+  titulo2: {
     fontSize: 22,
     color: '#A0A5AE',
   },
-  subTitle: {
+  subTitle2: {
     fontSize: 22,
     color: '#A0A5AE',
     fontWeight: 'bold',

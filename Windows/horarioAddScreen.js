@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SelectDropdown from 'react-native-select-dropdown'
+import { NavigationContext } from '@react-navigation/native';
 
 import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
@@ -12,6 +13,9 @@ import MenuBar from '../hotBar';
 const {width, height} = Dimensions.get('screen');
 
 export default class App extends Component {
+
+  static contextType = NavigationContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -44,6 +48,8 @@ export default class App extends Component {
   }
 
   render() {
+
+    const navigation = this.context;
 
     const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
 
@@ -99,6 +105,8 @@ export default class App extends Component {
 
         console.log('dia: ' + this.state.dia + ' hora_inicio: ' + this.state.textHoraInicio + ' hora_fin: ' + this.state.textHoraFin)
         restaurarValores();
+
+        navigation.navigate("Horario");
 
       }
     }
