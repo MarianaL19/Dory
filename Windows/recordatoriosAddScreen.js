@@ -26,7 +26,7 @@ export default class RecordatoriosAddScreen extends Component {
       textFecha: 'Selecciona la fecha de entrega',
       hora: new Date(),
       horaOpen: false,
-      textHora: 'Selecciona la hora de entrega',
+      textHora: '23:59:00',
       descripcion: '',
       estado: 'pendiente',
       notificacion24: false,
@@ -53,32 +53,15 @@ export default class RecordatoriosAddScreen extends Component {
 
     const restaurarValores = () => {
       this.setState({nombre: '', etiqueta: 'null', materia: 0, textFecha: 'Selecciona la fecha de entrega',
-      textHora: 'Selecciona la hora de entrega',descripcion: ''})
+      textHora: '23:59:00',descripcion: ''})
     }
-
-    
-    //Función para enviar notificaciones, aún no la hago, necesito recuperar el puto ID
-    const notificaciones = () => {
-      var xhttp2 = new XMLHttpRequest();
-
-        xhttp2.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-
-          }
-        };
-        xhttp2.open("GET", 'https://dory69420.000webhostapp.com/addRecordatorio.php?nombre=' + this.state.nombre
-          + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
-          + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
-          + '&id=' + this.state.id,true);
-        xhttp2.send();
-    }
-
 
     const registro = () => {
+
       let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
 
       if(this.state.nombre == "" || this.state.etiqueta == "null" || this.state.materia == 0 || 
-        this.state.textFecha == "Selecciona la fecha de entrega" || this.state.textHora == "Selecciona la hora de entrega"){
+        this.state.textFecha == "Selecciona la fecha de entrega"){
         Alert.alert("Campos vacíos", "Es necesario llenar todos los campos obligatorios", [
           {
               text:"ok", onPress: ()=> console.log("Campos Vacios")
@@ -90,12 +73,6 @@ export default class RecordatoriosAddScreen extends Component {
         Alert.alert("Error", "Nombre Inválido", [
           {
               text:"ok", onPress: ()=> console.log("Nombre Invalido")
-          }
-        ]);
-      }else if(this.state.fecha < new Date()){
-        Alert.alert("Error", "Fecha Inválida", [
-          {
-              text:"ok", onPress: ()=> console.log("Fecha Invalida")
           }
         ]);
       }else{
@@ -117,7 +94,6 @@ export default class RecordatoriosAddScreen extends Component {
           + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
           + '&id=' + this.state.id,true);
         xhttp.send();
-      
 
         console.log('nombre: '+ this.state.nombre + '  etiqueta: '+ this.state.etiqueta + '  materia: '+ this.state.materia + '  estado: ' + this.state.estado +
         '  fecha: ' + this.state.textFecha + '  hora: ' + this.state.textHora)
@@ -187,7 +163,9 @@ export default class RecordatoriosAddScreen extends Component {
           <View style={styles.iconContainer}>
             <Icon name='clock-time-four-outline' size={25} color='#A9A9A9' />
             <TouchableOpacity onPress={() => this.setState({ horaOpen: true })}>
-              <Text style={styles.inputs}>{this.state.textHora}</Text>
+              <Text style={[styles.inputs, this.state.textHora === '23:59:00' ? {color: '#A9A9A9'} : {}]}>
+                    {this.state.textHora === '23:59:00' ? 'Selecciona la hora de entrega' : this.state.textHora}
+              </Text>
             </TouchableOpacity>
           </View>
 

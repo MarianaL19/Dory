@@ -87,7 +87,7 @@ const RenderRecordatorio = ({ item }) => {
                                 <Icon name='clock-time-four-outline' size={20} color='#A9A9A9' />
 
                                 {/* Evalúa si existe el atributo hora, de ser así lo coloca, sino imprime el guión */}
-                                <Text style={styles.modalDateText}> {[hora ? hora: '-']} </Text>
+                                <Text style={styles.modalDateText}> {[hora ? hora.substr(0,5) : '-']} </Text>
                             </View>
 
                             {/* Apartado: descripción */}
@@ -121,7 +121,7 @@ const RenderRecordatorio = ({ item }) => {
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                             <Icon name='clock-time-four-outline' size={24} style={{paddingRight: 3}}/>
-                            <Text numberOfLines={2} style={styles.fecha}>{hora}</Text>
+                            <Text numberOfLines={2} style={styles.fecha}>{hora.substr(0,5)}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
