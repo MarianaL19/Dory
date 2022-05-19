@@ -15,6 +15,12 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id_materia: 0,
+      id_usuario: '',
+      nombre: '',
+      profesor: '',
+      aula: '',
+      nrc: '',
       horaInicio: new Date(),
       horaInicioOpen: false,
       textHoraInicio: 'Selecciona la hora',
@@ -29,8 +35,8 @@ export default class App extends Component {
     const jsonValue = await AsyncStorage.getItem('dataStorage');
     var data = JSON.parse(jsonValue);
 
-    this.setState({id: data[0]});
-    console.log(this.state.id);
+    this.setState({id_usuario: data[0]});
+    console.log(this.state.id_usuario);
   }
 
   componentDidMount(){
@@ -41,81 +47,74 @@ export default class App extends Component {
 
     const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
 
-    const registroMaximo = () => {
-      registroMateria;
-      registroHorario;
+    //Funciones para recuperar datos de usuario
+    const restaurarValores = () => {
+      this.setState({})
+    }
+
+    const registroHorario = () => {
+      var xhttp2 = new XMLHttpRequest();
+
+        xhttp2.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+
+          }
+        };
+        xhttp2.open("GET", 'https://dory69420.000webhostapp.com/addHorario.php?dia=' + this.state.dia
+          + '&hora_inicio=' + this.state.textHoraInicio + '&hora_fin=' + this.state.textHoraFin + 
+          '&id_usuario=' + this.state.id_usuario + '&id_materia=' + this.state.id_materia, true);
+        xhttp2.send();
+
+        console.log('dia: '+ this.state.dia + '  hora_inicio: '+ this.state.textHoraInicio + '  hora_fin: '+ this.state.textHoraFin + 
+        '  id_usuario: ' + this.state.id_usuario + '  id_materia: ' + this.state.id_materia)
     }
 
     const registroMateria = () => {
-
       let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
 
-      if(this.state.nombre == ""){
-        Alert.alert("Campos Vacios", "Es necesario llenar todos los campos obligatorios", [
+      if(this.state.nombre == "" || this.state.profesor == "" || this.state.aula == ""){
+        Alert.alert("Campos vacíos", "Es necesario llenar todos los campos obligatorios", [
           {
               text:"ok", onPress: ()=> console.log("Campos Vacios")
           }
         ]);
-
-      } else if(!regex.test(this.state.nombre)){
-         Alert.alert("Error", "Nombre de materia invalido", [
+      }
+      
+      else if(!regex.test(this.state.nombre)){
+        Alert.alert("Error", "Nombre de materia invalido", [
           {
-              text:"ok", onPress: ()=> console.log("Nombre invalido")
+              text:"ok", onPress: ()=> console.log("Nombre Invalido")
           }
         ]);
-
-      } else if(!regex.test(this.state.profesor)){
-        Alert.alert("Error", "Nombre de profesor invalido", [
-         {
-             text:"ok", onPress: ()=> console.log("Nombre invalido")
-         }
-       ]);
-
-      } else if(!regex.test(this.state.aula)){
-        Alert.alert("Error", "Nombre de aula invalido", [
-        {
-            text:"ok", onPress: ()=> console.log("Nombre invalido")
-        }
-      ]);
-
-      } else {
-
+      }else if(!regex.test(this.state.profesor)){
+        Alert.alert("Error", "Nombre de maestro invalido", [
+          {
+              text:"ok", onPress: ()=> console.log("Nombre Invalido")
+          }
+        ]);
+      }else{
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        let _this = this;       // Esto es para usar 'this' dentro de la función
+
+        xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
-                
+
           }
         };
 
-        xhttp.open("GET", 'https://dory69420.000webhostapp.com/materias.php?nombre=' + this.state.nombre + 
-        '&profesor=' + this.state.profesor + '&aula=' + this.state.aula + '&nrc=' + this.state.nrc + 
-        '&color=' + this.state.color, true);
-
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/addMateria.php?nombre=' + this.state.nombre
+          + '&profesor=' + this.state.profesor + '&aula=' + this.state.aula + '&nrc=' + this.state.nrc
+          + '&color=' + this.state.color + '&id_usuario=' + this.state.id_usuario, true);
         xhttp.send();
+      
+
+        console.log('nombre: '+ this.state.nombre + '  profesor: '+ this.state.profesor + '  aula: '+ this.state.aula + 
+        '  nrc: ' + this.state.nrc + '  color: ' + this.state.color + '  id_usuario: ' + this.state.id_usuario)
+        restaurarValores();
 
       }
-
     }
 
-    const registroHorario = () => {
-
-      let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
-  
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-                  
-          }
-          
-        xhttp.open("GET", 'https://dory69420.000webhostapp.com/horario.php?dia=' + this.state.dia + 
-        '&hora_inicio=' + this.state.textHoraInicio + '&hora_fin=' + this.state.textHoraFin, true);
-  
-        xhttp.send();
-  
-      }
-  
-    }
-    
     return (
       <View style = {styles.container}>
 
@@ -235,7 +234,7 @@ export default class App extends Component {
       <View style={styles.iconContainer}>
        <Icon name='magnify' size={30} color={'#C2C2C2'}/>
         <TextInput 
-          placeholder = "NRC"
+          placeholder = "NRC (opcional)"
           style = {styles.input}
           clearTextOnFocus={true}
           onChangeText={(nrc => this.setState({nrc}))}
@@ -289,7 +288,7 @@ export default class App extends Component {
 
       <View style = {{alignItems: 'center'}}>
         <TouchableOpacity style = {[styles.boton, {backgroundColor: currentTheme.primaryColor}]} 
-          onPress={registroMaximo}
+          onPress={registroHorario}
         > 
           <Text style = {styles.textoBoton}> AÑADIR </Text>
         </TouchableOpacity>
