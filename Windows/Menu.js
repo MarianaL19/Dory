@@ -11,7 +11,7 @@ import colores from '../Components/currentTheme';
 import {InicioMenu} from './Navegar'
 import Recordatorios from './recordatoriosScreen';
 import Agenda from './agendaScreen';
-import Horario from './horarioAddScreen';
+import Horario from './horarioShowScreen';
 
 export default class Menu extends Component {
   render() {

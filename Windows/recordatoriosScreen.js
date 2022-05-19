@@ -20,6 +20,9 @@ export default class Recordatorios extends Component {
     super(props);
     this.state = {
       listaRecordatorios: [],
+      isOpenCompletados: false,
+      isOpenOmitidos: false,
+      isOpenPendientes: false,
     };
   }
 
@@ -134,9 +137,14 @@ export default class Recordatorios extends Component {
 
         <ScrollView>
           <View style = {{marginBottom: '10%'}}>
-            <Collapse>
+            <Collapse
+              onToggle={() => this.setState({ isOpenCompletados: !this.state.isOpenCompletados })}
+            >
               <CollapseHeader>
-                <Text style={styles.collapseTitle}>Completados</Text>
+                <View style = {{flexDirection: 'row'}}>
+                  <Text style={styles.collapseTitle}>Completados</Text>
+                  <Icon name={this.state.isOpenCompletados === true ? 'chevron-up' : 'chevron-down'} size={30} color={currentTheme.primaryColor}/>
+                </View>
               </CollapseHeader>
               <CollapseBody>
               <FlatList
@@ -148,9 +156,14 @@ export default class Recordatorios extends Component {
               </CollapseBody>
             </Collapse>
 
-            <Collapse>
+            <Collapse
+              onToggle={() => this.setState({ isOpenOmitidos: !this.state.isOpenOmitidos })}
+            >
               <CollapseHeader>
-                <Text style={styles.collapseTitle}>Omitidos</Text>
+                <View style = {{flexDirection: 'row'}}>
+                  <Text style={styles.collapseTitle}>Omitidos</Text>
+                  <Icon name={this.state.isOpenOmitidos === true ? 'chevron-up' : 'chevron-down'} size={30} color={currentTheme.primaryColor}/>
+                </View>
               </CollapseHeader>
               <CollapseBody>
               <FlatList
@@ -162,9 +175,14 @@ export default class Recordatorios extends Component {
               </CollapseBody>
             </Collapse>
 
-            <Collapse>
+            <Collapse
+              onToggle={() => this.setState({ isOpenPendientes: !this.state.isOpenPendientes })}
+            >
               <CollapseHeader>
-                <Text style={styles.collapseTitle}>Pendientes</Text>
+                <View style = {{flexDirection: 'row'}}>
+                  <Text style={styles.collapseTitle}>Pendientes</Text>
+                  <Icon name={this.state.isOpenPendientes === true ? 'chevron-up' : 'chevron-down'} size={30} color={currentTheme.primaryColor}/>
+                </View>
               </CollapseHeader>
               <CollapseBody>
                 <FlatList
@@ -222,7 +240,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: currentTheme.tertiaryColor,
-    marginHorizontal: 15,
+    marginLeft: 15,
     paddingBottom: 15,
   },
   collapseItems: {
