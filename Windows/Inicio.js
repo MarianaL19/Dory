@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, StyleSheet,
-        Image, KeyboardAvoidingView} from 'react-native';
+        Image, KeyboardAvoidingView, Alert} from 'react-native';
 import {Button, Input} from 'react-native-elements'
 import { NavigationContext } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -40,16 +40,28 @@ export default class Inicio extends Component {
     const navigation = this.context;
 
     const Registro = () => {
-      let _this = this;
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              console.log(xhttp.responseText);
-              AsyncStorage.setItem('dataStorage', JSON.stringify([xhttp.responseText]));
+
+      if(this.state.nombre == ""){
+        Alert.alert("Error", "Por favor ingrese un alias", [
+          {
+              text:"ok", onPress: ()=> console.log("Vacio")
           }
-      };
-      xhttp.open("GET", 'https://dory69420.000webhostapp.com/usuarios.php?nombre=' + this.state.nombre, true);
-      xhttp.send();
+      ]);
+      }
+      else{
+        let _this = this;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(xhttp.responseText);
+                AsyncStorage.setItem('dataStorage', JSON.stringify([xhttp.responseText]));
+                navigation.push('Menu');
+            }
+        };
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/usuarios.php?nombre=' + this.state.nombre, true);
+        xhttp.send();
+      }
+      
     }
 
     return (
@@ -125,6 +137,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: width,
     height: height,
+    maxHeight: height-50,
   },
 
   encabezado: {
