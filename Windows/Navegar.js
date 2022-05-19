@@ -38,7 +38,7 @@ const InicioMenu = () => {
       readData();
     }, []);
 
-    if(prueba){
+    if(input){
       return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
           
