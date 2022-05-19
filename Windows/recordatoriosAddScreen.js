@@ -6,6 +6,7 @@ import currentTheme from '../Components/currentTheme';
 import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
 import { NavigationContext } from '@react-navigation/native';
+import SelectDropdown from 'react-native-select-dropdown'
 import MenuBar from '../hotBar';
 
 
@@ -33,6 +34,7 @@ export default class RecordatoriosAddScreen extends Component {
       notificacion24: false,
       notificacion12: false,
       notificacionEntrega: false,
+      listaMaterias: [], 
     };
 
   }
@@ -45,8 +47,46 @@ export default class RecordatoriosAddScreen extends Component {
     console.log(this.state.id);
   }
 
+  recuperarMaterias = () => {
+    var xhttp = new XMLHttpRequest();
+    let _this = this;       // Esto es para usar 'this' dentro de la función
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          let idMateria = '';
+          let nombreMateria = '';
+
+          var materia = xhttp.responseText;
+          
+          var registros = materia.split('|');
+
+          var numeroRegistros = registros[0];
+
+          for (let i=1; i<=numeroRegistros; i++){
+            var datos = registros[i].split('¬');
+            idMateria = datos[0];
+            nombreMateria = datos[1];
+
+            const objetoMateria = {id: idMateria, materia: nombreMateria};
+
+            const nuevoArreglo = [..._this.state.listaMaterias, objetoMateria];
+            _this.setState({listaMaterias: nuevoArreglo});
+            console.log(objetoMateria);
+          }
+          console.log(_this.state.listaMaterias);
+        }
+    };
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/listadoMaterias.php'
+    , true);
+    xhttp.send();
+    }
+
+
+
+
   componentDidMount(){
     this.recuperarDatos();
+    this.recuperarMaterias();
   }
 
   render() {
@@ -67,7 +107,8 @@ export default class RecordatoriosAddScreen extends Component {
       {this.state.notificacion24 === false ? noti24 = 0 : noti24 = 1};
 
 
-      let regex = new RegExp("^[a-z0-9!¡¿?#$%&'*+/-_ ]+$");
+      let regex = new RegExp("^[a-z0-9,.:!¡()¿?#$%&'*+/-_ ]+$");
+      let regex2 = new RegExp("^[a-z0-9,.:!¡()¿?#$%&'*+/-_ ]*$");
 
       if(this.state.nombre == "" || this.state.etiqueta == "null" || this.state.materia == 0 || 
         this.state.textFecha == "Selecciona la fecha de entrega"){
@@ -79,9 +120,15 @@ export default class RecordatoriosAddScreen extends Component {
       }
       
       else if(!regex.test(this.state.nombre)){
-        Alert.alert("Error", "Nombre Inválido", [
+        Alert.alert("Error", "Nombre Inválido, no se permiten caracteres especiales", [
           {
               text:"ok", onPress: ()=> console.log("Nombre Invalido")
+          }
+        ]);
+      }else if(!regex2.test(this.state.descripcion)){
+        Alert.alert("Error", "Descripción Inválida, no se permiten caracteres especiales", [
+          {
+              text:"ok", onPress: ()=> console.log("Descripción Invalida")
           }
         ]);
       }else{
@@ -99,9 +146,6 @@ export default class RecordatoriosAddScreen extends Component {
           + '&id=' + this.state.id + '&marcado=' + this.state.marcado,true);
         xhttp.send();
 
-        // console.log('nombre: '+ this.state.nombre + '  etiqueta: '+ this.state.etiqueta + '  materia: '+ this.state.materia + '  estado: ' + this.state.estado +
-        // '  fecha: ' + this.state.textFecha + '  hora: ' + this.state.textHora + '  notiEntrega: ' + notiEntrega);
-
         console.log('nombre=' + this.state.nombre
         + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
         + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
@@ -112,6 +156,7 @@ export default class RecordatoriosAddScreen extends Component {
         navigation.navigate("Recordatorios");
       }
     }
+
 
     return (
       <View style={styles.container}>
@@ -159,11 +204,29 @@ export default class RecordatoriosAddScreen extends Component {
             <>
               <View style={styles.iconContainer}>
                 <Icon name='notebook' size={25} color='#A9A9A9' />
-                <TextInput placeholder="Materia" keyboardType="default" style={styles.inputs}
-                  onChangeText={(value) => this.setState({ materia: value })} />
+                <SelectDropdown
+                  data={this.state.listaMaterias}
+                  defaultButtonText={'Materia'}
+                  buttonStyle={styles.selector}
+                  buttonTextStyle={styles.selectorTexto}
+                  dropdownBackgroundColor = {'#FFFFFF'}
+                  onSelect={(selectedItem, index) => {
+                    this.setState({materia: selectedItem.id})
+                    console.log(selectedItem, index)
+                  }}
+
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem.materia
+                  }}
+
+                  rowTextForSelection={(item, index) => {
+                    return item.materia
+                  }}
+                />
               </View>
             </>
           ) : null}
+
 
 
           {/* ~~~~~~~~ Seleccionar la fecha y hora de entrega ~~~~~~~~ */}
@@ -373,5 +436,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 5,
   },
-
+  selector: {
+    backgroundColor: '#FFFFFF'
+  },
+  selectorTexto: {
+      fontSize: 15,
+      fontWeight: '600',
+      paddingRight: 50,
+      flexDirection: 'row',
+      color: 'black',
+      textAlign: 'left',
+  },
 });
