@@ -1,123 +1,159 @@
-import React, { useState }  from 'react';
+import React, { Component, useState } from 'react';
 import currentTheme from '../Components/currentTheme';
-
 import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    TextInput,
-    FlatList,
-  } from 'react-native';
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  FlatList,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Contact from '../Components/ContactList';
+import { NavigationContext } from '@react-navigation/native';
 
-
-export default function AgendaC() {
+export default class AgendaScreen extends Component {
   
-  //Almacen de contactos
-  const [contactos, setContacts] = useState([])
+  static contextType = NavigationContext;
 
-  // Variables para el estado del tag del recordatorio
-  const [tag, setTag] = useState('Todos');
-
-  //Funcion para meter contactos a almacenamiento
-  const handleOnSubmit = async (nombre, telefono, correo, etiqueta) => {
-    const contacto = { id: nombre, nombre, telefono, correo, etiqueta};
-    const actualizarContactos = await [...contactos, contacto];
-    setContacts(actualizarContactos);
-    await AsyncStorage.setItem('contactos', JSON.stringify(actualizarContactos));
+  constructor(props) {
+    super(props);
+    this.state = {
+      // variables para filtro y busquedas
+      tagfilter: "",
+      search: "",
+      listContact: [],
+      // Variables de contacto por si acaso
+      // nombre: "",
+      // telefono: "",
+      // correo: "",
+      // etiqueta: "",
+    };
   }
 
-  //Añadir contacto
-  function addContact(){
-    handleOnSubmit('Cesar', '3318049956', 'cesarseigi@hotmail.com', 'Profesor');
-    handleOnSubmit('Alexis', '1472583690', 'alexis@hotmail.com', 'Compañero');
-    handleOnSubmit('Mariana', '3698521470', 'mariana@hotmail.com', 'Administrativo');
-    handleOnSubmit('Oliver', '1234567890', 'Oliver@hotmail.com', 'Administrativo');
-    handleOnSubmit('Tona', '1596324780', 'tona@hotmail.com', 'Compañero');
-    handleOnSubmit('Osvaldo', '3216549870', 'osva@hotmail.com', 'Profesor');
-  }
+  recuperarDatos = () => {
+    var xhttp = new XMLHttpRequest();
+    let _this = this;
 
-  //Funcion de busqueda
-  const findContact = async () => {
-    const result = await AsyncStorage.getItem('contactos');
-    console.log(result)
-    if (result !== null) setContact(JSON.parse(result));
-  }
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status ==200){
+        let nombre = "";
+        let id_usuario = "";
+        let telefono = "";
+        let correo = "";
+        let etiqueta = "";
 
-  return (
-         
-    <View style={[styles.wholeContainer, {backgroundColor: currentTheme.backgroundColor}]}>
-      
-      {/*Seccion de barra de busqueda*/}
-      <View>
+        var contacto = xhttp.responseText;
 
-        <TextInput style={styles.searchBoxFormat}
-          placeholder='Buscar contacto'
-          placeholderTextColor='#C4C4C4'
-        />
+        var registros = contacto.split('|'); //Delimitador de registro
 
-      </View>
+        var numeroRegistros = registros[0];
 
-      {/*Botones de filtros*/}
-      <View style={styles.buttonContainer}>
+        for (let i = 1; i <= numeroRegistros; i++){
+          var datos = registros[i].split('¬'); //Delimitador de campo
+          console.log('contacto: ' + datos[0]);
+          nombre = datos[0];
+          id_usuario = datos[1];
+          telefono = datos[2];
+          correo = datos[3];
+          etiqueta = datos[4];
 
-        {/* Boton para ver Todos los contactos */}
-        <TouchableOpacity onPress={() => setTag('Todos')}
-          style={[styles.buttonFormat, tag == 'Todos' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-          <Text style={[styles.searchText, tag == 'Todos' ? {color: currentTheme.tertiaryColor} : {}]}>Todos</Text>
-        </TouchableOpacity>
+          const objetoContacto = {
+            nombreC: nombre, ID_Usuario: id_usuario, telefonoC: telefono, correoC: correo, etiquetaC: etiqueta 
+          };
 
-        {/* Boton para ver solo Compañeros */}
-        <TouchableOpacity onPress={() => setTag('Compañero')}
-          style={[styles.buttonFormat, tag == 'Compañero' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-          <Text style={[styles.searchText, tag == 'Compañero' ? {color: currentTheme.tertiaryColor} : {}]}>Compañero</Text>
-        </TouchableOpacity>
-
-        {/* Boton para ver solo profesor */}
-        <TouchableOpacity onPress={() => setTag('profesor')}
-          style={[styles.buttonFormat, tag == 'profesor' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-          <Text style={[styles.searchText, tag == 'profesor' ? {color: currentTheme.tertiaryColor}: {}]}>Profesor</Text>
-        </TouchableOpacity>
-
-        {/* Boton para ver solo Administrativo */}
-        <TouchableOpacity onPress={() => setTag('Administrativo')}
-          style={[styles.buttonFormat, tag == 'Administrativo' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-          <Text style={[styles.searchText, tag == 'Administrativo' ? {color: currentTheme.tertiaryColor} : {}]}>Administrativo</Text>
-        </TouchableOpacity>
-        
-      </View>
-
-      {/*Area de scroll para ver contactos*/}
-      {/* Validación para saber si hay contactos */}
-      {!contactos.length ?
-        ( //Si no los hay, muestra un mensaje
-          <View style={[styles.emptyHeaderContainer, {backgroundColor: currentTheme.backgroundColor}]}>
-            <Text style={styles.emptyHeader}>
-              Parece que no tienes ningun contacto añadido, ¡Empieza añadiendo uno!
-            </Text>
-          </View>
-        ) : 
-            ( // Si hay contactos los muestra
-              <FlatList
-                data={contactos}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
-              />
-            ) 
+          const nuevoArregloContactos = [..._this.state.listContact, objetoContacto];
+          _this.setState({listContact: nuevoArregloContactos});
+          console.log(objetoContacto);
+        }
+        console.log(_this.state.listContact);
       }
-      
-      {/*Botón para agregar contactos*/}
-      <TouchableOpacity onPress={() => addContact()} style={styles.addIcon} >
-        <Icon name='plus-circle' size={50} color={currentTheme.primaryColor}/>
-      </TouchableOpacity>
+    };
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/',  true);
+    xhttp.send();
+  }
 
-    </View>
-    //Modal para ver contacto esta en ContactList.js
-    //Esta aparece al seleccionar un contacto
-  );
+  componentDidMount(){
+    this.recuperarDatos();
+  }
+
+  render() {
+
+    const navigation = this.context;
+
+    return (
+      
+      <View style={[styles.wholeContainer, {backgroundColor: currentTheme.backgroundColor}]}>
+      
+        {/*Seccion de barra de busqueda*/}
+        <View>
+
+          <TextInput style={styles.searchBoxFormat}
+            placeholder='Buscar contacto'
+            placeholderTextColor='#C4C4C4'
+          />
+
+        </View>
+
+        {/*Botones de filtros*/}
+        <View style={styles.buttonContainer}>
+
+          {/* Boton para ver Todos los contactos */}
+          <TouchableOpacity onPress={() => this.setState({tagfilter: 'Todos'})}
+            style={[styles.buttonFormat, this.state.tagfilter == 'Todos' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+            <Text style={[styles.searchText, this.state.tagfilter == 'Todos' ? {color: currentTheme.tertiaryColor} : {}]}>Todos</Text>
+          </TouchableOpacity>
+
+          {/* Boton para ver solo Compañeros */}
+          <TouchableOpacity onPress={() => this.setState({tagfilter: 'Compañero'})}
+            style={[styles.buttonFormat, this.state.tagfilter == 'Compañero' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+            <Text style={[styles.searchText, this.state.tagfilter == 'Compañero' ? {color: currentTheme.tertiaryColor} : {}]}>Compañero</Text>
+          </TouchableOpacity>
+
+          {/* Boton para ver solo profesor */}
+          <TouchableOpacity onPress={() => this.setState({tagfilter: 'Profesor'})}
+            style={[styles.buttonFormat, this.state.tagfilter == 'Profesor' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+            <Text style={[styles.searchText, this.state.tagfilter == 'Profesor' ? {color: currentTheme.tertiaryColor}: {}]}>Profesor</Text>
+          </TouchableOpacity>
+
+          {/* Boton para ver solo Administrativo */}
+          <TouchableOpacity onPress={() => this.setState({tagfilter: 'Administrativo'})}
+            style={[styles.buttonFormat, this.state.tagfilter == 'Administrativo' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
+            <Text style={[styles.searchText, this.state.tagfilter == 'Administrativo' ? {color: currentTheme.tertiaryColor} : {}]}>Administrativo</Text>
+          </TouchableOpacity>
+          
+        </View>
+
+        {/*Area de scroll para ver contactos*/}
+        {/* Validación para saber si hay contactos */}
+        {!this.state.listContact.length ?
+          ( //Si no los hay, muestra un mensaje
+            <View style={[styles.emptyHeaderContainer, {backgroundColor: currentTheme.backgroundColor}]}>
+              <Text style={styles.emptyHeader}>
+                Parece que no tienes ningun contacto añadido, ¡Empieza añadiendo uno!
+              </Text>
+            </View>
+          ) : 
+              ( // Si hay contactos los muestra
+                <FlatList
+                  data={this.state.listContact}
+                  keyExtractor={item => item.nombre}
+                  renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
+                />
+              ) 
+        }
+        
+        {/*Botón para agregar contactos*/}
+        <TouchableOpacity onPress={() => {navigation.navigate("AddContact");}} style={styles.addIcon} >
+          <Icon name='plus-circle' size={50} color={currentTheme.primaryColor}/>
+        </TouchableOpacity>
+
+      </View>
+      //Modal para ver contacto esta en ContactList.js
+      //Esta aparece al seleccionar un contacto
+    );
+  }
 }
 
 const styles = StyleSheet.create({

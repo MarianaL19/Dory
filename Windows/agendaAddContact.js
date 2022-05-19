@@ -1,22 +1,46 @@
 import React, { Component, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TextInput, Dimensions, Alert, ScrollView } from "react-native";
 import currentTheme from '../Components/currentTheme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Contact from '../Components/ContactList';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { NavigationContext } from '@react-navigation/native';
 
 export default class AgendaAddContact extends Component {
+  static contextType = NavigationContext;
   // Variables para la ventana
   constructor(props) {
     super(props);
     this.state = {
       nombre: "",
+      id_usuario: "",
       telefono: "",
       correo: "",
       etiqueta: "",
     };
   }
 
+  // Funciones para recuperar la id del usuario
+  recuperarDatos = async() => {
+    const jsonValue = await AsyncStorage.getItem('dataStorage');
+    var data = JSON.parse(jsonValue);
+
+    this.setState({id_usuario: data[0]});
+    console.log(this.state.id_usuario);
+  }
+
+  componentDidMount(){
+    this.recuperarDatos();
+  }
+
   render() {
+    const navigation = this.context;
+
+    //Funciones para recuperar datos de usuario
+    const restaurarValores = () => {
+      this.setState({})
+    }
+
     // Funcion para registro de informacion
     const registro = () => {
 
@@ -69,10 +93,16 @@ export default class AgendaAddContact extends Component {
               }
           };
           // Comando que se comunica con un PHP que hace los Query en la base de datos
-          xhttp.open("GET", 'https://dory69420.000webhostapp.com/horario.php?nombre=' + this.state.nombre +
-          '&telefono=' + this.state.telefono + '&correo=' + this.state.correo + '&etiqueta=' + this.state.etiqueta, true);
+          xhttp.open("GET", 'https://dory69420.000webhostapp.com/addContact.php?nombre=' + this.state.nombre +
+          '&telefono=' + this.state.telefono + '&correo=' + this.state.correo + '&etiqueta=' + this.state.etiqueta +
+          '&id_usuario=' + this.state.id_usuario, true);
           xhttp.send();
+
+          console.log('nombre: '+ this.state.nombre + 'usuario: ' + this.state.id_usuario + 'telefono: ' + this.state.telefono + 'correo: ' + this.state.correo + 'etiqueta: ' + this.state.etiqueta);
+          navigation.navigate("Agenda");
         }
+
+        
     }
 
     return (

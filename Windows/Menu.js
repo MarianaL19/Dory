@@ -10,7 +10,7 @@ import colores from '../Components/currentTheme';
 //import HOME from './Home.js';
 import {InicioMenu} from './Navegar'
 import Recordatorios from './recordatoriosScreen';
-import Agenda from './agendaAddContact';
+import Agenda from './agendaScreen';
 import Horario from './horarioAddScreen';
 
 export default class Menu extends Component {
