@@ -15,7 +15,7 @@ const recuperarTema = async() => {
 var currentTheme;
 //var themeID = JSON.stringify(recuperarTema());
 
-var themeID = "2";
+var themeID = "1";
 
 const validar = () => {
     console.log(themeID);

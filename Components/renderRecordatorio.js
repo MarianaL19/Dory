@@ -4,15 +4,18 @@ import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cambioFormato } from './Date';
 
-// Objeto para administrar los colores de los recordatorios
-var lineColor = {
-    color: 'white',
-    get getColor() {
-        return this.color;
-    },
-    set setColor(color) {
-        this.color = color;
-    }
+const eliminarRecordatorio = (id_recordatorio) => {
+    var xhttp = new XMLHttpRequest();
+    let _this = this;       // Esto es para usar 'this' dentro de la función
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          }
+    };
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/eliminarRecordatorio.php?id=' + id_recordatorio, true);
+    xhttp.send();
+
+    // var newArray = myArray.filter((item) => item.id !== 1);
 }
 
 //Esta función principal se realiza por cada item
@@ -21,7 +24,7 @@ const RenderRecordatorio = ({ item }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     //Aún no descifro pa k es esto
-    const { nombre, etiqueta, materia, fecha, hora, descripcion } = item;
+    const { id, nombre, etiqueta, materia, fecha, hora, descripcion } = item;
 
     return (
         <>
@@ -103,12 +106,23 @@ const RenderRecordatorio = ({ item }) => {
                 </Modal> 
 
                 <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.container}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {/* Puntito de color que indica el tipo de recordatorio */}
-                        <View style={{ height: 18, width: 18, borderRadius: 10, marginRight: 10 }} />
-                        
-                        {/* Título del recordatorio */}
-                        <Text numberOfLines={2} style={styles.title}>{nombre}</Text>
+                    {/* Título del recordatorio */}
+                    <Text numberOfLines={2} style={styles.title}>{nombre}</Text>
+
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>                          
+                        <Text numberOfLines={2} style={styles.materia}>Materia</Text>
+                        <Icon name='delete-outline' size={24} color={currentTheme.primaryColor}/>
+                    </View>
+
+                    <View style={{ flexDirection: 'row'}}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingRight: 25}}>
+                            <Icon name='calendar-blank-outline' size={24} style={{paddingRight: 3}}/>
+                            <Text numberOfLines={2} style={styles.fecha}>{fecha}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                            <Icon name='clock-time-four-outline' size={24} style={{paddingRight: 3}}/>
+                            <Text numberOfLines={2} style={styles.fecha}>{hora}</Text>
+                        </View>
                     </View>
                 </TouchableOpacity>
 
@@ -127,19 +141,29 @@ const height = Dimensions.get('screen').height;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: currentTheme.quinaryColor,
+        backgroundColor: '#D3EFFF',
         width: width,
         paddingHorizontal: 20,
         paddingVertical: 10,
         justifyContent: 'center',
         borderRadius: 10,
         textAlign: 'center',
-        marginBottom: 3,
-        marginTop: 3,
+        marginBottom: 4,
+        marginTop: 4,
     },
     title: {
         fontWeight: 'bold',
         fontSize: 16,
+        color: '#171717',
+    },
+    materia: {
+        fontWeight: '600',
+        fontSize: 12,
+        justifyContent: 'center',
+    },
+    fecha: {
+        fontWeight: 'bold',
+        fontSize: 12,
         color: '#171717',
     },
     modalContainer: {
