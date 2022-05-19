@@ -6,7 +6,7 @@ import currentTheme from '../Components/currentTheme';
 import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
 import { NavigationContext } from '@react-navigation/native';
-import { parseSync } from '@babel/core';
+import MenuBar from '../hotBar';
 
 
 const { width, height } = Dimensions.get('screen');
@@ -29,9 +29,10 @@ export default class RecordatoriosAddScreen extends Component {
       textHora: '23:59:00',
       descripcion: '',
       estado: 'pendiente',
+      marcado: 0,
       notificacion24: false,
       notificacion12: false,
-      idTemporalRecordatorio: 0,
+      notificacionEntrega: false,
     };
 
   }
@@ -53,12 +54,20 @@ export default class RecordatoriosAddScreen extends Component {
 
     const restaurarValores = () => {
       this.setState({nombre: '', etiqueta: 'null', materia: 0, textFecha: 'Selecciona la fecha de entrega',
-      textHora: '23:59:00',descripcion: ''})
+      textHora: '23:59:00',descripcion: '', notificacionEntrega: false, notificacion12: false, notificacion24: false})
     }
 
     const registro = () => {
+      let notiEntrega; 
+      let noti12;
+      let noti24;
 
-      let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
+      {this.state.notificacionEntrega === false ? notiEntrega = 0 : notiEntrega = 1};
+      {this.state.notificacion12 === false ? noti12 = 0 : noti12 = 1};
+      {this.state.notificacion24 === false ? noti24 = 0 : noti24 = 1};
+
+
+      let regex = new RegExp("^[a-z0-9!¡¿?#$%&'*+/-_ ]+$");
 
       if(this.state.nombre == "" || this.state.etiqueta == "null" || this.state.materia == 0 || 
         this.state.textFecha == "Selecciona la fecha de entrega"){
@@ -81,38 +90,45 @@ export default class RecordatoriosAddScreen extends Component {
 
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
-             let idTemporal = parseInt(xhttp.responseText);
-             _this.setState({idTemporalRecordatorio: idTemporal});
-
-             console.log(_this.state.idTemporalRecordatorio);
-             console.log(idTemporal);
           }
         };
 
         xhttp.open("GET", 'https://dory69420.000webhostapp.com/addRecordatorio.php?nombre=' + this.state.nombre
           + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
           + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
-          + '&id=' + this.state.id,true);
+          + '&id=' + this.state.id + '&marcado=' + this.state.marcado,true);
         xhttp.send();
 
-        console.log('nombre: '+ this.state.nombre + '  etiqueta: '+ this.state.etiqueta + '  materia: '+ this.state.materia + '  estado: ' + this.state.estado +
-        '  fecha: ' + this.state.textFecha + '  hora: ' + this.state.textHora)
+        // console.log('nombre: '+ this.state.nombre + '  etiqueta: '+ this.state.etiqueta + '  materia: '+ this.state.materia + '  estado: ' + this.state.estado +
+        // '  fecha: ' + this.state.textFecha + '  hora: ' + this.state.textHora + '  notiEntrega: ' + notiEntrega);
+
+        console.log('nombre=' + this.state.nombre
+        + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
+        + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
+        + '&id=' + this.state.id + '&marcado=' + this.state.marcado  + '&notificacionEntrega=' + notiEntrega
+        + '&notificacion12=' + noti12 + '&notificacion24=' + noti24,true);
         restaurarValores();
+
         navigation.navigate("Recordatorios");
       }
     }
 
     return (
       <View style={styles.container}>
+
+      <View style={styles.nav}>
+        <MenuBar/>
+      </View>
+
         <ScrollView>
           <Text style={[styles.title, { color: currentTheme.quaternaryColor }]}>Nuevo recordatorio</Text>
 
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 2.8, width: width }} />
 
           <TextInput placeholder="Título del recordatorio" keyboardType="default" style={[styles.inputs, { marginVertical: 5, paddingHorizontal: 10 }]}
             onChangeText={(value) => this.setState({ nombre: value })} value={this.state.nombre} maxLength={100}/>
 
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 2.8, width: width }} />
 
           {/* ~~~~~~~~ Etiquetas de tipo de recordatorio ~~~~~~~~ */}
           <Text style={[styles.subtitle, { color: currentTheme.tertiaryColor }]}>Tipo de recordatorio</Text>
@@ -134,7 +150,7 @@ export default class RecordatoriosAddScreen extends Component {
             </TouchableOpacity>
           </View>
 
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 2.8, width: width }} />
 
 
           {/* ~~~~~~~~ Materia ~~~~~~~~ */}
@@ -146,7 +162,6 @@ export default class RecordatoriosAddScreen extends Component {
                 <TextInput placeholder="Materia" keyboardType="default" style={styles.inputs}
                   onChangeText={(value) => this.setState({ materia: value })} />
               </View>
-              <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
             </>
           ) : null}
 
@@ -169,7 +184,7 @@ export default class RecordatoriosAddScreen extends Component {
             </TouchableOpacity>
           </View>
 
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 2.8, width: width }} />
 
           {/* ~~~~~~~~ Descripción ~~~~~~~~ */}
 
@@ -178,10 +193,10 @@ export default class RecordatoriosAddScreen extends Component {
             <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs, { width: width * 0.8 }]}
               onChangeText={(value) => this.setState({ descripcion: value })} value={this.state.descripcion} maxLength={280}/>
           </View>
-          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 3.5, width: width }} />
+          <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 2.8, width: width }} />
 
 
-          {/* ~~~~~~~~ Notificar recordatorio ~~~~~~~~ */}
+          {/* ~~~~~~~~ Notificar recordatorio encabezado ~~~~~~~~ */}
 
           <View style={[styles.iconContainer, { paddingTop: 10 }]}>
             <Icon name='bell' size={27} color={currentTheme.primaryColor} />
@@ -192,22 +207,33 @@ export default class RecordatoriosAddScreen extends Component {
           {/* ~~~~~~~~ Opciones de notificar recordatorio ~~~~~~~~ */}
 
           <View style={styles.opcRecordatorioContainer}>
-            <Text style={[styles.recordatoriosText, { color: currentTheme.tertiaryColor }]}>24 horas antes</Text>
+            <Text style={[styles.recordatoriosText, { color: currentTheme.tertiaryColor }]}>Hora de entrega</Text>
             <Switch
-            value={this.state.notificacion24}
-            onValueChange={(value) => this.setState({notificacion24: value})}
-            trackColor={{ false: "grey", true: "grey" }} />
+            value={this.state.notificacionEntrega}
+            onValueChange={(value) => this.setState({notificacionEntrega: value})}
+            trackColor={{ false: currentTheme.quinaryColor, true: currentTheme.secondaryColor }}
+            />
           </View>
 
           <View style={styles.opcRecordatorioContainer}>
             <Text style={[styles.recordatoriosText, { color: currentTheme.tertiaryColor }]}>12 horas antes</Text>
-            <Switch trackColor={{ false: "grey", true: "grey" }} />
+            <Switch
+            value={this.state.notificacion12}
+            onValueChange={(value) => this.setState({notificacion12: value})}
+            trackColor={{ false: currentTheme.quinaryColor, true: currentTheme.secondaryColor }}
+            />
           </View>
 
           <View style={styles.opcRecordatorioContainer}>
-            <Text style={[styles.recordatoriosText, { color: currentTheme.tertiaryColor }]}>Seleccionar hora</Text>
+            <Text style={[styles.recordatoriosText, { color: currentTheme.tertiaryColor }]}>24 horas antes</Text>
+            <Switch
+            value={this.state.notificacion24}
+            onValueChange={(value) => this.setState({notificacion24: value})}
+            trackColor={{ false: currentTheme.quinaryColor, true: currentTheme.secondaryColor }}
+            />
           </View>
 
+          {/* Botón para guardar el recordatorio */}
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={registro} style={[styles.addButton, { backgroundColor: currentTheme.primaryColor }]}>
               <Text style={styles.buttonText}>GUARDAR</Text>
@@ -261,6 +287,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  nav:{
+    width: width,
+    height: 60,
   },
   filterButtonContainer: {
     flexDirection: 'row',

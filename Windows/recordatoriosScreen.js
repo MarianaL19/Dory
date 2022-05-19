@@ -40,6 +40,7 @@ export default class Recordatorios extends Component {
           let horaRecordatorio = '';
           let descripcionRecordatorio = '';
           let idRecordatorio = -1;
+          let checkRecordatorio = -1;
 
           var recordatorio = xhttp.responseText;
           
@@ -58,12 +59,13 @@ export default class Recordatorios extends Component {
             horaRecordatorio = datos[5];
             descripcionRecordatorio = datos[6];
             idRecordatorio = datos[7];
+            checkRecordatorio = datos[8];
 
             const objetoRecordatorio =
             {nombre: nombreRecordatorio, etiqueta: etiquetaRecordatorio,
              materia: materiaRecordatorio, estado: estadoRecordatorio,
              fecha: fechaRecordatorio, hora: horaRecordatorio,
-             descripcion: descripcionRecordatorio, id: idRecordatorio};
+             descripcion: descripcionRecordatorio, id: idRecordatorio, check: checkRecordatorio};
 
             const nuevoArreglo = [..._this.state.listaRecordatorios, objetoRecordatorio];
             _this.setState({listaRecordatorios: nuevoArreglo});
@@ -151,7 +153,7 @@ export default class Recordatorios extends Component {
               <FlatList
                     data = {this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'completado')}
 
-                    renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
+                    renderItem={({item}) => <RenderRecordatorio item={item} />}
                 />
               </CollapseBody>
             </Collapse>
@@ -169,7 +171,7 @@ export default class Recordatorios extends Component {
               <FlatList
                     data = {this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'omitido')}
 
-                    renderItem={({item}) => <TouchableOpacity><Text style={styles.collapseItems}>{item.nombre}</Text></TouchableOpacity>}
+                    renderItem={({item}) => <RenderRecordatorio item={item} />}
                 />
               </CollapseBody>
             </Collapse>
