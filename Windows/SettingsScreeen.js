@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, Dimensions,
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContext } from '@react-navigation/native';
 
+import HotBarToy from '../hotBarToy'
+
 import currentTheme from '../Components/currentTheme';
 
 const {width, height} = Dimensions.get("screen");
@@ -66,6 +68,7 @@ export default class SettingsScreeen extends Component {
     const navigation = this.context;
     return (
         <View style={styles.container}>
+          <HotBarToy/>
             <Text style={styles.TituloUsuario}>¡Hola, {this.state.username}!</Text>
   
             <View style={{flexDirection:"row", justifyContent: "space-around", backgroundColor: currentTheme.backgroundColor}}>
