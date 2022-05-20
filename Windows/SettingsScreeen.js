@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions,
-        TextInput, TouchableOpacity, Switch, Image, DevSettings} from 'react-native';
+        TextInput, TouchableOpacity, Switch,
+        Image, DevSettings, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContext } from '@react-navigation/native';
 
@@ -49,16 +50,16 @@ export default class SettingsScreeen extends Component {
   }
 
   nombreUser = () => {
-    let _this = this;
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var nombre = xhttp.responseText;
-            _this.setState({username: nombre});
-        }
-    };
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/buscarUser.php?id=' + this.state.id, true);
-    xhttp.send();
+      let _this = this;
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+              var nombre = xhttp.responseText;
+              _this.setState({username: nombre});
+          }
+      };
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/buscarUser.php?id=' + this.state.id, true);
+      xhttp.send();
   }
 
   componentDidMount(){
@@ -69,17 +70,26 @@ export default class SettingsScreeen extends Component {
     const navigation = this.context;
 
     const cambiarUsername = () => {
-      let _this = this;
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              
+      if(this.state.nuevoNombre == ""){
+        Alert.alert("Error", "Por favor ingrese un alias", [
+          {
+              text:"ok", onPress: ()=> console.log("Vacio")
           }
-      };
-      xhttp.open("GET", 'https://dory69420.000webhostapp.com/cambiarNombre.php?id=' + this.state.id + '&nombre=' + this.state.nuevoNombre, true);
-      xhttp.send();
-      var nuevo = this.state.nuevoNombre;
-      this.setState({username: nuevo});
+      ]);
+      }
+      else{
+        let _this = this;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                
+            }
+        };
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/cambiarNombre.php?id=' + this.state.id + '&nombre=' + this.state.nuevoNombre, true);
+        xhttp.send();
+        var nuevo = this.state.nuevoNombre;
+        this.setState({username: nuevo});
+      }
     };
     return (
         <View style={styles.container}>
