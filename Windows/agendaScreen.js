@@ -45,7 +45,7 @@ export default class AgendaScreen extends Component {
         let etiqueta = "";
 
         var contacto = xhttp.responseText;
-        console.log(contacto);
+        // console.log(contacto);
 
         var registros = contacto.split('|'); //Delimitador de registro
 
@@ -53,7 +53,7 @@ export default class AgendaScreen extends Component {
 
         for (let i = 1; i <= numeroRegistros; i++){
           var datos = registros[i].split('¬'); //Delimitador de campo
-          console.log('contacto: ' + datos[0]);
+          // console.log('contacto: ' + datos[0]);
           nombre = datos[0];
           id_usuario = datos[1];
           telefono = datos[2];
@@ -66,9 +66,9 @@ export default class AgendaScreen extends Component {
 
           const nuevoArregloContactos = [..._this.state.listContact, objetoContacto];
           _this.setState({listContact: nuevoArregloContactos});
-          console.log(objetoContacto);
+          // console.log(objetoContacto);
         }
-        console.log(_this.state.listContact);
+        // console.log(_this.state.listContact);
       }
     };
     xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarContacto.php',  true);
@@ -196,9 +196,11 @@ const styles = StyleSheet.create({
       borderColor: '#C4C4C4',
       padding: 3,
       fontSize: 15,
+      alignSelf: 'center',
       textAlign: 'center',
       marginBottom: 20,
       marginTop: 15,
+      width: width*0.9,
     },
     searchText: {
       fontFamily: 'Sen',

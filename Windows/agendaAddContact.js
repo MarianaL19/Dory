@@ -62,7 +62,7 @@ export default class AgendaAddContact extends Component {
       }
       // Nombre no valido
       else if(!exregNom.test(this.state.nombre)){
-        Alert.alert("Nombre invalido", "El nombre solo puede contener caracteres alfabeticos", [
+        Alert.alert("Nombre invalido", "El nombre solo puede contener caracteres alfabeticos y espacios", [
           {
             text: "OK", onPress: () => console.log("Nombre Invalido")
           }
@@ -98,7 +98,7 @@ export default class AgendaAddContact extends Component {
           '&id_usuario=' + this.state.id_usuario, true);
           xhttp.send();
 
-          console.log('nombre: '+ this.state.nombre + 'usuario: ' + this.state.id_usuario + 'telefono: ' + this.state.telefono + 'correo: ' + this.state.correo + 'etiqueta: ' + this.state.etiqueta);
+          // console.log('nombre: '+ this.state.nombre + 'usuario: ' + this.state.id_usuario + 'telefono: ' + this.state.telefono + 'correo: ' + this.state.correo + 'etiqueta: ' + this.state.etiqueta);
           navigation.navigate("Agenda");
         }
 
