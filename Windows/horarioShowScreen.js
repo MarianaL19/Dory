@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, ScrollView, Dimensions, FlatList, TouchableOpacity } from 'react-native';
-import currentTheme from '../Components/currentTheme';
-import MenuBar from '../hotBar';
+
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContext } from '@react-navigation/native';
+
+import currentTheme from '../Components/currentTheme';
+import MenuBar from '../hotBar';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -36,10 +38,9 @@ export default class App extends Component {
           let profesorMateria = '';
           let aulaMateria = '';
           let nrcMateria = '';
-          let hora_inicioMateria = '';
-          let hora_finMateria = '';
-          let colorMateria = '';
-          let idMateria = -1;
+          let diaMateria = '';
+          let hora_inicio = '';
+          let hora_fin = '';
 
           var materia = xhttp.responseText;
           
@@ -54,27 +55,25 @@ export default class App extends Component {
             profesorMateria = datos[1];
             aulaMateria = datos[2];
             nrcMateria = datos[3];
-            hora_inicioMateria = datos[4];
-            hora_finMateria = datos[5];
-            colorMateria = datos[6];
-            idMateria = datos[7];
+            diaMateria = datos[4];
+            hora_inicio = datos[5];
+            hora_fin = datos[6];
+            colorMateria = datos[7]
 
             const objetoMateria =
             {nombre: nombreMateria, profesor: profesorMateria,
              aula: aulaMateria, nrc: nrcMateria,
-             hora_inicio: hora_inicioMateria, hora_fin: hora_finMateria,
-             color: colorMateria, id: idMateria};
+             dia: diaMateria, hora_inicio: hora_inicio,
+             hora_fin: hora_fin, color: colorMateria};
 
-            const nuevoArreglo = [..._this.state.listaMaterias, objetoMateria];
-            _this.setState({listaMaterias: nuevoArreglo});
-            console.log(objetoMateria);
+            const nuevoArreglo = [..._this.state.listaRecordatorios, objetoRecordatorio];
+            _this.setState({listaRecordatorios: nuevoArreglo});
           }
-          console.log(_this.state.listaMaterias);
         }
     };
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarMaterias.php'
-    , true);
-    xhttp.send();
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php'
+      , true);
+      xhttp.send();
     }
 
   componentDidMount(){
@@ -110,10 +109,10 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                data={this.state.listaMaterias}
                 
-                renderItem={({item}) => <TouchableOpacity><Text>{item.nombreMateria}</Text></TouchableOpacity>}
               />
+              
+            
             </CollapseBody>
           </Collapse>
 
@@ -325,13 +324,17 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 10,
   },
-  titulo2: {
-    fontSize: 22,
-    color: '#A0A5AE',
+  emptyHeaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: -1,
+    padding: 35,
   },
-  subTitle2: {
-    fontSize: 22,
-    color: '#A0A5AE',
+  emptyHeader: {
+    fontSize: 30,
     fontWeight: 'bold',
-  }
+    opacity: 0.5,
+    bottom: 30,
+  },
 })
