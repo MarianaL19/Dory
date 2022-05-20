@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions,
-        TextInput, TouchableOpacity, Switch, Image} from 'react-native';
+        TextInput, TouchableOpacity, Switch, Image, DevSettings} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContext } from '@react-navigation/native';
 
@@ -18,6 +18,7 @@ export default class SettingsScreeen extends Component {
         username: "",
         id: "",
         tag: "Button1",
+        nuevoNombre: '',
     };
   }
   
@@ -66,6 +67,19 @@ export default class SettingsScreeen extends Component {
 
   render() {
     const navigation = this.context;
+
+    const cambiarUsername = () => {
+      let _this = this;
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+              
+          }
+      };
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/cambiarNombre.php?id=' + this.state.id + '&nombre=' + this.state.nuevoNombre, true);
+      xhttp.send();
+      DevSettings.reload();
+    };
     return (
         <View style={styles.container}>
           <HotBarToy/>
@@ -76,7 +90,7 @@ export default class SettingsScreeen extends Component {
               <TextInput 
                   style={styles.inputTexto}
                   placeholder="nombre de usuario"
-                  //onChangeText={(value)=>setNombre(value)}
+                  onChangeText={(nuevoNombre => this.setState({nuevoNombre}))}
                   maxLength={20}
               />
               <TouchableOpacity style={{
@@ -86,7 +100,7 @@ export default class SettingsScreeen extends Component {
                   height: width/10,
                   borderRadius: 20,
                   marginTop: 30,}}
-                  //onPress={cambiarUsername}
+                  onPress={cambiarUsername}
               >
               </TouchableOpacity>
             </View>
