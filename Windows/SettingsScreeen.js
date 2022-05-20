@@ -78,7 +78,8 @@ export default class SettingsScreeen extends Component {
       };
       xhttp.open("GET", 'https://dory69420.000webhostapp.com/cambiarNombre.php?id=' + this.state.id + '&nombre=' + this.state.nuevoNombre, true);
       xhttp.send();
-      DevSettings.reload();
+      var nuevo = this.state.nuevoNombre;
+      this.setState({username: nuevo});
     };
     return (
         <View style={styles.container}>
