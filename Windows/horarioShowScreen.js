@@ -51,7 +51,7 @@ export default class App extends Component {
 
           for (let i=1; i<=numeroRegistros; i++){
             var datos = registros[i].split('¬');
-            console.log('datos: ' + datos[0]);
+            // console.log('datos: ' + datos[0]);
             nombreMateria = datos[0];
             profesorMateria = datos[1];
             aulaMateria = datos[2];
@@ -59,17 +59,16 @@ export default class App extends Component {
             diaMateria = datos[4];
             hora_inicio = datos[5];
             hora_fin = datos[6];
-            checkMateria = datos[8];
 
             const objetoMateria =
             {nombre: nombreMateria, profesor: profesorMateria,
              aula: aulaMateria, nrc: nrcMateria,
              dia: diaMateria, hora_inicio: hora_inicio,
-             hora_fin: hora_fin, check: checkMateria};
+             hora_fin: hora_fin};
 
             const nuevoArreglo = [..._this.state.listaMaterias, objetoMateria];
             _this.setState({listaMaterias: nuevoArreglo});
-            console.log(objetoMateria);
+            //console.log(objetoMateria);
           }
 
         }
@@ -293,6 +292,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
+    backgroundColor: currentTheme.backgroundColor,
   },
   titulo: {
     fontSize: 22,

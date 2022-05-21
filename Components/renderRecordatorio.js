@@ -18,20 +18,23 @@ const eliminarRecordatorio = (id_recordatorio) => {
 }
 
 // Marcar como completado (o no)
-const checkRecordatorio = (id_recordatorio, estado_recordatorio) => {
+const checkRecordatorio = (id_recordatorio, estado_recordatorio, check_recordatorio) => {
     var xhttp = new XMLHttpRequest();
     let _this = this;       // Esto es para usar 'this' dentro de la función
     let estado = estado_recordatorio;
     // let marcado = (check == 0 ? 1 : 0);
-    let marcado = 1;
+    let marcado;
+    // check_recordatorio = !check_recordatorio;
+    {check_recordatorio == false ? marcado = 1 : marcado = 0};
 
     if(estado === 'pendiente'){
         estado = 'completado';
     }else if (estado === 'completado'){
-        estado = 'pendiente';
-    }else if (estado === 'omitido'){
-        estado = 'completado';
+        estado = 'omitido'; //pendiente
     }
+    // }else if (estado === 'omitido'){
+    //     estado = 'completado';
+    // }
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -50,7 +53,7 @@ const RenderRecordatorio = ({ item }) => {
 
     //Variable para saber el estado del popUp (si se ve o no)
     const [modalVisible, setModalVisible] = useState(false);
-    const [checkState, setCheckState] = useState(check === 1 ? true : false);
+    // const [checkState, setCheckState] = useState(check === 1 ? true : false);
 
 
     return (
@@ -127,29 +130,29 @@ const RenderRecordatorio = ({ item }) => {
                 </Modal> 
                 
                 {/* Estilo con el que se van a renderizar los recordatorios */}
-                <View style={styles.container}>
+                <View style={[styles.container, estado === 'completado' ? {backgroundColor:'#ebf6fc'} : {}]}>
 
                     {/* Título del recordatorio */}
                     <View style={{ flexDirection: 'row'}}>
                         <BouncyCheckbox
-                            isChecked={checkState}
-                            onPress={(isChecked = checkState) => {checkRecordatorio(id, estado)}}
+                            isChecked={check}
+                            onPress={(isChecked = check) => {checkRecordatorio(id, estado, check)}}
                             fillColor={currentTheme.primaryColor}
                         />
                         <TouchableOpacity style={{flex: 1}} onPress={() => setModalVisible(true)}>
-                            <Text numberOfLines={2} style={styles.title}>{nombre}</Text>
+                            <Text numberOfLines={2} style={[styles.title, estado == 'completado' ? {textDecorationLine: 'line-through', textDecorationStyle: 'solid'} : {}]}>{nombre}</Text>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>                          
                                     <Text numberOfLines={2} style={styles.materia}>Materia</Text>
                                 </View>
                     
-                                <View style={{ flexDirection: 'row'}}>
+                                <View style={{ flexDirection: 'row'}}> 
                                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingRight: 25}}>
                                         <Icon name='calendar-blank-outline' size={24} style={{paddingRight: 3}}/>
-                                        <Text numberOfLines={2} style={styles.fecha}>{fecha}</Text>
+                                        <Text numberOfLines={2} style={[styles.fecha, estado == 'omitido' ? {color: '#9E0000'} : {} ]}>{fecha}</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                                         <Icon name='clock-time-four-outline' size={24} style={{paddingRight: 3}}/>
-                                        <Text numberOfLines={2} style={styles.fecha}>{hora.substr(0,5)}</Text>
+                                        <Text numberOfLines={2} style={[styles.fecha, estado == 'omitido' ? {color: '#9E0000'} : {} ]}>{hora.substr(0,5)}</Text>
                                     </View>
                                 </View>
                         </TouchableOpacity>
@@ -237,7 +240,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     modalTagText: {
-        fontSize: 11,
+        fontSize: 13,
         fontWeight: 'bold',
         color: '#A9A9A9'
     },

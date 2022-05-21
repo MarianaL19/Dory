@@ -41,7 +41,8 @@ export default class Recordatorios extends Component {
           let descripcionRecordatorio = '';
           let idRecordatorio = -1;
           let checkRecordatorio = -1;
-
+          let marcado;
+        
           var recordatorio = xhttp.responseText;
           
           var registros = recordatorio.split('|');
@@ -50,7 +51,7 @@ export default class Recordatorios extends Component {
 
           for (let i=1; i<=numeroRegistros; i++){
             var datos = registros[i].split('¬');
-            console.log('datos: ' + datos[0]);
+            // console.log('datos: ' + datos[0]);
             nombreRecordatorio = datos[0];
             etiquetaRecordatorio = datos[1];
             materiaRecordatorio = datos[2];
@@ -60,18 +61,20 @@ export default class Recordatorios extends Component {
             descripcionRecordatorio = datos[6];
             idRecordatorio = datos[7];
             checkRecordatorio = datos[8];
+            {checkRecordatorio == 0 ? marcado = false : marcado = true};
+
 
             const objetoRecordatorio =
             {nombre: nombreRecordatorio, etiqueta: etiquetaRecordatorio,
              materia: materiaRecordatorio, estado: estadoRecordatorio,
              fecha: fechaRecordatorio, hora: horaRecordatorio,
-             descripcion: descripcionRecordatorio, id: idRecordatorio, check: checkRecordatorio};
+             descripcion: descripcionRecordatorio, id: idRecordatorio, check: marcado};
 
             const nuevoArreglo = [..._this.state.listaRecordatorios, objetoRecordatorio];
             _this.setState({listaRecordatorios: nuevoArreglo});
-            console.log(objetoRecordatorio);
+            // console.log(objetoRecordatorio);
           }
-          console.log(_this.state.listaRecordatorios);
+          // console.log(_this.state.listaRecordatorios);
         }
     };
     xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php'
