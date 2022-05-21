@@ -7,6 +7,7 @@ import { NavigationContext } from '@react-navigation/native';
 
 import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
+import RenderMateria from '../Components/renderMateria';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -58,20 +59,22 @@ export default class App extends Component {
             diaMateria = datos[4];
             hora_inicio = datos[5];
             hora_fin = datos[6];
-            colorMateria = datos[7]
+            checkMateria = datos[8];
 
             const objetoMateria =
             {nombre: nombreMateria, profesor: profesorMateria,
              aula: aulaMateria, nrc: nrcMateria,
              dia: diaMateria, hora_inicio: hora_inicio,
-             hora_fin: hora_fin, color: colorMateria};
+             hora_fin: hora_fin, check: checkMateria};
 
-            const nuevoArreglo = [..._this.state.listaRecordatorios, objetoRecordatorio];
-            _this.setState({listaRecordatorios: nuevoArreglo});
+            const nuevoArreglo = [..._this.state.listaMaterias, objetoMateria];
+            _this.setState({listaMaterias: nuevoArreglo});
+            console.log(objetoMateria);
           }
+
         }
     };
-      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php'
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarMaterias.php'
       , true);
       xhttp.send();
     }
@@ -93,6 +96,8 @@ export default class App extends Component {
         
         <ScrollView>
 
+          <FlatList/>
+
           {/* Lunes */}
 
           <Collapse
@@ -109,10 +114,10 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '1')}
+
+                renderItem={({item}) => <RenderMateria item={item} />}
               />
-              
-            
             </CollapseBody>
           </Collapse>
 
@@ -134,7 +139,9 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '2')}
+
+                renderItem={({item}) => <RenderMateria item={item} />}
               />
             </CollapseBody>
           </Collapse>
@@ -157,7 +164,9 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '3')}
+
+                renderItem={({item}) => <RenderMateria item={item} />}
               />
             </CollapseBody>
           </Collapse>
@@ -179,8 +188,10 @@ export default class App extends Component {
             </View> 
             </CollapseHeader>
             <CollapseBody>
-              <FlatList
-                
+            <FlatList
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '4')}
+
+                renderItem={({item}) => <RenderMateria item={item} />}
               />
             </CollapseBody>
           </Collapse>
@@ -203,7 +214,9 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '5')}
+
+                renderItem={({item}) => <RenderMateria item={item} />}
               />
             </CollapseBody>
           </Collapse>
@@ -226,8 +239,10 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                
-              />
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '6')}
+
+                renderItem={({item}) => <RenderMateria item={item} />}
+              />  
             </CollapseBody>
           </Collapse>
 
@@ -249,7 +264,9 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '0')}
+
+                renderItem={({item}) => <RenderMateria item={item} />}
               />
             </CollapseBody>
           </Collapse>
@@ -314,8 +331,8 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     flexDirection: 'row',
-    marginBottom: 10,
-    marginTop: 10,
+    //marginBottom: 10,
+    //marginTop: 10,
     alignItems: 'center',
   },
   addIcon: {
