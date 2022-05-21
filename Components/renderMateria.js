@@ -3,7 +3,7 @@ import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, But
 import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const cambioHora = (dia) => {
+const cambioDia = (dia) => {
     var day = 'pepe';
 
     switch(dia){
@@ -44,7 +44,7 @@ const RenderMateria = ({ item }) => {
         <>
             <View style={{ alignItems: 'center' }}>
                 
-                {/* PopUp donde se muestra la información del recordatorio */}
+                {/* PopUp donde se muestra la información de la materia */}
                 <Modal
                     animationType='sliced'
                     transparent={true}
@@ -62,64 +62,63 @@ const RenderMateria = ({ item }) => {
                         <Text style={[styles.modalTitle, { color: currentTheme.primaryColor }]}>{nombre}</Text>
 
                         {/* Apartado: dia, aula, nrc y horas */}
-                            <View style={{ flexDirection: 'row', marginBottom: 20, marginTop: 20 }}>
-                                <Icon name='calendar-blank-outline' size={20} color='#A9A9A9' />
-                                <Text style={styles.modalDateText}> {cambioHora(dia)} </Text>
+                            <Text style={styles.modalDayText}> {cambioDia(dia)} de {hora_inicio.substr(0,5)} a {hora_fin.substr(0,5)}</Text>
 
-                                <Icon name='human-male-board' size={20} color='#A9A9A9' />
-                                <Text style={styles.modalDateText}> {profesor} </Text>
-
+                            <View style={{ flexDirection: 'row', marginTop: 25}}>
+                                <Icon name='map-marker' size={40} color={currentTheme.primaryColor}/>
                                 
+                                <View style={{ flexDirection: 'column'}}>
+                                    <Text style = {{fontSize:20}}> Aula </Text>
+                                    <Text style={[styles.modalDateText, {fontWeight: 'bold'}]}> {aula} </Text>
+                                </View>
                             </View>
 
-                            <View style={{ flexDirection: 'row', marginBottom: 20, marginTop: 20 }}>
-                                <Icon name='map-marker' size={20} color='#A9A9A9' />
-                                <Text style={styles.modalDateText}> {aula} </Text>
-
-                                <Icon name='clock-outline' size={20} color='#A9A9A9' />
-                                <Text style={styles.modalDateText}> {hora_inicio.substr(0,5)} - {hora_fin.substr(0,5)} </Text>
+                            <View style={{ flexDirection: 'row', marginTop: 25}}>
+                                <Icon name='human-male-board' size={40} color={currentTheme.primaryColor}/>
+                                
+                                <View style={{ flexDirection: 'column'}}>
+                                    <Text style = {{fontSize:20}}> Profesor </Text>
+                                    <Text style={styles.modalDateText}> {profesor} </Text>
+                                </View>
                             </View>
-                            
+
+                            {nrc ? (
+                                <View style={{ flexDirection: 'row', marginTop: 25}}>
+                                <Icon name='magnify' size={40} color={currentTheme.primaryColor}/>
+                                
+                                <View style={{ flexDirection: 'column', marginBottom: 20}}>
+                                    <Text style = {{fontSize:20}}> NRC </Text>
+                                    <Text style={styles.modalDateText}> {nrc} </Text>
+                                </View>
+                            </View>
+                            ) : null}
+
                             {/* Botón para salir del popUp */}
+                            <View style = {{marginTop: 20}}>
                             <Button color={currentTheme.primaryColor} title='Cerrar' onPress={() => setModalVisible(!modalVisible)}> </Button>
+                            </View>
                         </View>
                     </View>
                 </Modal> 
                 
-                {/* Estilo con el que se van a renderizar los recordatorios */}
-                <View style={styles.container}>
+            
+                <TouchableOpacity style={[styles.container, {backgroundColor: '#BCA2BB'}]} onPress={() => setModalVisible(true)}>
 
-                    {/* Título del recordatorio */}
                     <View style={{ flexDirection: 'row'}}>
-                        <TouchableOpacity style={{flex: 1}} onPress={() => setModalVisible(true)}>
+                        <View style={{flex: 1}}>
                             <Text numberOfLines={2} style={styles.title}>{nombre}</Text>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>                          
-                                    <Text numberOfLines={2} style={styles.profesor}>{profesor}</Text>
-                                </View>
-                    
-                                <View style={{ flexDirection: 'row'}}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                                        <Icon name='clock-time-four-outline' size={24} style={{paddingRight: 3}}/>
-                                        <Text numberOfLines={2} style={styles.fecha}>{hora_inicio.substr(0,5)} - {hora_fin.substr(0,5)}</Text>
-                                    </View>
+                        </View>
 
-                                    <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                                        <Icon name='map-marker' size={20} style={{paddingLeft: 10}}/>
-                                        <Text numberOfLines={2} style={styles.fecha}>{aula.substr(0,5)}</Text>
-                                    </View>
+                        <View style={{ flexDirection: 'row', paddingTop: 8}}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                <Icon name='clock-time-four-outline' size={24} style={{paddingRight: 10, color: 'white', paddingLeft: 10}}/>
+                                <Text numberOfLines={2} style={styles.fecha}>{hora_inicio.substr(0,5)}  -  {hora_fin.substr(0,5)}</Text>
+                            </View>
 
-                                    <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                                        <Icon name='magnify' size={20} style={{paddingLeft: 10}}/>
-                                        <Text numberOfLines={2} style={styles.fecha}>NRC: {nrc.substr(0,5)}</Text>
-                                    </View>
-                                </View>
-                        </TouchableOpacity>
+                        </View>
 
-                        <TouchableOpacity style={{justifyContent: 'center'}} onPress={() => eliminarRecordatorio(id)}>
-                            <Icon name='delete-outline' size={24} color={currentTheme.primaryColor}/>
-                        </TouchableOpacity>
-                    </View> 
-                </View>
+                    </View>
+                </TouchableOpacity>
 
             </View>
 
@@ -147,8 +146,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
-        fontSize: 16,
-        color: '#171717',
+        fontSize: 22,
+        color: 'white',
     },
     profesor: {
         fontWeight: '600',
@@ -158,8 +157,8 @@ const styles = StyleSheet.create({
     },
     fecha: {
         fontWeight: 'bold',
-        fontSize: 12,
-        color: '#171717',
+        fontSize: 18,
+        color: 'white',
     },
     modalContainer: {
         position: 'relative',
@@ -172,9 +171,8 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 30,
         textAlign: 'center',
-        marginBottom: 20,
     },
     modalRegularText: {
         fontSize: 13,
@@ -203,9 +201,14 @@ const styles = StyleSheet.create({
         color: '#A9A9A9'
     },
     modalDateText: {
-        fontSize: 14,
+        fontSize: 20,
+        color: '#171717',
+    },
+    modalDayText: {
+        fontSize: 22,
         fontWeight: 'bold',
         color: '#171717',
-        paddingHorizontal: 10,
+        textAlign: 'center',
+        marginTop: 10,
     },
 });

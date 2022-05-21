@@ -90,6 +90,13 @@ export default class App extends Component {
           }
         ]);
       
+      } else if(!regex.test(this.state.nrc)){
+        Alert.alert("Error", "NRC invalido, no se permiten caracteres especiales", [
+          {
+              text:"ok", onPress: ()=> console.log("Nombre Invalido")
+          }
+        ]);
+      
       } else{
         var xhttp = new XMLHttpRequest();
         let _this = this;       // Esto es para usar 'this' dentro de la función
