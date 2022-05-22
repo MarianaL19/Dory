@@ -23,6 +23,7 @@ export default class Recordatorios extends Component {
       isOpenCompletados: false,
       isOpenOmitidos: false,
       isOpenPendientes: false,
+      filtroMostrar: 'Todos',
     };
   }
 
@@ -100,10 +101,11 @@ export default class Recordatorios extends Component {
         <View style={styles.filterButtonContainer}>
           
           <TouchableOpacity
-          style={styles.filterButton}
+          onPress={() => this.setState({ filtroMostrar: 'Todos'})}
+          style={[styles.filterButton, this.state.filtroMostrar == 'Todos' ? { backgroundColor: currentTheme.quinaryColor } : {} ]}
           >
             <Text
-            style={styles.filterText}
+            style={[styles.filterText, this.state.filtroMostrar == 'Todos' ? { color: currentTheme.primaryColor } : {}]}
             onPress={() => {this.state.recordatoriosPendientes = this.state.recordatoriosPendientes.slice(0, 1); console.log(this.state.listaRecordatorios)}}
             >
               Todos
@@ -111,30 +113,33 @@ export default class Recordatorios extends Component {
           </TouchableOpacity>
           
           <TouchableOpacity
-          style={styles.filterButton}
+          onPress={() => this.setState({ filtroMostrar: 'Tareas'})}
+          style={[styles.filterButton, this.state.filtroMostrar == 'Tareas' ? { backgroundColor: currentTheme.quinaryColor } : {} ]}
           >
             <Text
-            style={styles.filterText}
+            style={[styles.filterText, this.state.filtroMostrar == 'Tareas' ? { color: currentTheme.primaryColor } : {}]}
             >
               Tareas
             </Text>
           </TouchableOpacity>
           
           <TouchableOpacity
-          style={styles.filterButton}
+          onPress={() => this.setState({ filtroMostrar: 'Exámenes'})}
+          style={[styles.filterButton, this.state.filtroMostrar == 'Exámenes' ? { backgroundColor: currentTheme.quinaryColor } : {} ]}
           >
             <Text
-            style={styles.filterText}
+            style={[styles.filterText, this.state.filtroMostrar == 'Exámenes' ? { color: currentTheme.primaryColor } : {}]}
             >
               Exámenes
             </Text>
           </TouchableOpacity>
         
           <TouchableOpacity
-          style={styles.filterButton}
+          onPress={() => this.setState({ filtroMostrar: 'Otros'})}
+          style={[styles.filterButton, this.state.filtroMostrar == 'Otros' ? { backgroundColor: currentTheme.quinaryColor } : {} ]}
           >
             <Text
-            style={styles.filterText}
+            style={[styles.filterText, this.state.filtroMostrar == 'Otros' ? { color: currentTheme.primaryColor } : {}]}
             >
               Otros
             </Text>
@@ -229,7 +234,7 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     alignItems: 'center',
-    backgroundColor: currentTheme.quinaryColor,
+    backgroundColor: '#E5E5E5',
     borderRadius: 5,
     width: 80,
     padding: 3,
@@ -237,7 +242,7 @@ const styles = StyleSheet.create({
   filterText: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: currentTheme.tertiaryColor,
+    color: '#A9A9A9',
   },
   collapseTitle: {
     fontSize: 18,

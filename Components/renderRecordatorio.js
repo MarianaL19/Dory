@@ -3,6 +3,7 @@ import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, But
 import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cambioFormato } from './Date';
+import { NavigationContext } from '@react-navigation/native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const eliminarRecordatorio = (id_recordatorio) => {
@@ -54,7 +55,7 @@ const RenderRecordatorio = ({ item }) => {
     //Variable para saber el estado del popUp (si se ve o no)
     const [modalVisible, setModalVisible] = useState(false);
     // const [checkState, setCheckState] = useState(check === 1 ? true : false);
-
+    const contextType = NavigationContext;
 
     return (
         <>
@@ -84,7 +85,7 @@ const RenderRecordatorio = ({ item }) => {
                             ) : (null)}
 
                             {/* Apartado: Tipo de recordatorio */}
-                            <Text style={[styles.modalRegularText, {fontWeight: 'bold' }]}> Tipo de recordatorio</Text>
+                            <Text style={[styles.modalRegularText, {fontWeight: 'bold'}]}> Tipo de recordatorio</Text>
                             <View style={{ flexDirection: 'row' }}>
 
                                 {/* Agrega color a la etiqueta según el tipo de recordatorio */}
@@ -119,12 +120,17 @@ const RenderRecordatorio = ({ item }) => {
                                 la validación es útil para que no ocupe espacio la View si no existe descripción*/}
                             {descripcion ? (
                                 <View style={{ marginBottom: 30, marginTop: 20 }}>
-                                    <Text style={{ color: 'black' }}>{descripcion} </Text>
+                                    <Text style={{ color: 'black', fontSize:15 }}>{descripcion} </Text>
                                 </View>
                             ) : null}
 
                             {/* Botón para salir del popUp */}
                             <Button color={currentTheme.primaryColor} title='Cerrar' onPress={() => setModalVisible(!modalVisible)}> </Button>
+
+                            {/* <TouchableOpacity style={styles.editContainer} onPress={() => {contextType.navigate("UpdateRecordatorio")}}>
+                                <Text style={styles.editText}>Editar</Text>
+                            </TouchableOpacity> */}
+
                         </View>
                     </View>
                 </Modal> 
@@ -162,9 +168,7 @@ const RenderRecordatorio = ({ item }) => {
                         </TouchableOpacity>
                     </View> 
                 </View>
-
             </View>
-
         </>
 
     );
@@ -219,7 +223,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     modalRegularText: {
-        fontSize: 13,
+        fontSize: 14,
         marginTop: 10,
         marginBottom: 10,
     },
@@ -240,14 +244,23 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     modalTagText: {
-        fontSize: 13,
+        fontSize: 14,
         fontWeight: 'bold',
         color: '#A9A9A9'
     },
     modalDateText: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold',
         color: '#171717',
         paddingHorizontal: 10,
     },
+    editContainer: {
+        alignItems: 'center',
+        paddingTop: 12,
+    },
+    editText: {
+        fontSize: 15,
+        fontWeight: '600',
+        textDecorationLine: 'underline',
+    }
 });
