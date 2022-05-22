@@ -13,6 +13,8 @@ import Settings from './Windows/SettingsScreen';
 import RecordatoriosAdd from './Windows/recordatoriosAddScreen';
 import Recordatorios from './Windows/recordatoriosScreen';
 
+import Prueba from './prueba'
+
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App(){
@@ -28,6 +30,7 @@ export default function App(){
     //<RecordatoriosAdd/>
     //<Recordatorios/> 
     //<Menu/>
+    //<Prueba></Prueba>
     <NavigationContainer>
       <InicioMenu/>
     </NavigationContainer>
