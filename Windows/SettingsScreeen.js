@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Dimensions,
         Image, DevSettings, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContext } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import HotBarToy from '../hotBarToy'
 
@@ -100,12 +101,13 @@ export default class SettingsScreeen extends Component {
               {/* Casilla de input para texto (nombre de usuario) */}
               <TextInput 
                   style={styles.inputTexto}
-                  placeholder="nombre de usuario"
+                  placeholder="Nombre de Usuario"
                   onChangeText={(nuevoNombre => this.setState({nuevoNombre}))}
                   maxLength={20}
               />
               <TouchableOpacity style={{
                   alignItems: "center",
+                  justifyContent: 'center',
                   backgroundColor: "#E7E7E7",
                   width: width/10,
                   height: width/10,
@@ -113,6 +115,10 @@ export default class SettingsScreeen extends Component {
                   marginTop: 30,}}
                   onPress={cambiarUsername}
               >
+                <Icon    
+                name='lead-pencil'
+                size={25}
+                />
               </TouchableOpacity>
             </View>
             {/* La siguiente view es utilizada para crear una linea vertical */}
