@@ -3,6 +3,14 @@ import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, But
 import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+const cambioColor = (color) => {
+    var colour = 'pepe';
+
+    colour = '#' + color;
+
+    return colour;
+}
+
 const cambioDia = (dia) => {
     var day = 'pepe';
 
@@ -35,7 +43,7 @@ const eliminarMateria = (id_materia) => {
 //Esta función principal se realiza por cada item
 const RenderMateria = ({ item }) => {
 
-    const { id, nombre, profesor, aula, nrc, dia, hora_inicio, hora_fin} = item;
+    const { id, nombre, profesor, aula, nrc, dia, hora_inicio, hora_fin, color} = item;
 
     //Variable para saber el estado del popUp (si se ve o no)
     const [modalVisible, setModalVisible] = useState(false);
@@ -100,9 +108,8 @@ const RenderMateria = ({ item }) => {
                         </View>
                     </View>
                 </Modal> 
-                
             
-                <TouchableOpacity style={[styles.container, {backgroundColor: '#BCA2BB'}]} onPress={() => setModalVisible(true)}>
+                <TouchableOpacity style={[styles.container, {backgroundColor: cambioColor(color)}]} onPress={() => setModalVisible(true)}>
 
                     <View style={{ flexDirection: 'row'}}>
                         <View style={{flex: 1}}>

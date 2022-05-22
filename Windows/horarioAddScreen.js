@@ -32,6 +32,7 @@ export default class App extends Component {
       horaFinOpen: false,
       textHoraFin: 'Selecciona la hora',
       dia: 8,
+      color: ''
     };
   }
 
@@ -92,6 +93,13 @@ export default class App extends Component {
       
       } else if(!regex.test(this.state.nrc)){
         Alert.alert("Error", "NRC invalido, no se permiten caracteres especiales", [
+          {
+              text:"ok", onPress: ()=> console.log("Nombre Invalido")
+          }
+        ]);
+      
+      } else if(this.state.color == ""){
+        Alert.alert("Error", "Es necesario elegir un color para la materia", [
           {
               text:"ok", onPress: ()=> console.log("Nombre Invalido")
           }
@@ -253,30 +261,73 @@ export default class App extends Component {
         />
       </View>
 
-      <TextInput 
-        placeholder = "Color"
-        style = {styles.input}
-        clearTextOnFocus={true}
-        onChangeText={(color => this.setState({color}))}
-      />
+      {/* ColorPicker */}
 
-        {/* DatePicker */}
+      <View style={styles.iconContainer2}>
+        <Icon name='palette' size={30} color={'#C2C2C2'}/>
+        <Text style={[styles.modalDayText, {fontWeight: 'bold', textAlign: 'center'}]}> Color </Text>
+      </View>
 
-          <DatePicker
-            modal
-            open={this.state.horaInicioOpen}
-            date={this.state.horaInicio}
-            mode={'time'}
-            minuteInterval={10}
-            onConfirm={(date) => {
-              this.setState({ horaInicioOpen: false })
-              this.setState({ horaInicio: date })
-              this.setState({ textHoraInicio: date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()) })
-            }}
-            onCancel={() => {
-              this.setState({ horaInicioOpen: false })
-            }}
-          />
+      <View style={{ flexDirection: 'row', marginTop: 25, marginHorizontal: 20}}>
+
+        <TouchableOpacity style={[styles.colorPickerBoton, {backgroundColor: '#67CB95'}]}
+          onPress={() => this.setState({ color: '67CB95' })}>
+          <Icon name='check' size={15} color={this.state.color === '67CB95' ? '#0000aa' : '#67CB95'}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.colorPickerBoton, {backgroundColor: '#D1B2D3'}]}
+          onPress={() => this.setState({ color: 'D1B2D3' })}>
+          <Icon name='check' size={15} color={this.state.color === 'D1B2D3' ? '#0000aa' : '#D1B2D3'}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.colorPickerBoton, {backgroundColor: '#16BDAE'}]}
+          onPress={() => this.setState({ color: '16BDAE' })}>
+          <Icon name='check' size={15} color={this.state.color === '16BDAE' ? '#0000aa' : '#16BDAE'}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.colorPickerBoton, {backgroundColor: '#ED8198'}]}
+          onPress={() => this.setState({ color: 'ED8198' })}>
+          <Icon name='check' size={15} color={this.state.color === 'ED8198' ? '#0000aa' : '#ED8198'}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.colorPickerBoton, {backgroundColor: '#4EB9E0'}]}
+          onPress={() => this.setState({ color: '4EB9E0' })}>
+          <Icon name='check' size={15} color={this.state.color === '4EB9E0' ? '#0000aa' : '#4EB9E0'}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.colorPickerBoton, {backgroundColor: '#F5B089'}]}
+          onPress={() => this.setState({ color: 'F5B089' })}>
+          <Icon name='check' size={15} color={this.state.color === 'F5B089' ? '#0000aa' : '#F5B089'}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.colorPickerBoton, {backgroundColor: '#BC9BE0'}]}
+          onPress={() => this.setState({ color: 'BC9BE0' })}>
+          <Icon name='check' size={15} color={this.state.color === 'BC9BE0' ? '#0000aa' : '#BC9BE0'}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.colorPickerBoton, {backgroundColor: '#F2A6AD'}]}
+          onPress={() => this.setState({ color: 'F2A6AD' })}>
+          <Icon name='check' size={15} color={this.state.color === 'F2A6AD' ? '#0000aa' : '#F2A6AD'}/>
+        </TouchableOpacity>
+      </View>
+
+      {/* DatePicker */}
+
+        <DatePicker
+          modal
+          open={this.state.horaInicioOpen}
+          date={this.state.horaInicio}
+          mode={'time'}
+          minuteInterval={10}
+          onConfirm={(date) => {
+            this.setState({ horaInicioOpen: false })
+            this.setState({ horaInicio: date })
+            this.setState({ textHoraInicio: date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()) })
+          }}
+          onCancel={() => {
+            this.setState({ horaInicioOpen: false })
+          }}
+        />
 
           <DatePicker
             modal
@@ -376,5 +427,27 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
     marginLeft: 20,
+  },
+  iconContainer2: {
+    flexDirection: 'row',
+    marginTop: 10,
+    alignItems: 'center',
+    marginHorizontal: 140,
+  },
+  colorPickerBoton: {
+    width: 35,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    marginBottom:20,
+    marginLeft: 10,
+    borderRadius: 100,
+  },
+  modalDayText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#C4C4C4',
+    textAlign: 'center',
   },
 })

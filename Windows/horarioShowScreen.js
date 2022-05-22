@@ -42,6 +42,7 @@ export default class App extends Component {
           let diaMateria = '';
           let hora_inicio = '';
           let hora_fin = '';
+          let color = '';
 
           var materia = xhttp.responseText;
           
@@ -59,16 +60,17 @@ export default class App extends Component {
             diaMateria = datos[4];
             hora_inicio = datos[5];
             hora_fin = datos[6];
+            colorMateria = datos[8];
 
             const objetoMateria =
             {nombre: nombreMateria, profesor: profesorMateria,
              aula: aulaMateria, nrc: nrcMateria,
              dia: diaMateria, hora_inicio: hora_inicio,
-             hora_fin: hora_fin};
+             hora_fin: hora_fin, color: colorMateria};
 
             const nuevoArreglo = [..._this.state.listaMaterias, objetoMateria];
             _this.setState({listaMaterias: nuevoArreglo});
-            //console.log(objetoMateria);
+            console.log(objetoMateria);
           }
 
         }
