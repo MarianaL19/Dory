@@ -51,11 +51,20 @@ const guardarID = (id_recordatorio) => {
     AsyncStorage.setItem('Actualizar', JSON.stringify([id_recordatorio]));
 }
 
+const recuperarMateria = (id_materia, setEstado) => {
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarNombreMateria.php?id=' + id_materia, true);
+    xhttp.onload = function() {
+        setEstado(xhttp.responseText);
+    };
+    xhttp.send();
+}
 
 //Esta función principal se realiza por cada item
 const RenderRecordatorio = ({ item }) => {
-
     const { id, nombre, etiqueta, materia, fecha, hora, descripcion, estado, check } = item;
+    const [nombreMateria, setNombreMateria] = useState('');
 
     //Variable para saber el estado del popUp (si se ve o no)
     const [modalVisible, setModalVisible] = useState(false);
@@ -87,7 +96,7 @@ const RenderRecordatorio = ({ item }) => {
 
                             {/* Apartado: Materia */}
                             {etiqueta !== 'otro' ? (
-                                <Text style={styles.modalMateriaText}> Materia </Text>
+                                <Text style={styles.modalMateriaText}> {recuperarMateria(materia, setNombreMateria)}{nombreMateria} </Text>
                             ) : (null)}
 
                             {/* Apartado: Tipo de recordatorio */}
@@ -156,10 +165,12 @@ const RenderRecordatorio = ({ item }) => {
                         <TouchableOpacity style={{flex: 1}} onPress={() => setModalVisible(true)}>
                             <Text numberOfLines={2} style={[styles.title, estado == 'completado' ? {textDecorationLine: 'line-through', textDecorationStyle: 'solid'} : {}]}>{nombre}</Text>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>                          
-                                    <Text numberOfLines={2} style={styles.materia}>Materia</Text>
+                                    {materia != -1 ?
+                                    (<Text numberOfLines={2} style={styles.materia}>{recuperarMateria(materia, setNombreMateria)}{nombreMateria}</Text>)
+                                    : (null)}
                                 </View>
                     
-                                <View style={{ flexDirection: 'row'}}> 
+                                <View style={{ flexDirection: 'row', marginTop: 2}}> 
                                     <View style={{ flexDirection: 'row', alignItems: 'center', paddingRight: 25}}>
                                         <Icon name='calendar-blank-outline' size={24} style={{paddingRight: 3}}/>
                                         <Text numberOfLines={2} style={[styles.fecha, estado == 'omitido' ? {color: '#9E0000'} : {} ]}>{fecha}</Text>
@@ -204,6 +215,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
         color: '#171717',
+        marginBottom: 2,
     },
     materia: {
         fontWeight: '600',

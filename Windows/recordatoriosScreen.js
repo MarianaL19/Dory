@@ -27,10 +27,12 @@ export default class Recordatorios extends Component {
       isOpenPendientes: false,
       filtroMostrar: 'Todos',
       fechaActual: '',
+      isLoading: false,
     };
   }
 
   recuperarDatos = () => {
+    this.setState({listaRecordatorios: []});
     var xhttp = new XMLHttpRequest();
     let _this = this;       // Esto es para usar 'this' dentro de la función
 
@@ -105,8 +107,8 @@ export default class Recordatorios extends Component {
         // console.log(_this.state.listaRecordatorios);
       }
     };
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php'
-      , true);
+    this.setState({isLoading: false});
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php', true);
     xhttp.send();
   }
 
@@ -149,40 +151,39 @@ export default class Recordatorios extends Component {
             >
               <Text
                 style={[styles.filterText, this.state.filtroMostrar == 'Todos' ? { color: currentTheme.primaryColor } : {}]}
-                onPress={() => { this.state.recordatoriosPendientes = this.state.recordatoriosPendientes.slice(0, 1); console.log(this.state.listaRecordatorios) }}
               >
                 Todos
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => this.setState({ filtroMostrar: 'Tareas' })}
-              style={[styles.filterButton, this.state.filtroMostrar == 'Tareas' ? { backgroundColor: currentTheme.quinaryColor } : {}]}
+              onPress={() => this.setState({ filtroMostrar: 'tarea' })}
+              style={[styles.filterButton, this.state.filtroMostrar == 'tarea' ? { backgroundColor: currentTheme.quinaryColor } : {}]}
             >
               <Text
-                style={[styles.filterText, this.state.filtroMostrar == 'Tareas' ? { color: currentTheme.primaryColor } : {}]}
+                style={[styles.filterText, this.state.filtroMostrar == 'tarea' ? { color: currentTheme.primaryColor } : {}]}
               >
                 Tareas
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => this.setState({ filtroMostrar: 'Exámenes' })}
-              style={[styles.filterButton, this.state.filtroMostrar == 'Exámenes' ? { backgroundColor: currentTheme.quinaryColor } : {}]}
+              onPress={() => this.setState({ filtroMostrar: 'examen' })}
+              style={[styles.filterButton, this.state.filtroMostrar == 'examen' ? { backgroundColor: currentTheme.quinaryColor } : {}]}
             >
               <Text
-                style={[styles.filterText, this.state.filtroMostrar == 'Exámenes' ? { color: currentTheme.primaryColor } : {}]}
+                style={[styles.filterText, this.state.filtroMostrar == 'examen' ? { color: currentTheme.primaryColor } : {}]}
               >
                 Exámenes
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => this.setState({ filtroMostrar: 'Otros' })}
-              style={[styles.filterButton, this.state.filtroMostrar == 'Otros' ? { backgroundColor: currentTheme.quinaryColor } : {}]}
+              onPress={() => this.setState({ filtroMostrar: 'otro' })}
+              style={[styles.filterButton, this.state.filtroMostrar == 'otro' ? { backgroundColor: currentTheme.quinaryColor } : {}]}
             >
               <Text
-                style={[styles.filterText, this.state.filtroMostrar == 'Otros' ? { color: currentTheme.primaryColor } : {}]}
+                style={[styles.filterText, this.state.filtroMostrar == 'otro' ? { color: currentTheme.primaryColor } : {}]}
               >
                 Otros
               </Text>
@@ -202,9 +203,13 @@ export default class Recordatorios extends Component {
                 </CollapseHeader>
                 <CollapseBody>
                   <FlatList
-                    data={this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'completado')}
-
+                    data={this.state.filtroMostrar === 'Todos' ?
+                    (this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'completado')) :
+                    (this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'completado'
+                                                                               && objetoRecordatorio.etiqueta === this.state.filtroMostrar))}
                     renderItem={({ item }) => <RenderRecordatorio item={item} />}
+                    refreshing={this.state.isLoading}
+                    onRefresh={() => {this.setState({isLoading: true});this.recuperarDatos();}}
                   />
                 </CollapseBody>
               </Collapse>
@@ -220,9 +225,13 @@ export default class Recordatorios extends Component {
                 </CollapseHeader>
                 <CollapseBody>
                   <FlatList
-                    data={this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'omitido')}
-
+                    data={this.state.filtroMostrar === 'Todos' ?
+                    (this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'omitido')) :
+                    (this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'omitido'
+                                                                             && objetoRecordatorio.etiqueta === this.state.filtroMostrar))}
                     renderItem={({ item }) => <RenderRecordatorio item={item} />}
+                    refreshing={this.state.isLoading}
+                    onRefresh={() => {this.setState({isLoading: true});this.recuperarDatos();}}
                   />
                 </CollapseBody>
               </Collapse>
@@ -238,9 +247,13 @@ export default class Recordatorios extends Component {
                 </CollapseHeader>
                 <CollapseBody>
                   <FlatList
-                    data={this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'pendiente')}
-
+                    data={this.state.filtroMostrar === 'Todos' ?
+                    (this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'pendiente')) :
+                    (this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'pendiente'
+                                                                             && objetoRecordatorio.etiqueta === this.state.filtroMostrar))}
                     renderItem={({ item }) => <RenderRecordatorio item={item} />}
+                    refreshing={this.state.isLoading}
+                    onRefresh={() => {this.setState({isLoading: true});this.recuperarDatos();}}
                   />
                 </CollapseBody>
               </Collapse>
