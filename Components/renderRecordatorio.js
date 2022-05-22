@@ -55,7 +55,8 @@ const RenderRecordatorio = ({ item }) => {
     //Variable para saber el estado del popUp (si se ve o no)
     const [modalVisible, setModalVisible] = useState(false);
     // const [checkState, setCheckState] = useState(check === 1 ? true : false);
-    const contextType = NavigationContext;
+    const navigation = React.useContext(NavigationContext);
+
 
     return (
         <>
@@ -81,25 +82,27 @@ const RenderRecordatorio = ({ item }) => {
 
                             {/* Apartado: Materia */}
                             {etiqueta !== 'otro' ? (
-                                <Text style={[styles.modalMateriaText, { color: currentTheme.tertiaryColor, fontWeight: 'bold' }]}> Materia </Text>
+                                <Text style={styles.modalMateriaText}> Materia </Text>
                             ) : (null)}
 
                             {/* Apartado: Tipo de recordatorio */}
-                            <Text style={[styles.modalRegularText, {fontWeight: 'bold'}]}> Tipo de recordatorio</Text>
-                            <View style={{ flexDirection: 'row' }}>
-
-                                {/* Agrega color a la etiqueta según el tipo de recordatorio */}
+                            {etiqueta == 'tarea' ? (
                                 <View style={[styles.modalTagContainer, etiqueta == 'tarea' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
                                     <Text style={[styles.modalTagText, etiqueta == 'tarea' ? { color: currentTheme.tertiaryColor } : {}]}> Tarea</Text>
                                 </View>
+                            ) : (null)}
+
+                            {etiqueta == 'examen' ? (
                                 <View style={[styles.modalTagContainer, etiqueta == 'examen' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
                                     <Text style={[styles.modalTagText, etiqueta == 'examen' ? { color: currentTheme.tertiaryColor } : {}]}> Examen</Text>
                                 </View>
+                            ) : (null)}
+
+                            {etiqueta == 'otro' ? (
                                 <View style={[styles.modalTagContainer, etiqueta == 'otro' ? { backgroundColor: currentTheme.quinaryColor } : {}]}>
                                     <Text style={[styles.modalTagText, etiqueta == 'otro' ? { color: currentTheme.tertiaryColor } : {}]}> Otro</Text>
                                 </View>
-                            </View>
- 
+                            ) : (null)}
 
                             {/* Apartado: fecha y hora */}
                             <View style={{ flexDirection: 'row', marginBottom: 20, marginTop: 20 }}>
@@ -120,16 +123,16 @@ const RenderRecordatorio = ({ item }) => {
                                 la validación es útil para que no ocupe espacio la View si no existe descripción*/}
                             {descripcion ? (
                                 <View style={{ marginBottom: 30, marginTop: 20 }}>
-                                    <Text style={{ color: 'black', fontSize:15 }}>{descripcion} </Text>
+                                    <Text style={{ color: 'black', fontSize:16 }}>{descripcion} </Text>
                                 </View>
                             ) : null}
 
                             {/* Botón para salir del popUp */}
                             <Button color={currentTheme.primaryColor} title='Cerrar' onPress={() => setModalVisible(!modalVisible)}> </Button>
 
-                            {/* <TouchableOpacity style={styles.editContainer} onPress={() => {contextType.navigate("UpdateRecordatorio")}}>
+                            <TouchableOpacity style={styles.editContainer} onPress={() => {setModalVisible(false); navigation.push('UpdateRecordatorio')}}>
                                 <Text style={styles.editText}>Editar</Text>
-                            </TouchableOpacity> */}
+                            </TouchableOpacity>
 
                         </View>
                     </View>
@@ -229,22 +232,25 @@ const styles = StyleSheet.create({
     },
     modalMateriaText: {
         fontSize: 15,
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 13,
+        marginBottom: 13,
         textAlign: 'center',
+        color: currentTheme.tertiaryColor,
+        fontWeight: 'bold'
     },
     modalTagContainer: {
+        alignSelf: 'center',
         backgroundColor: '#E5E5E5',
-        width: width / 5,
+        width: width / 4,
         paddingVertical: 6,
         justifyContent: 'center',
         borderRadius: 3,
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
         marginHorizontal: 5,
     },
     modalTagText: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: 'bold',
         color: '#A9A9A9'
     },

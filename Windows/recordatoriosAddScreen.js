@@ -44,7 +44,7 @@ export default class RecordatoriosAddScreen extends Component {
     var data = JSON.parse(jsonValue);
 
     this.setState({id: data[0]});
-    console.log(this.state.id);
+    // console.log(this.state.id);
   }
 
   recuperarMaterias = () => {
@@ -71,9 +71,9 @@ export default class RecordatoriosAddScreen extends Component {
 
             const nuevoArreglo = [..._this.state.listaMaterias, objetoMateria];
             _this.setState({listaMaterias: nuevoArreglo});
-            console.log(objetoMateria);
+            // console.log(objetoMateria);
           }
-          console.log(_this.state.listaMaterias);
+          // console.log(_this.state.listaMaterias);
         }
     };
     xhttp.open("GET", 'https://dory69420.000webhostapp.com/listadoMaterias.php'
@@ -146,11 +146,11 @@ export default class RecordatoriosAddScreen extends Component {
           + '&id=' + this.state.id + '&marcado=' + this.state.marcado,true);
         xhttp.send();
 
-        console.log('nombre=' + this.state.nombre
-        + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
-        + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
-        + '&id=' + this.state.id + '&marcado=' + this.state.marcado  + '&notificacionEntrega=' + notiEntrega
-        + '&notificacion12=' + noti12 + '&notificacion24=' + noti24,true);
+        // console.log('nombre=' + this.state.nombre
+        // + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
+        // + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
+        // + '&id=' + this.state.id + '&marcado=' + this.state.marcado  + '&notificacionEntrega=' + notiEntrega
+        // + '&notificacion12=' + noti12 + '&notificacion24=' + noti24,true);
         restaurarValores();
 
         navigation.navigate("Recordatorios");
@@ -212,7 +212,6 @@ export default class RecordatoriosAddScreen extends Component {
                   dropdownBackgroundColor = {'#FFFFFF'}
                   onSelect={(selectedItem, index) => {
                     this.setState({materia: selectedItem.id})
-                    console.log(selectedItem, index)
                   }}
 
                   buttonTextAfterSelection={(selectedItem, index) => {
