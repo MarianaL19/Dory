@@ -7,6 +7,8 @@ import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
 import { NavigationContext } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown'
+import PushNotification from "react-native-push-notification";
+
 import MenuBar from '../hotBar';
 
 
@@ -153,10 +155,55 @@ export default class RecordatoriosAddScreen extends Component {
         // + '&notificacion12=' + noti12 + '&notificacion24=' + noti24,true);
         restaurarValores();
 
+        if(this.state.notificacionEntrega){
+          handleNotficationDay(this.state.nombre, this.state.descripcion);
+        }
+  
+        if(this.state.notificacion12){
+          handleNotfication12(this.state.nombre, this.state.descripcion);
+        }
+  
+        if(this.state.notificacion24){
+          handleNotfication24(this.state.nombre, this.state.descripcion);
+        }
+
         navigation.navigate("Recordatorios");
       }
+
     }
 
+    const handleNotfication12 = (titulo, descripcion) => {
+
+      PushNotification.localNotificationSchedule({
+          channelId: 'Prueba',
+          title: titulo,
+          message: '(Se entrega en 12 horas)',
+          bigText: descripcion + ' (Se entrega en 12 horas)',
+          date: new Date(Date.now() + 5 * 1000),
+          allowWhileIdle: true,
+      });
+    }
+
+    const handleNotfication24 = (titulo, descripcion) => {
+
+      PushNotification.localNotificationSchedule({
+          channelId: 'Prueba',
+          title: titulo,
+          message: '(Se entrega en 24 horas)',
+          bigText: descripcion + ' (Se entrega en 24 horas)',
+          date: new Date(Date.now() + 10 * 1000),
+          allowWhileIdle: true,
+      });
+    }
+
+    const handleNotficationDay = (titulo, descripcion) => {
+       PushNotification.localNotification({
+           channelId: 'Prueba',
+           title: titulo,
+           message: '(Se entrega ahora)',
+           bigText: descripcion + ' (Se entrega ahora)',
+      });
+    }
 
     return (
       <View style={styles.container}>

@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, TextInput, ScrollView, Dimensions, FlatList, To
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContext } from '@react-navigation/native';
+import PushNotification from "react-native-push-notification";
 
 import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
@@ -28,6 +29,13 @@ export default class App extends Component {
       isOpenDomingo: false,
     };
   }
+
+  createChannels = () => {
+    PushNotification.createChannel({
+        channelId: 'Prueba',
+        channelName: 'Dory'
+    })
+  };
 
   recuperarDatos = () => {
     var xhttp = new XMLHttpRequest();
@@ -82,6 +90,7 @@ export default class App extends Component {
 
   componentDidMount(){
     this.recuperarDatos();
+    this.createChannels();
   }
 
   render() {
