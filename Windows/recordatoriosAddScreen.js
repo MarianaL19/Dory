@@ -298,7 +298,7 @@ export default class RecordatoriosAddScreen extends Component {
           {/* Botón para guardar el recordatorio */}
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={registro} style={[styles.addButton, { backgroundColor: currentTheme.primaryColor }]}>
-              <Text style={styles.buttonText}>GUARDAR</Text>
+              <Text style={styles.buttonText}>AÑADIR</Text>
             </TouchableOpacity>
           </View>
 

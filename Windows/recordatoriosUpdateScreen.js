@@ -6,7 +6,7 @@ import currentTheme from '../Components/currentTheme';
 import DatePicker from 'react-native-date-picker';
 import { cambioFormato } from '../Components/Date';
 import { NavigationContext } from '@react-navigation/native';
-import SelectDropdown from 'react-native-select-dropdown'
+import SelectDropdown from 'react-native-select-dropdown';
 import MenuBar from '../hotBar';
 
 
@@ -20,6 +20,7 @@ export default class RecordatoriosUpdateScreen extends Component {
     super(props);
     this.state = {
       id: '',
+      id_recordatorio: -1,
       nombre: '',
       etiqueta: 'null',
       materia: 0,
@@ -48,6 +49,15 @@ export default class RecordatoriosUpdateScreen extends Component {
     console.log(this.state.id);
   }
 
+
+  recuperarID = async() => {
+    const jsonValue = await AsyncStorage.getItem('Actualizar');
+    var data = JSON.parse(jsonValue);
+
+    this.setState({id_recordatorio: data[0]});
+    console.log(this.state.id_recordatorio);
+  }
+
   recuperarMaterias = () => {
     var xhttp = new XMLHttpRequest();
     let _this = this;       // Esto es para usar 'this' dentro de la función
@@ -72,88 +82,121 @@ export default class RecordatoriosUpdateScreen extends Component {
 
             const nuevoArreglo = [..._this.state.listaMaterias, objetoMateria];
             _this.setState({listaMaterias: nuevoArreglo});
-            console.log(objetoMateria);
+            // console.log(objetoMateria);
           }
-          console.log(_this.state.listaMaterias);
+          // console.log(_this.state.listaMaterias);
         }
     };
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/listadoMaterias.php'
-    , true);
-    xhttp.send();
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/listadoMaterias.php'
+      , true);
+      xhttp.send();
     }
 
+    recuperarDatos = () => {
+      var xhttp = new XMLHttpRequest();
+      let _this = this;       // Esto es para usar 'this' dentro de la función
+  
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            let nombreRecordatorio = '';
+            let etiquetaRecordatorio = '';
+            let materiaRecordatorio = '';
+            let estadoRecordatorio = '';
+            let fechaRecordatorio = '';
+            let horaRecordatorio = '';
+            let descripcionRecordatorio = '';
+            let idRecordatorio = -1;
+            let checkRecordatorio = -1;
+            let marcado;
+          
+            var recordatorio = xhttp.responseText;
+            
+            var registros = recordatorio.split('|');
+  
+            var numeroRegistros = registros[0];
+  
+            for (let i=1; i<=numeroRegistros; i++){
+              var datos = registros[i].split('¬');
 
+              if(datos[7] == _this.state.id_recordatorio ){
+                nombreRecordatorio = datos[0];
+                etiquetaRecordatorio = datos[1];
+                materiaRecordatorio = datos[2];
+                estadoRecordatorio = datos[3];
+                fechaRecordatorio = datos[4];
+                horaRecordatorio = datos[5];
+                descripcionRecordatorio = datos[6];
+                idRecordatorio = datos[7];
+                checkRecordatorio = datos[8];
+                {checkRecordatorio == 0 ? marcado = false : marcado = true};
+
+                _this.setState({nombre: nombreRecordatorio});
+                _this.setState({etiqueta: etiquetaRecordatorio});
+                _this.setState({materia: materiaRecordatorio});
+                _this.setState({textFecha: fechaRecordatorio});
+                _this.setState({textHora: horaRecordatorio});
+                _this.setState({descripcion: descripcionRecordatorio});
+              }
+            }
+          }
+      };
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php'
+      , true);
+      xhttp.send();
+      }
 
 
   componentDidMount(){
     this.recuperarDatos();
     this.recuperarMaterias();
+    this.recuperarID();
   }
 
   render() {
     const navigation = this.context;
 
-    const restaurarValores = () => {
-      this.setState({nombre: '', etiqueta: 'null', materia: 0, textFecha: 'Selecciona la fecha de entrega',
-      textHora: '23:59:00',descripcion: '', notificacionEntrega: false, notificacion12: false, notificacion24: false})
-    }
 
-    const registro = () => {
-    //   let notiEntrega; 
-    //   let noti12;
-    //   let noti24;
+    const editar = () => {
 
-    //   {this.state.notificacionEntrega === false ? notiEntrega = 0 : notiEntrega = 1};
-    //   {this.state.notificacion12 === false ? noti12 = 0 : noti12 = 1};
-    //   {this.state.notificacion24 === false ? noti24 = 0 : noti24 = 1};
+      let regex = new RegExp("^[a-z0-9,.:!¡()¿?#$%&'*+/-_ ]+$");
+      let regex2 = new RegExp("^[a-z0-9,.:!¡()¿?#$%&'*+/-_ ]*$");
 
-
-    //   let regex = new RegExp("^[a-z0-9,.:!¡()¿?#$%&'*+/-_ ]+$");
-    //   let regex2 = new RegExp("^[a-z0-9,.:!¡()¿?#$%&'*+/-_ ]*$");
-
-    //   if(this.state.nombre == "" || this.state.etiqueta == "null" || this.state.materia == 0 || 
-    //     this.state.textFecha == "Selecciona la fecha de entrega"){
-    //     Alert.alert("Campos vacíos", "Es necesario llenar todos los campos obligatorios", [
-    //       {
-    //           text:"ok", onPress: ()=> console.log("Campos Vacios")
-    //       }
-    //     ]);
-    //   }
+      if(this.state.nombre == "" || this.state.etiqueta == "null" || this.state.materia == 0 || 
+        this.state.textFecha == "Selecciona la fecha de entrega"){
+        Alert.alert("Campos vacíos", "Es necesario llenar todos los campos obligatorios", [
+          {
+              text:"ok", onPress: ()=> console.log("Campos Vacios")
+          }
+        ]);
+      }
       
-    //   else if(!regex.test(this.state.nombre)){
-    //     Alert.alert("Error", "Nombre Inválido, no se permiten caracteres especiales", [
-    //       {
-    //           text:"ok", onPress: ()=> console.log("Nombre Invalido")
-    //       }
-    //     ]);
-    //   }else if(!regex2.test(this.state.descripcion)){
-    //     Alert.alert("Error", "Descripción Inválida, no se permiten caracteres especiales", [
-    //       {
-    //           text:"ok", onPress: ()=> console.log("Descripción Invalida")
-    //       }
-    //     ]);
-    //   }else{
-    //     var xhttp = new XMLHttpRequest();
-    //     let _this = this;       // Esto es para usar 'this' dentro de la función
+      else if(!regex.test(this.state.nombre)){
+        Alert.alert("Error", "Nombre Inválido, no se permiten caracteres especiales", [
+          {
+              text:"ok", onPress: ()=> console.log("Nombre Invalido")
+          }
+        ]);
+      }else if(!regex2.test(this.state.descripcion)){
+        Alert.alert("Error", "Descripción Inválida, no se permiten caracteres especiales", [
+          {
+              text:"ok", onPress: ()=> console.log("Descripción Invalida")
+          }
+        ]);
+      }else{
+        var xhttp = new XMLHttpRequest();
+        let _this = this;       // Esto es para usar 'this' dentro de la función
 
-    //     xhttp.onreadystatechange = function () {
-    //       if (this.readyState == 4 && this.status == 200) {
-    //       }
-    //     };
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+          }
+        };
 
-    //     xhttp.open("GET", 'https://dory69420.000webhostapp.com/addRecordatorio.php?nombre=' + this.state.nombre
-    //       + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
-    //       + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
-    //       + '&id=' + this.state.id + '&marcado=' + this.state.marcado,true);
-    //     xhttp.send();
-
-    //     console.log('nombre=' + this.state.nombre
-    //     + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
-    //     + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
-    //     + '&id=' + this.state.id + '&marcado=' + this.state.marcado  + '&notificacionEntrega=' + notiEntrega
-    //     + '&notificacion12=' + noti12 + '&notificacion24=' + noti24,true);
-    //     restaurarValores();
-    //   }
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/editarRecordatorio.php?nombre=' + this.state.nombre
+          + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
+          + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&id=' + this.state.id_recordatorio
+          ,true);
+        xhttp.send();
+      }
       navigation.navigate("Recordatorios");
     }
 
@@ -166,7 +209,7 @@ export default class RecordatoriosUpdateScreen extends Component {
       </View>
 
         <ScrollView>
-          <Text style={[styles.title, { color: currentTheme.quaternaryColor }]}>Nuevo recordatorio</Text>
+          <Text style={[styles.title, { color: currentTheme.quaternaryColor }]}>Editar recordatorio</Text>
 
           <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 2.8, width: width }} />
 
@@ -210,9 +253,10 @@ export default class RecordatoriosUpdateScreen extends Component {
                   buttonStyle={styles.selector}
                   buttonTextStyle={styles.selectorTexto}
                   dropdownBackgroundColor = {'#FFFFFF'}
+                  value={this.state.materia}
                   onSelect={(selectedItem, index) => {
                     this.setState({materia: selectedItem.id})
-                    console.log(selectedItem, index)
+                    // console.log(selectedItem, index)
                   }}
 
                   buttonTextAfterSelection={(selectedItem, index) => {
@@ -242,7 +286,7 @@ export default class RecordatoriosUpdateScreen extends Component {
             <Icon name='clock-time-four-outline' size={25} color='#A9A9A9' />
             <TouchableOpacity onPress={() => this.setState({ horaOpen: true })}>
               <Text style={[styles.inputs, this.state.textHora === '23:59:00' ? {color: '#A9A9A9'} : {}]}>
-                    {this.state.textHora === '23:59:00' ? 'Selecciona la hora de entrega' : this.state.textHora}
+                    {this.state.textHora === '23:59:00' ? 'Selecciona la hora de entrega' : this.state.textHora.substr(0,5)}
               </Text>
             </TouchableOpacity>
           </View>
@@ -298,7 +342,7 @@ export default class RecordatoriosUpdateScreen extends Component {
 
           {/* Botón para guardar el recordatorio */}
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={registro} style={[styles.addButton, { backgroundColor: currentTheme.primaryColor }]}>
+            <TouchableOpacity onPress={editar} style={[styles.addButton, { backgroundColor: currentTheme.primaryColor }]}>
               <Text style={styles.buttonText}>GUARDAR</Text>
             </TouchableOpacity>
           </View>

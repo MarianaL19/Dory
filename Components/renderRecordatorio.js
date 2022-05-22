@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cambioFormato } from './Date';
 import { NavigationContext } from '@react-navigation/native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const eliminarRecordatorio = (id_recordatorio) => {
     var xhttp = new XMLHttpRequest();
@@ -44,6 +45,10 @@ const checkRecordatorio = (id_recordatorio, estado_recordatorio, check_recordato
     xhttp.open("GET", 'https://dory69420.000webhostapp.com/checkRecordatorio.php?id=' + id_recordatorio +
     '&estado=' + estado + '&marcado=' + marcado, true);
     xhttp.send();
+}
+
+const guardarID = (id_recordatorio) => {
+    AsyncStorage.setItem('Actualizar', JSON.stringify([id_recordatorio]));
 }
 
 
@@ -130,7 +135,7 @@ const RenderRecordatorio = ({ item }) => {
                             {/* Botón para salir del popUp */}
                             <Button color={currentTheme.primaryColor} title='Cerrar' onPress={() => setModalVisible(!modalVisible)}> </Button>
 
-                            <TouchableOpacity style={styles.editContainer} onPress={() => {setModalVisible(false); navigation.push('UpdateRecordatorio')}}>
+                            <TouchableOpacity style={styles.editContainer} onPress={() => {setModalVisible(false); guardarID(id); navigation.push('UpdateRecordatorio')}}>
                                 <Text style={styles.editText}>Editar</Text>
                             </TouchableOpacity>
 
