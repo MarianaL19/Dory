@@ -32,11 +32,10 @@ const checkRecordatorio = (id_recordatorio, estado_recordatorio, check_recordato
     if(estado === 'pendiente'){
         estado = 'completado';
     }else if (estado === 'completado'){
-        estado = 'omitido'; //pendiente
+        estado = 'pendiente';
+    }else if (estado === 'omitido'){
+        estado = 'completado';
     }
-    // }else if (estado === 'omitido'){
-    //     estado = 'completado';
-    // }
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
