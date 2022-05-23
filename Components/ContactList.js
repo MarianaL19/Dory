@@ -46,27 +46,32 @@ const Contact = ({ item }) => {
                 >
                     {/* Contenido del popUp del contacto */}
 
-                    <View style={{ backgroundColor: '#000000aa', flex: 1, alignItems: 'center'}}>
+                    <View style={{ backgroundColor: '#000000aa', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 
                         <View style={styles.modalContainer}>
 
                             {/* Boton para editar contacto */}
-                            <View style={styles.moveButton}>
+                            {/* <View style={styles.moveButton}>
 
                                     <TouchableOpacity>
                                         <Icon name='dots-vertical' size={40} color={'#c4c4c4'}/>
                                     </TouchableOpacity>
 
-                            </View>
+                            </View> */}
 
                             {/* Apartado: nombre del contacto */}
                             <Text style={[styles.modalTitle, { color: currentTheme.tertiaryColor }]}>{item.nombreC}</Text>
+                            
+                            {/* ícono con la inicial del contacto */}
+                            <View style={styles.foto}>
+                                <Text style={styles.inicialFoto}>{item.nombreC[0]}</Text>
+                            </View>
 
                             {/* Apartado: Tipo de contacto */}
                             {/* tipo de contacto */}
                             <View style={[styles.modalTagContainer, {backgroundColor: currentTheme.quinaryColor}]}>
 
-                                <Text style={[styles.modalTagText]}>{item.etiquetaC}</Text>
+                                <Text style={styles.modalTagText}>{item.etiquetaC}</Text>
 
                             </View>  
 
@@ -85,7 +90,7 @@ const Contact = ({ item }) => {
                                 {/* Informacion */}
                                 <View style={styles.contactInconFormat}>
                                 
-                                    <Text style={styles.styleHeader}>Telefono</Text>
+                                    <Text style={[styles.styleHeader,{paddingBottom: 7}]}>Telefono</Text>
                                     <Text style={styles.styleInfo}>{item.telefonoC}</Text>
                                     <View style={{marginBottom: 40}} />
                                     <Text style={styles.styleHeader}>Correo</Text>
@@ -98,16 +103,26 @@ const Contact = ({ item }) => {
                             <View style={styles.contactContainer} >
 
                                 {/* Boton para eliminar */}
-                                <TouchableOpacity onPress={() => borraYcierra(ID_C)}
+                                {/* <TouchableOpacity onPress={() => borraYcierra(ID_C)}
                                     style={[styles.closeButtonFormat, {backgroundColor: currentTheme.primaryColor}]}>
                                     <Text style={styles.closeButtonText}>Eliminar</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
 
                                 {/* Boton para salir */}
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}
                                     style={[styles.closeButtonFormat, {backgroundColor: currentTheme.primaryColor}]}>
                                     <Text style={styles.closeButtonText}>CERRAR</Text>
                                 </TouchableOpacity>
+
+                                <View style={{ flexDirection: 'row'}}>
+                                    <TouchableOpacity style={styles.editContainer} onPress={() => {borraYcierra(ID_C)}}>
+                                        <Text style={styles.editText}>Eliminar</Text>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity style={styles.editContainer} onPress={() => {}}>
+                                        <Text style={styles.editText}>Editar</Text>
+                                    </TouchableOpacity>
+                                </View>
 
                             </View>
                             
@@ -123,11 +138,13 @@ const Contact = ({ item }) => {
                     activa el evento que hace visible el popUp, este PopUp muestra información del elemento que se presionó,
                     -> !!!Se debe optimizar esta parte, haciendo al popUp un componente independiente de cada objeto Task
                 */}
-                <TouchableOpacity onPress={() => setModalVisible(true)} style={[styles.container, {backgroundColor: currentTheme.quinaryColor}]}>
+                <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.container}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        
+                        <View style={styles.renderFoto}>
+                            <Text style={styles.renderFotoText}>{nombreC[0]}</Text>
+                        </View>
                         {/* nombre del contacto */}
-                        <Text numberOfLines={2} style={[styles.title, {color: currentTheme.primaryColor}]}>{nombreC}</Text>
+                        <Text numberOfLines={2} style={[styles.renderNombre, {color: currentTheme.tertiaryColor}]}>{nombreC}</Text>
 
                     </View>
                 </TouchableOpacity>
@@ -164,8 +181,8 @@ const styles = StyleSheet.create({
         color: '#171717',
     },
     modalContainer: {
-        backgroundColor: 'white',
         position: 'relative',
+        backgroundColor: 'white',
         margin: 50,
         padding: 30,
         borderRadius: 10,
@@ -176,7 +193,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 30,
         textAlign: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     modalRegularText: {
         fontSize: 20,
@@ -184,21 +201,36 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
     },
+    foto: {
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: currentTheme.secondaryColor,
+        width: 100,
+        height: 100,
+        borderRadius: 80,
+        marginBottom: 20,
+    },
+    inicialFoto: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        color: 'white',
+    },
     modalTagContainer: {
+        alignSelf: 'center',
         backgroundColor: '#E5E5E5',
-        width: width / 3,
         paddingVertical: 6,
         justifyContent: 'center',
         borderRadius: 3,
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
         marginHorizontal: 5,
-        alignSelf: 'center',
     },
     modalTagText: {
-        fontSize: 17,
-        fontWeight: '400',
-        color: '#000000'
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#000000',
+        paddingHorizontal: 15,
     },
     modalDateText: {
         fontSize: 14,
@@ -281,7 +313,7 @@ const styles = StyleSheet.create({
     closeButtonFormat: {
         backgroundColor: '#0E63F4',
         padding: 5,
-        borderRadius: 20,
+        borderRadius: 4,
         width: 140,
         height: 40,
         marginBottom: 20,
@@ -297,4 +329,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
     },
+    editText: {
+        fontSize: 14,
+        fontWeight: '600',
+        textDecorationLine: 'underline',
+        paddingHorizontal: 22,
+    },
+    renderNombre: {
+        fontSize: 20,
+        fontWeight: '500',
+    },
+    renderFoto: {
+        height: 50,
+        width: 50,
+        borderRadius: 40,
+        backgroundColor: currentTheme.secondaryColor,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 20,
+    },
+    renderFotoText: {
+        fontSize: 25,
+        fontWeight: '600',
+        color: 'white',
+    }
 });

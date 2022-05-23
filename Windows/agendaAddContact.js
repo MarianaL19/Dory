@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Contact from '../Components/ContactList';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContext } from '@react-navigation/native';
+import MenuBar from '../hotBar';
 
 export default class AgendaAddContact extends Component {
   static contextType = NavigationContext;
@@ -107,25 +108,32 @@ export default class AgendaAddContact extends Component {
 
     return (
       // Contenedor general
-      <View style={[styles.wholeContainer, {backgroundColor: currentTheme.backgroundColor}]}>
+      <View style={[styles.wholeContainer, {backgroundColor: 'white'}]}>
+        <View style={styles.nav}>
+           <MenuBar/>
+       </View>
         
         {/* Scrollview para que el teclado no desplace toda la ventana */}
         <ScrollView>   
 
           {/* Vista que contiene los campos de entradas de informacion */}
-          <View style={[styles.inputFormat, {backgroundColor: currentTheme.backgroundColor}]}>
+          <View style={[styles.inputFormat, {backgroundColor: 'white'}]}>
             
             {/* Titulo de la ventana */}
-            <Text style={[styles.modalTitle, {color: currentTheme.primaryColor}]}>Ingrese nuevo contacto</Text>
+            {/* 
+            <Text style={[styles.modalTitle, {color: currentTheme.primaryColor}]}>Ingrese nuevo contacto</Text> */}
+            <View style={styles.foto}>
+              <Icon name='account' size={95} color={currentTheme.quinaryColor}/>
+            </View>
 
             {/* Linea divisoria 1 */}
-            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
+            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2, width: width}}/>
 
             {/* Contenedor de icono e input: nombre */}
             <View style={styles.iconContainer}>
 
               {/* Icono de persona */}
-              <Icon name='account-outline' size={40} color={'#E5E5E5'}/>
+              <Icon name='account-outline' size={35} color={'#C2C2C2'}/>
 
               {/* Input para nombre del contacto */}
               <TextInput style={styles.addInputFormat}
@@ -139,13 +147,13 @@ export default class AgendaAddContact extends Component {
             </View>
 
             {/* Linea divisoria 2 */}
-            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
+            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2, width: width}}/>
 
             {/* Contenedor de icono e input: telefono */}
             <View style={styles.iconContainer}>
 
               {/* Icono de teledono */}
-              <Icon name='phone' size={40} color={'#E5E5E5'}/>
+              <Icon name='phone' size={32} color={'#C2C2C2'}/>
 
               {/* Input para telefono del contacto */}
               <TextInput style={styles.addInputFormat}
@@ -160,13 +168,13 @@ export default class AgendaAddContact extends Component {
             </View>
 
             {/* Linea divisoria 3 */}
-            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
+            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2, width: width}}/>
 
             {/* Contenedor de icono e input: email */}
             <View style={styles.iconContainer}>
 
               {/* Icono de email */}
-              <Icon name='email' size={40} color={'#E5E5E5'}/>
+              <Icon name='email' size={30} color={'#C2C2C2'}/>
 
               {/* Input para email del contacto */}
               <TextInput style={styles.addInputFormat}
@@ -180,12 +188,12 @@ export default class AgendaAddContact extends Component {
             </View>
 
             {/* Linea divisoria 4 */}
-            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:1, width: width}}/>
+            <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2, width: width}}/>
 
           </View>
 
           {/* Contenedor para menu de etiquetas */}
-          <View style={{backgroundColor: currentTheme.backgroundColor, padding: 15}}>
+          <View style={{backgroundColor: 'white', padding: 15}}>
 
             {/* Titulo de seccion */}
             <Text style={styles.tagFormat}>Etiqueta</Text>
@@ -196,19 +204,19 @@ export default class AgendaAddContact extends Component {
               {/* Boton para asignar Compañero */}
               <TouchableOpacity onPress={() => this.setState({etiqueta: 'Compañero'})}
                 style={[styles.buttonFormat, this.state.etiqueta == 'Compañero' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-                <Text style={[styles.searchText, this.state.etiqueta == 'Compañero' ? {color: currentTheme.tertiaryColor} : {}]}>Compañero</Text>
+                <Text style={[styles.searchText, this.state.etiqueta == 'Compañero' ? {color: currentTheme.primaryColor} : {}]}>Compañero</Text>
               </TouchableOpacity>
 
               {/* Boton para asignar Profesor */}
               <TouchableOpacity onPress={() => this.setState({etiqueta: 'Profesor'})}
                 style={[styles.buttonFormat, this.state.etiqueta == 'Profesor' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-                <Text style={[styles.searchText, this.state.etiqueta == 'Profesor' ? {color: currentTheme.tertiaryColor} : {}]}>Profesor</Text>
+                <Text style={[styles.searchText, this.state.etiqueta == 'Profesor' ? {color: currentTheme.primaryColor} : {}]}>Profesor</Text>
               </TouchableOpacity>
 
               {/* Boton para asignar Administrativo */}
               <TouchableOpacity onPress={() => this.setState({etiqueta: 'Administrativo'})}
                 style={[styles.buttonFormat, this.state.etiqueta == 'Administrativo' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-                <Text style={[styles.searchText, this.state.etiqueta == 'Administrativo' ? {color: currentTheme.tertiaryColor} : {}]}>Administrativo</Text>
+                <Text style={[styles.searchText, this.state.etiqueta == 'Administrativo' ? {color: currentTheme.primaryColor} : {}]}>Administrativo</Text>
               </TouchableOpacity>
 
             </View>
@@ -216,7 +224,7 @@ export default class AgendaAddContact extends Component {
           </View>
 
           {/* Contenedor de boton de Añador */}
-          <View style={[styles.addButtonContainer, {backgroundColor: currentTheme.backgroundColor}]}>
+          <View style={[styles.addButtonContainer, {backgroundColor: 'white'}]}>
 
             {/* boton Añadir, manda a llamar a la funcion registro */}
             <TouchableOpacity
@@ -243,6 +251,10 @@ const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
 
 const styles = StyleSheet.create({
+    nav:{
+      width: width,
+      height: 60,
+    },
     //Estilos para formulario
     wholeContainer: {
       flex: 1,
@@ -261,11 +273,22 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       marginBottom: 20,
     },
+    foto: {
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: currentTheme.primaryColor,
+      width: 120,
+      height: 120,
+      borderRadius: 100,
+      marginBottom: 30,
+      marginTop: 30,
+    },
     searchText: {
       fontFamily: 'Sen',
       fontStyle: 'normal',
       fontWeight: '700',
-      fontSize: 18,
+      fontSize: 17,
       color: '#A9A9A9',
       marginTop: 2,
       display: 'flex',
@@ -281,7 +304,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 40,
+      marginBottom: 20,
     },
     addButtonFormat: {
       padding: 5,
@@ -292,7 +315,7 @@ const styles = StyleSheet.create({
     buttonFormat: {
       backgroundColor: '#E5E5E5',
       padding: 5,
-      paddingHorizontal: 10,
+      paddingHorizontal: 8,
       borderRadius: 5,
       borderColor: '#E5E5E5',
     },
@@ -314,13 +337,12 @@ const styles = StyleSheet.create({
     tagFormat: {
       fontFamily: 'Inter',
       fontStyle: 'normal',
-      fontWeight: '600',
-      fontSize: 25,
+      fontWeight: '700',
+      fontSize: 18,
       display: 'flex',
       alignItems: 'center',
       color: '#00456e',
       marginBottom: 15,
-      marginTop: 40,
     },
     addInputFormat: {
       fontSize: 18,

@@ -122,25 +122,25 @@ export default class AgendaScreen extends Component {
           {/* Boton para ver Todos los contactos */}
           <TouchableOpacity onPress={() => this.setState({tagfilter: 'Todos'})}
             style={[styles.buttonFormat, this.state.tagfilter == 'Todos' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-            <Text style={[styles.searchText, this.state.tagfilter == 'Todos' ? {color: currentTheme.tertiaryColor} : {}]}>Todos</Text>
+            <Text style={[styles.searchText, this.state.tagfilter == 'Todos' ? {color: currentTheme.primaryColor, marginHorizontal: 7} : {marginHorizontal: 7}]}>Todos</Text>
           </TouchableOpacity>
 
           {/* Boton para ver solo Compañeros */}
           <TouchableOpacity onPress={() => this.setState({tagfilter: 'Compañero'})}
             style={[styles.buttonFormat, this.state.tagfilter == 'Compañero' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-            <Text style={[styles.searchText, this.state.tagfilter == 'Compañero' ? {color: currentTheme.tertiaryColor} : {}]}>Compañero</Text>
+            <Text style={[styles.searchText, this.state.tagfilter == 'Compañero' ? {color: currentTheme.primaryColor} : {}]}>Compañero</Text>
           </TouchableOpacity>
 
           {/* Boton para ver solo profesor */}
           <TouchableOpacity onPress={() => this.setState({tagfilter: 'Profesor'})}
             style={[styles.buttonFormat, this.state.tagfilter == 'Profesor' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-            <Text style={[styles.searchText, this.state.tagfilter == 'Profesor' ? {color: currentTheme.tertiaryColor}: {}]}>Profesor</Text>
+            <Text style={[styles.searchText, this.state.tagfilter == 'Profesor' ? {color: currentTheme.primaryColor}: {}]}>Profesor</Text>
           </TouchableOpacity>
 
           {/* Boton para ver solo Administrativo */}
           <TouchableOpacity onPress={() => this.setState({tagfilter: 'Administrativo'})}
             style={[styles.buttonFormat, this.state.tagfilter == 'Administrativo' ? {backgroundColor: currentTheme.quinaryColor} : {}]}>
-            <Text style={[styles.searchText, this.state.tagfilter == 'Administrativo' ? {color: currentTheme.tertiaryColor} : {}]}>Administrativo</Text>
+            <Text style={[styles.searchText, this.state.tagfilter == 'Administrativo' ? {color: currentTheme.primaryColor} : {}]}>Administrativo</Text>
           </TouchableOpacity>
           
         </View>
@@ -200,14 +200,17 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       paddingBottom: 10,
-      paddingHorizontal: 20,
+      paddingHorizontal: 5,
     },
     buttonFormat: {
+      alignSelf: 'center',
       backgroundColor: '#E5E5E5',
-      padding: 5,
-      paddingHorizontal: 10,
+      paddingVertical: 6,
+      justifyContent: 'center',
       borderRadius: 5,
-      borderColor: '#E5E5E5',
+      alignItems: 'center',
+      marginBottom: 10,
+      marginHorizontal: 5,
     },
     searchBoxFormat: {
       backgroundColor: '#ffffff',
@@ -232,6 +235,7 @@ const styles = StyleSheet.create({
       display: 'flex',
       alignItems: 'center',
       textAlign: 'center',
+      paddingHorizontal: 5,
     },
     addIcon: {
       position: 'absolute',
