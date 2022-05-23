@@ -159,8 +159,8 @@ export default class RecordatoriosUpdateScreen extends Component {
 
     const editar = () => {
 
-      let regex = new RegExp("^[a-z0-9,.:!¡()¿?#$%&'*+/-_ ]+$");
-      let regex2 = new RegExp("^[a-z0-9,.:!¡()¿?#$%&'*+/-_ ]*$");
+      let regex = new RegExp("^[a-z0-9À-ÿ\u00f1\u00d1,.:!¡()¿?#$%&'*+/-_ ]+$");
+      let regex2 = new RegExp("^[a-z0-9À-ÿ\u00f1\u00d1,.:!¡()¿?#$%&'*+/-_ ]*$");
 
       if(this.state.nombre == "" || this.state.etiqueta == "null" || this.state.materia == 0 || 
         this.state.textFecha == "Selecciona la fecha de entrega"){

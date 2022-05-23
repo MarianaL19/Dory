@@ -60,7 +60,7 @@ export default class App extends Component {
     }
 
     const registroMateria = () => {
-      let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
+      let regex = new RegExp("^[a-zA-Z0-9À-ÿ\u00f1\u00d1_ ]+$");
       let regex2 = new RegExp("^[0-9]*$");
 
       if(this.state.nombre == "" || this.state.profesor == "" || this.state.aula == "" 

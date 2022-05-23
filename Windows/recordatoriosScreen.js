@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import {
   StyleSheet, View, Text, TouchableOpacity,
-  Dimensions, FlatList, ScrollView
+  Dimensions, FlatList, ScrollView, RefreshControl
 } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import { NavigationContext } from '@react-navigation/native';
@@ -28,7 +28,7 @@ export default class Recordatorios extends Component {
       isOpenPendientes: false,
       filtroMostrar: 'Todos',
       fechaActual: '',
-      isLoading: false,
+      refreshing: false,
     };
   }
 
@@ -122,7 +122,7 @@ export default class Recordatorios extends Component {
         }
       }
     };
-    this.setState({isLoading: false});
+    this.setState({refreshing: false});
     // let idUser = this.recuperarIDUsuario();
     console.log('USUARIO EN LA FUNCION:');
     console.log(this.state.id);
@@ -144,6 +144,11 @@ export default class Recordatorios extends Component {
     let horaActual = (actual.getHours() < 10 ? ('0' + actual.getHours()) : actual.getHours()) + ':' + (actual.getMinutes() < 10 ? ('0' + actual.getMinutes()) : actual.getMinutes());
     // console.log(horaActual);
     return horaActual;
+  }
+
+  _onRefresh = () => {
+    this.setState({listaRecordatorios: []});
+    this.recuperarDatos();
   }
 
 
@@ -209,7 +214,13 @@ export default class Recordatorios extends Component {
             </TouchableOpacity>
           </View>
 
-          <ScrollView>
+          <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={() => {this.setState({refreshing: true}); this._onRefresh();}}
+            />
+          }>
             <View style={{ marginBottom: '10%' }}>
               <Collapse
                 onToggle={() => this.setState({ isOpenCompletados: !this.state.isOpenCompletados })}
@@ -227,8 +238,6 @@ export default class Recordatorios extends Component {
                     (this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'completado'
                                                                                && objetoRecordatorio.etiqueta === this.state.filtroMostrar))}
                     renderItem={({ item }) => <RenderRecordatorio item={item} />}
-                    refreshing={this.state.isLoading}
-                    onRefresh={() => {this.setState({isLoading: true});this.recuperarDatos();}}
                   />
                 </CollapseBody>
               </Collapse>
@@ -249,8 +258,6 @@ export default class Recordatorios extends Component {
                     (this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'omitido'
                                                                              && objetoRecordatorio.etiqueta === this.state.filtroMostrar))}
                     renderItem={({ item }) => <RenderRecordatorio item={item} />}
-                    refreshing={this.state.isLoading}
-                    onRefresh={() => {this.setState({isLoading: true});this.recuperarDatos();}}
                   />
                 </CollapseBody>
               </Collapse>
@@ -271,8 +278,6 @@ export default class Recordatorios extends Component {
                     (this.state.listaRecordatorios.filter(objetoRecordatorio => objetoRecordatorio.estado === 'pendiente'
                                                                              && objetoRecordatorio.etiqueta === this.state.filtroMostrar))}
                     renderItem={({ item }) => <RenderRecordatorio item={item} />}
-                    refreshing={this.state.isLoading}
-                    onRefresh={() => {this.setState({isLoading: true});this.recuperarDatos();}}
                   />
                 </CollapseBody>
               </Collapse>

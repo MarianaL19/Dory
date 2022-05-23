@@ -78,7 +78,7 @@ export default class Inicio extends Component {
           <Text style={styles.hola}> ¡Hola! </Text>
           <Text style={styles.textoWelcome}>Bienvenido a</Text>
           <Text style={styles.textoWelcome}>Dory</Text>
-          <Text style={styles.alias}>Por favor ingrese un alías</Text>
+          <Text style={styles.alias}>Por favor ingrese un alias</Text>
           <View>
             <Input
               onChangeText={(nombre => this.setState({nombre}))}

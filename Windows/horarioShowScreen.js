@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, ScrollView, Dimensions, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ScrollView, Dimensions, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -29,6 +29,7 @@ export default class App extends Component {
       isOpenViernes: false,
       isOpenSabado: false,
       isOpenDomingo: false,
+      refreshing: false,
     };
   }
 
@@ -53,6 +54,7 @@ export default class App extends Component {
   recuperarDatos = () => {
     var xhttp = new XMLHttpRequest();
     let _this = this;       // Esto es para usar 'this' dentro de la función
+    this.setState({listaMaterias: []});
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -104,7 +106,14 @@ export default class App extends Component {
       xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarMaterias.php?id='+ this.state.id
       , true);
       xhttp.send();
+      this.setState({refreshing: false});
     }
+
+
+  _onRefresh = () => {
+    this.setState({listaMaterias: []});
+    this.recuperarDatos();
+  }
 
   componentDidMount(){
     this.recuperarIDUsuario();
@@ -122,7 +131,13 @@ export default class App extends Component {
         <MenuBar/>
       </View>
         
-        <ScrollView>
+        <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={() => {this.setState({refreshing: true}); this._onRefresh();}}
+          />
+        }>
 
           <FlatList/>
 
