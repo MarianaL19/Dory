@@ -1,25 +1,25 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView,
-        Dimensions, Alert} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import DatePicker from 'react-native-date-picker';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Switch, Dimensions, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import SelectDropdown from 'react-native-select-dropdown'
-import { NavigationContext } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import currentTheme from '../Components/currentTheme';
+import DatePicker from 'react-native-date-picker';
+import { cambioFormato } from '../Components/Date';
+import { NavigationContext } from '@react-navigation/native';
+import SelectDropdown from 'react-native-select-dropdown';
 import MenuBar from '../hotBar';
 
-const {width, height} = Dimensions.get('screen');
 
-export default class App extends Component {
+const { width, height } = Dimensions.get('screen');
+
+export default class MateriaUpdateScreen extends Component {
 
   static contextType = NavigationContext;
 
   constructor(props) {
     super(props);
     this.state = {
-      id_materia: 0,
+      id: 0,
       id_usuario: '',
       nombre: '',
       profesor: '',
@@ -31,35 +31,95 @@ export default class App extends Component {
       horaFin: new Date(),
       horaFinOpen: false,
       textHoraFin: 'Selecciona la hora',
-      dia: 8,
+      dia: -1,
       color: ''
     };
+
   }
 
   recuperarDatos = async() => {
     const jsonValue = await AsyncStorage.getItem('dataStorage');
     var data = JSON.parse(jsonValue);
 
-    this.setState({id_usuario: data[0]});
-    console.log(this.state.id_usuario);
+    this.setState({id: data[0]});
+    console.log(this.state.id);
+  }
+
+
+  recuperarID = async() => {
+    const jsonValue = await AsyncStorage.getItem('Actualizar');
+    var data = JSON.parse(jsonValue);
+
+    this.setState({id_materia: data[0]});
+    console.log(this.state.id_materia);
+  }
+
+  recuperarDatos = () => {
+    var xhttp = new XMLHttpRequest();
+    let _this = this;       // Esto es para usar 'this' dentro de la función
+  
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        let nombreMateria = '';
+        let profesorMateria = '';
+        let aulaMateria = '';
+        let nrcMateria = '';
+        let diaMateria = '';
+        let hora_inicio = '';
+        let hora_fin = '';
+        let id_materia = '';
+        let colorMateria = '';
+          
+        var materia = xhttp.responseText;
+            
+        var registros = materia.split('|');
+  
+        var numeroRegistros = registros[0];
+  
+        for (let i=1; i<=numeroRegistros; i++){
+          var datos = registros[i].split('¬');
+
+          if(datos[7] == _this.state.id_materia ){
+            nombreMateria = datos[0];
+            profesorMateria = datos[1];
+            aulaMateria = datos[2];
+            nrcMateria = datos[3];
+            diaMateria = datos[4];
+            hora_inicio = datos[5];
+            hora_fin = datos[6];
+            id_materia = datos[7];
+            colorMateria = datos[8];
+
+            _this.setState({nombre: nombreMateria});
+            _this.setState({profesor: profesorMateria});
+            _this.setState({aula: aulaMateria});
+            _this.setState({nrc: nrcMateria});
+            _this.setState({dia: diaMateria});
+            _this.setState({textHoraInicio: hora_inicio});
+            _this.setState({textHoraFin: hora_fin});
+            _this.setState({id: id_materia});
+            _this.setState({color: colorMateria});
+          }
+        }
+      }
+    };
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarMaterias.php'
+      , true);
+      xhttp.send();
   }
 
   componentDidMount(){
     this.recuperarDatos();
+    this.recuperarID();
   }
 
   render() {
-
     const navigation = this.context;
 
     const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
 
-    //Funciones para recuperar datos de usuario
-    const restaurarValores = () => {
-      this.setState({})
-    }
+    const editar = () => {
 
-    const registroMateria = () => {
       let regex = new RegExp("^[a-zA-Z0-9_ ]+$");
       let regex2 = new RegExp("^[0-9]*$");
 
@@ -79,12 +139,14 @@ export default class App extends Component {
               text:"ok", onPress: ()=> console.log("Nombre Invalido")
           }
         ]);
+
       }else if(!regex.test(this.state.profesor)){
         Alert.alert("Error", "Nombre de maestro invalido, no se permiten caracteres especiales", [
           {
               text:"ok", onPress: ()=> console.log("Nombre Invalido")
           }
         ]);
+
       } else if(!regex.test(this.state.aula)){
         Alert.alert("Error", "Aula invalida, no se permiten caracteres especiales", [
           {
@@ -116,22 +178,14 @@ export default class App extends Component {
           }
         };
 
-        xhttp.open("GET", 'https://dory69420.000webhostapp.com/addMateria.php?nombre=' + this.state.nombre
+        xhttp.open("GET", 'https://dory69420.000webhostapp.com/editarMateria.php?nombre=' + this.state.nombre
           + '&profesor=' + this.state.profesor + '&aula=' + this.state.aula + '&nrc=' + this.state.nrc
           + '&color=' + this.state.color + '&dia=' + this.state.dia + '&hora_inicio=' + this.state.textHoraInicio +
-          '&hora_fin=' + this.state.textHoraFin + '&id_usuario=' + this.state.id_usuario, true);
+          '&hora_fin=' + this.state.textHoraFin + '&id=' + this.state.id, true);
         xhttp.send();
-      
-
-        console.log('nombre: '+ this.state.nombre + '  profesor: '+ this.state.profesor + '  aula: '+ this.state.aula + 
-        '  nrc: ' + this.state.nrc + '  color: ' + this.state.color + '  id_usuario: ' + this.state.id_usuario)
-
-        console.log('dia: ' + this.state.dia + ' hora_inicio: ' + this.state.textHoraInicio + ' hora_fin: ' + this.state.textHoraFin)
-        restaurarValores();
-
-        navigation.navigate("Horario");
-
       }
+
+      navigation.navigate("Horario");
     }
 
     return (
@@ -149,7 +203,7 @@ export default class App extends Component {
             placeholder = "Nombre de la materia"
             style = {styles.input}
             clearTextOnFocus={true}
-            onChangeText={(nombre => this.setState({nombre}))}
+            onChangeText={(value) => this.setState({ nombre: value })} value={this.state.nombre}
             maxLength={60}
           />
       </View> 
@@ -171,12 +225,12 @@ export default class App extends Component {
        <SelectDropdown
         data={dias}
         defaultButtonText={'Selecciona el día'}
+        defaultValueByIndex = {this.state.dia}
         buttonStyle={styles.selector}
         buttonTextStyle={styles.selectorTexto}
         dropdownBackgroundColor = {'#FFFFFF'}
         onSelect={(selectedItem, index) => {
-          this.setState({ dia: index })
-          console.log(selectedItem, index)
+          this.setState({ dia: index }) 
         }}
 
         buttonTextAfterSelection={(selectedItem, index) => {
@@ -233,11 +287,10 @@ export default class App extends Component {
           placeholder = "Nombre del profesor"
           style = {styles.input}
           clearTextOnFocus={true}
-          onChangeText={(profesor => this.setState({profesor}))}
+          onChangeText={(value) => this.setState({ profesor: value })} value={this.state.profesor}
           maxLength={70}
         />
       </View>
-
 
       <View style={styles.iconContainer}>
        <Icon name='chair-school' size={30} color={'#C2C2C2'}/>
@@ -245,7 +298,7 @@ export default class App extends Component {
           placeholder = "Aula"
           style = {styles.input}
           clearTextOnFocus={true}
-          onChangeText={(aula => this.setState({aula}))}
+          onChangeText={(value) => this.setState({ aula: value })} value={this.state.aula}
           maxLength={5}
         />
       </View>
@@ -256,7 +309,7 @@ export default class App extends Component {
           placeholder = "NRC (opcional)"
           style = {styles.input}
           clearTextOnFocus={true}
-          onChangeText={(nrc => this.setState({nrc}))}
+          onChangeText={(value) => this.setState({ nrc: value })} value={this.state.nrc}
           maxLength={6}
           keyboardType='number-pad'
         />
@@ -350,9 +403,9 @@ export default class App extends Component {
 
       <View style = {{alignItems: 'center'}}>
         <TouchableOpacity style = {[styles.boton, {backgroundColor: currentTheme.primaryColor}]} 
-          onPress={registroMateria}
+          onPress={editar}
         > 
-          <Text style = {styles.textoBoton}> AÑADIR </Text>
+          <Text style = {styles.textoBoton}> GUARDAR </Text>
         </TouchableOpacity>
       </View>
 

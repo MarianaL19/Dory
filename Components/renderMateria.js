@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, Button } from "react-native";
+import { NavigationContext } from '@react-navigation/native';
 import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const cambioColor = (color) => {
     var colour = 'pepe';
@@ -15,16 +17,27 @@ const cambioDia = (dia) => {
     var day = 'pepe';
 
     switch(dia){
-        case '0': day = 'Domingo'; break;
-        case '1': day = 'Lunes'; break;
-        case '2': day = 'Martes'; break;
-        case '3': day = 'Miércoles'; break;
-        case '4': day = 'Jueves'; break;
-        case '5': day = 'Viernes'; break;
-        case '6': day = 'Sábado'; break;
+        case '0': day = 'Lunes'; break;
+        case '1': day = 'Martes'; break;
+        case '2': day = 'Miércoles'; break;
+        case '3': day = 'Jueves'; break;
+        case '4': day = 'Viernes'; break;
+        case '5': day = 'Sábado'; break;
     }
 
     return day;
+}
+
+const advertencia = (id_materia) => {
+
+    Alert.alert(
+        'Eliminar',
+        '¿Seguro que deseas eliminar la materia?',
+        [
+            {text: 'NO', onPress: () => console.log('NO Pressed'), style: 'cancel'},
+            {text: 'SÍ', onPress: () => eliminarMateria(id_materia)},
+        ]
+    );
 }
 
 const eliminarMateria = (id_materia) => {
@@ -39,11 +52,16 @@ const eliminarMateria = (id_materia) => {
     xhttp.send();
 }
 
+const guardarID = (id_materia) => {
+    AsyncStorage.setItem('Actualizar', JSON.stringify([id_materia]));
+}
 
 //Esta función principal se realiza por cada item
 const RenderMateria = ({ item }) => {
 
     const { id, nombre, profesor, aula, nrc, dia, hora_inicio, hora_fin, color} = item;
+
+    const navigation = React.useContext(NavigationContext);
 
     //Variable para saber el estado del popUp (si se ve o no)
     const [modalVisible, setModalVisible] = useState(false);
@@ -104,6 +122,15 @@ const RenderMateria = ({ item }) => {
                             {/* Botón para salir del popUp */}
                             <View style = {{marginTop: 20}}>
                             <Button color={currentTheme.primaryColor} title='Cerrar' onPress={() => setModalVisible(!modalVisible)}> </Button>
+                            <View style={{ flexDirection: 'row'}}>
+                                <TouchableOpacity style={styles.editContainer} onPress={() => {setModalVisible(false); guardarID(id); navigation.push('UpdateMateria')}}>
+                                    <Text style={styles.editText}>Editar</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.editContainer} onPress={() => {advertencia(id); setModalVisible(!modalVisible)}}>
+                                    <Text style={styles.editText}>Eliminar</Text>
+                                </TouchableOpacity>
+                            </View>
                             </View>
                         </View>
                     </View>
@@ -128,14 +155,11 @@ const RenderMateria = ({ item }) => {
                 </TouchableOpacity>
 
             </View>
-
         </>
-
     );
 }
 
 export default RenderMateria;
-
 
 const width = Dimensions.get('screen').width - 50;
 const height = Dimensions.get('screen').height;
@@ -218,4 +242,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 10,
     },
+    editContainer: {
+        alignItems: 'center',
+        paddingTop: 12,
+    },
+    editText: {
+        fontSize: 15,
+        fontWeight: '600',
+        textDecorationLine: 'underline',
+        paddingHorizontal: 40,
+    }
 });

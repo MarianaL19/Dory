@@ -50,7 +50,8 @@ export default class App extends Component {
           let diaMateria = '';
           let hora_inicio = '';
           let hora_fin = '';
-          let color = '';
+          let id_materia = '';
+          let colorMateria = '';
 
           var materia = xhttp.responseText;
           
@@ -68,13 +69,14 @@ export default class App extends Component {
             diaMateria = datos[4];
             hora_inicio = datos[5];
             hora_fin = datos[6];
+            id_materia = datos[7];
             colorMateria = datos[8];
 
             const objetoMateria =
             {nombre: nombreMateria, profesor: profesorMateria,
              aula: aulaMateria, nrc: nrcMateria,
              dia: diaMateria, hora_inicio: hora_inicio,
-             hora_fin: hora_fin, color: colorMateria};
+             hora_fin: hora_fin, id: id_materia, color: colorMateria};
 
             const nuevoArreglo = [..._this.state.listaMaterias, objetoMateria];
             _this.setState({listaMaterias: nuevoArreglo});
@@ -124,7 +126,7 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '1')}
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '0')}
 
                 renderItem={({item}) => <RenderMateria item={item} />}
               />
@@ -149,7 +151,7 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '2')}
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '1')}
 
                 renderItem={({item}) => <RenderMateria item={item} />}
               />
@@ -174,7 +176,7 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '3')}
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '2')}
 
                 renderItem={({item}) => <RenderMateria item={item} />}
               />
@@ -199,7 +201,7 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
             <FlatList
-                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '4')}
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '3')}
 
                 renderItem={({item}) => <RenderMateria item={item} />}
               />
@@ -224,7 +226,7 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '5')}
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '4')}
 
                 renderItem={({item}) => <RenderMateria item={item} />}
               />
@@ -249,35 +251,10 @@ export default class App extends Component {
             </CollapseHeader>
             <CollapseBody>
               <FlatList
-                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '6')}
+                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '5')}
 
                 renderItem={({item}) => <RenderMateria item={item} />}
               />  
-            </CollapseBody>
-          </Collapse>
-
-          <View style={{borderBottomColor: currentTheme.quinaryColor, borderBottomWidth:2.5, width: width}}/>
-
-          {/* Domingo */}
-
-          <Collapse
-            onToggle={() => this.setState({ isOpenDomingo: !this.state.isOpenDomingo })}
-          >
-            <CollapseHeader
-            >
-            <View style={styles.iconContainer}>
-              <Text 
-                style={styles.collapseTitle}>Domingo
-              </Text>
-              <Icon name={this.state.isOpenDomingo === true ? 'chevron-up' : 'chevron-down'} size={30} color={currentTheme.primaryColor}/> 
-            </View> 
-            </CollapseHeader>
-            <CollapseBody>
-              <FlatList
-                data = {this.state.listaMaterias.filter(objetoMateria => objetoMateria.dia === '0')}
-
-                renderItem={({item}) => <RenderMateria item={item} />}
-              />
             </CollapseBody>
           </Collapse>
 

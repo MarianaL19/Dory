@@ -12,6 +12,7 @@ import AddContact from './agendaAddContact';
 import Calendario from './calendarioScreen';
 import AddMateria from './horarioAddScreen';
 import UpdateRecordatorio from './recordatoriosUpdateScreen';
+import UpdateMateria from './horarioUpdateScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,9 @@ const InicioMenu = () => {
 
           <Stack.Screen name="UpdateRecordatorio"
           component={UpdateRecordatorio}/>
+
+          <Stack.Screen name="UpdateMateria"
+          component={UpdateMateria}/>
 
           <Stack.Screen name="AddContact"
           component={AddContact}/>
