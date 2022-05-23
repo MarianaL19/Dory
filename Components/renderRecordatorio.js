@@ -119,13 +119,13 @@ const RenderRecordatorio = ({ item }) => {
 
                             {/* Apartado: fecha y hora */}
                             <View style={{ flexDirection: 'row', marginBottom: 20, marginTop: 20 }}>
-                                <Icon name='calendar-blank-outline' size={20} color='#A9A9A9' />
+                                <Icon name='calendar-blank-outline' size={25} color='#A9A9A9' />
                                 
                                 {/* Cambia el formato de fecha yyyy-mm-dd a texto simple */}
                                 <Text style={styles.modalDateText}> {cambioFormato(fecha)} </Text>
                             </View>
                             <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-                                <Icon name='clock-time-four-outline' size={20} color='#A9A9A9' />
+                                <Icon name='clock-time-four-outline' size={27} color='#A9A9A9' />
 
                                 {/* Evalúa si existe el atributo hora, de ser así lo coloca, sino imprime el guión */}
                                 <Text style={styles.modalDateText}> {[hora ? hora.substr(0,5) : '-']} </Text>
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontWeight: 'bold',
-        fontSize: 22,
+        fontSize: 24,
         textAlign: 'center',
         marginBottom: 20,
     },

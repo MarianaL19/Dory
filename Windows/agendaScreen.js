@@ -135,7 +135,7 @@ export default class AgendaScreen extends Component {
           {/* Barra */}
           <TextInput style={{padding: 5}}
             placeholder='Buscar contacto'
-            fontSize={20}
+            fontSize={18}
             placeholderTextColor='#C4C4C4'
             onChangeText = {(search => this.setState({search}))}
           />

@@ -287,7 +287,7 @@ export default class RecordatoriosUpdateScreen extends Component {
             <Icon name='clock-time-four-outline' size={25} color='#A9A9A9' />
             <TouchableOpacity onPress={() => this.setState({ horaOpen: true })}>
               <Text style={[styles.inputs, this.state.textHora === '23:59:00' ? {color: '#A9A9A9'} : {}]}>
-                    {this.state.textHora === '23:59:00' ? 'Selecciona la hora de entrega' : this.state.textHora.substr(0,5)}
+                    {this.state.textHora === '23:59:00' ? 'Selecciona la hora de entrega   (opcional)' : this.state.textHora.substr(0,5)}
               </Text>
             </TouchableOpacity>
           </View>
@@ -298,7 +298,7 @@ export default class RecordatoriosUpdateScreen extends Component {
 
           <View style={styles.iconContainer}>
             <Icon name='pencil' size={25} color='#A9A9A9' />
-            <TextInput multiline={true} numberOfLines={3} placeholder="Descripción" keyboardType="default" style={[styles.inputs, { width: width * 0.8 }]}
+            <TextInput multiline={true} numberOfLines={3} placeholder="Descripción     (opcional)" keyboardType="default" style={[styles.inputs, { width: width * 0.8 }]}
               onChangeText={(value) => this.setState({ descripcion: value })} value={this.state.descripcion} maxLength={280}/>
           </View>
           <View style={{ borderBottomColor: currentTheme.quinaryColor, borderBottomWidth: 2.8, width: width }} />
@@ -464,7 +464,7 @@ const styles = StyleSheet.create({
   },
   recordatoriosText: {
     color: "#00456E",
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '500',
     marginHorizontal: 20,
     marginVertical: 7,
