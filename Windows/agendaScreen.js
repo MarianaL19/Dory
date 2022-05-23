@@ -18,7 +18,6 @@ import MenuBar from '../hotBar';
 // Variable de dimensiones
 const {width, height} = Dimensions.get('screen');
 
-// EDITAR
 // BUSQUEDA
 
 export default class AgendaScreen extends Component {
@@ -68,7 +67,12 @@ export default class AgendaScreen extends Component {
           id_contacto = datos[5];
 
           const objetoContacto = {
-            ID_C: id_contacto, nombreC: nombre, ID_Usuario: id_usuario, telefonoC: telefono, correoC: correo, etiquetaC: etiqueta 
+            ID_C: id_contacto,
+            nombreC: nombre,
+            ID_Usuario: id_usuario,
+            telefonoC: telefono,
+            correoC: correo,
+            etiquetaC: etiqueta 
           };
 
           const nuevoArregloContactos = [..._this.state.listContact, objetoContacto];
@@ -87,9 +91,6 @@ export default class AgendaScreen extends Component {
   componentDidMount(){
     this.recuperarDatos();
   }
-
-  //Prueba
-  //nota: forceupdate?
   
   render() {
 
@@ -112,6 +113,7 @@ export default class AgendaScreen extends Component {
           <TextInput style={styles.searchBoxFormat}
             placeholder='Buscar contacto'
             placeholderTextColor='#C4C4C4'
+            onChangeText = {(search => this.setState({search}))}
           />
 
         </View>

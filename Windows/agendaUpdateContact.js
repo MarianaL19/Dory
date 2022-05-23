@@ -28,7 +28,7 @@ export default class AgendaAddContact extends Component {
     var data = JSON.parse(jsonValue);
 
     this.setState({id_usuario: data[0]});
-    console.log(this.state.id_usuario);
+    // console.log(this.state.id_usuario);
   }
 
   recuperarID = async() => {
@@ -36,13 +36,10 @@ export default class AgendaAddContact extends Component {
       var data = JSON.parse(jsonValue);
 
       this.setState({id_contacto: data[0]});
-      console.log(this.state.id_contacto);
-      //this.recuperarDatos();
+      // console.log(this.state.id_contacto);
   }
 
   recuperarContactos = () => {
-    // Vacia la lista para nueva carga
-    // this.setState({listContact: []});
     var xhttp = new XMLHttpRequest();
     let _this = this;
 
@@ -56,7 +53,7 @@ export default class AgendaAddContact extends Component {
         let id_contactoContacto = -1;
 
         var contacto = xhttp.responseText;
-        console.log(contacto);
+        // console.log(contacto);
 
         var registros = contacto.split('|'); //Delimitador de registro
 
@@ -64,11 +61,9 @@ export default class AgendaAddContact extends Component {
 
         for (let i = 1; i <= numeroRegistros; i++){
           var datos = registros[i].split('¬'); //Delimitador de campo
-          console.log('contacto: ' + datos[0]);
+          // console.log('contacto: ' + datos[0]);
 
           if(datos[5] == _this.state.id_contacto){
-            console.log('entro a condicional');
-            console.log(_this.state.id_contacto);
             nombreContacto = datos[0];
             id_usuarioContacto = datos[1];
             telefonoContacto = datos[2];
@@ -78,27 +73,14 @@ export default class AgendaAddContact extends Component {
 
             _this.setState({nombre: nombreContacto});
             _this.setState({id_usuario: id_usuarioContacto});
-            // _this.setState({id_contacto: id_contactoContacto});
             _this.setState({telefono: telefonoContacto});
             _this.setState({correo: correoContacto});
             _this.setState({etiqueta: etiquetaContacto});
-            console.log(_this.state.nombre, _this.state.telefono, _this.state.correo);
-          }
-          
-
-        //   const objetoContacto = {
-        //     ID_C: id_contacto, nombreC: nombre, ID_Usuario: id_usuario, telefonoC: telefono, correoC: correo, etiquetaC: etiqueta 
-        //   };
-
-        //   const nuevoArregloContactos = [..._this.state.listContact, objetoContacto];
-        //   _this.setState({listContact: nuevoArregloContactos});
-          // console.log(objetoContacto);
+            // console.log(_this.state.nombre, _this.state.telefono, _this.state.correo);
+          }          
         }
-        // console.log(_this.state.listContact);
       }
     };
-    // Cambia estado de cargando a falso
-    // this.setState({isLoading: false});
     xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarContacto.php',  true);
     xhttp.send();
   }

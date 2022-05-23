@@ -27,7 +27,7 @@ export default class AgendaAddContact extends Component {
     var data = JSON.parse(jsonValue);
 
     this.setState({id_usuario: data[0]});
-    console.log(this.state.id_usuario);
+    // console.log(this.state.id_usuario);
   }
 
   componentDidMount(){
