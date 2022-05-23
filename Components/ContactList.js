@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, Button } from "react-native";
 import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationContext } from '@react-navigation/native';
 
 // Funcion de eliminar
 const eliminarContacto = (id_contacto) => {
@@ -17,7 +19,9 @@ const eliminarContacto = (id_contacto) => {
     xhttp.send();
 }
 
-
+const guardarID = (id_contacto) => {
+    AsyncStorage.setItem('ActualizarC', JSON.stringify([id_contacto]));
+}
 
 const Contact = ({ item }) => {
     //Variable para saber el estado del popUp (si se ve o no)
@@ -25,6 +29,8 @@ const Contact = ({ item }) => {
 
     //Aún no descifro pa k es esto
     const { ID_C, nombreC, ID_Usuario, telefonoC, correoC, etiquetaC } = item;
+
+    const navigation = React.useContext(NavigationContext);
 
     function borraYcierra(id){
         eliminarContacto(id);
@@ -53,7 +59,7 @@ const Contact = ({ item }) => {
                             {/* Boton para editar contacto */}
                             {/* <View style={styles.moveButton}>
 
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => {setModalVisible(false); guardarID(ID_C); navigation.push('UpdateContact')}}>
                                         <Icon name='dots-vertical' size={40} color={'#c4c4c4'}/>
                                     </TouchableOpacity>
 
@@ -119,7 +125,7 @@ const Contact = ({ item }) => {
                                         <Text style={styles.editText}>Eliminar</Text>
                                     </TouchableOpacity>
 
-                                    <TouchableOpacity style={styles.editContainer} onPress={() => {}}>
+                                    <TouchableOpacity style={styles.editContainer} onPress={() => {setModalVisible(false); guardarID(ID_C); navigation.push('UpdateContact')}}>
                                         <Text style={styles.editText}>Editar</Text>
                                     </TouchableOpacity>
                                 </View>

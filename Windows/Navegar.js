@@ -13,6 +13,7 @@ import Calendario from './calendarioScreen';
 import AddMateria from './horarioAddScreen';
 import UpdateRecordatorio from './recordatoriosUpdateScreen';
 import UpdateMateria from './horarioUpdateScreen';
+import UpdateContact from './agendaUpdateContact';
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +65,9 @@ const InicioMenu = () => {
 
           <Stack.Screen name="AddMateria"
           component={AddMateria}/>
+
+          <Stack.Screen name="UpdateContact"
+          component={UpdateContact}/>
     
         </Stack.Navigator>
       );
@@ -95,6 +99,9 @@ const InicioMenu = () => {
 
           <Stack.Screen name="UpdateMateria"
           component={UpdateMateria}/>
+
+          <Stack.Screen name="UpdateContact"
+          component={UpdateContact}/>
     
         </Stack.Navigator>
       );
