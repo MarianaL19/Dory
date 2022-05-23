@@ -60,12 +60,11 @@ export default class App extends Component {
     }
 
     const registroMateria = () => {
-      let regex = new RegExp("^[a-zA-Z0-9À-ÿ\u00f1\u00d1_ ]+$");
+      let regex = new RegExp("^[a-zA-Z0-9À-ÿ\u00f1\u00d1_ ]*$");
       let regex2 = new RegExp("^[0-9]*$");
 
-      if(this.state.nombre == "" || this.state.profesor == "" || this.state.aula == "" 
-      || this.state.dia == 8 || this.state.textHoraInicio == 'Selecciona la hora'
-      || this.state.textHoraFin == 'Selecciona la hora'){
+      if(this.state.nombre == "" || this.state.profesor == "" || this.state.dia == 8 
+      || this.state.textHoraInicio == 'Selecciona la hora' || this.state.textHoraFin == 'Selecciona la hora'){
         Alert.alert("Campos vacíos", "Es necesario llenar todos los campos obligatorios", [
           {
               text:"ok", onPress: ()=> console.log("Campos Vacios")
@@ -242,7 +241,7 @@ export default class App extends Component {
       <View style={styles.iconContainer}>
        <Icon name='chair-school' size={30} color={'#C2C2C2'}/>
         <TextInput 
-          placeholder = "Aula"
+          placeholder = "Aula (opcional)"
           style = {styles.input}
           clearTextOnFocus={true}
           onChangeText={(aula => this.setState({aula}))}

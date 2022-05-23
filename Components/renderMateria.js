@@ -90,7 +90,10 @@ const RenderMateria = ({ item }) => {
                         {/* Apartado: dia, aula, nrc y horas */}
                             <Text style={styles.modalDayText}> {cambioDia(dia)} de {hora_inicio.substr(0,5)} a {hora_fin.substr(0,5)}</Text>
 
-                            <View style={{ flexDirection: 'row', marginTop: 25}}>
+                            
+
+                            {aula ? (
+                                <View style={{ flexDirection: 'row', marginTop: 25}}>
                                 <Icon name='map-marker' size={40} color={currentTheme.primaryColor}/>
                                 
                                 <View style={{ flexDirection: 'column', marginLeft: 5}}>
@@ -98,7 +101,8 @@ const RenderMateria = ({ item }) => {
                                     <Text style={[styles.modalDateText, {fontWeight: 'bold'}]}> {aula} </Text>
                                 </View>
                             </View>
-
+                            ) : null}
+                            
                             <View style={{ flexDirection: 'row', marginTop: 25}}>
                                 <Icon name='human-male-board' size={40} color={currentTheme.primaryColor}/>
                                 
