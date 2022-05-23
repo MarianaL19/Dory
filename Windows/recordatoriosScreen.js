@@ -196,7 +196,7 @@ export default class Recordatorios extends Component {
                 onToggle={() => this.setState({ isOpenCompletados: !this.state.isOpenCompletados })}
               >
                 <CollapseHeader>
-                  <View style={{ flexDirection: 'row' }}>
+                  <View style={{ flexDirection: 'row', marginTop: 5 }}>
                     <Text style={styles.collapseTitle}>Completados</Text>
                     <Icon name={this.state.isOpenCompletados === true ? 'chevron-up' : 'chevron-down'} size={30} color={currentTheme.primaryColor} />
                   </View>
@@ -218,7 +218,7 @@ export default class Recordatorios extends Component {
                 onToggle={() => this.setState({ isOpenOmitidos: !this.state.isOpenOmitidos })}
               >
                 <CollapseHeader>
-                  <View style={{ flexDirection: 'row' }}>
+                  <View style={{ flexDirection: 'row', marginTop: 5}}>
                     <Text style={styles.collapseTitle}>Omitidos</Text>
                     <Icon name={this.state.isOpenOmitidos === true ? 'chevron-up' : 'chevron-down'} size={30} color={currentTheme.primaryColor} />
                   </View>
@@ -240,7 +240,7 @@ export default class Recordatorios extends Component {
                 onToggle={() => this.setState({ isOpenPendientes: !this.state.isOpenPendientes })}
               >
                 <CollapseHeader>
-                  <View style={{ flexDirection: 'row' }}>
+                  <View style={{ flexDirection: 'row', marginTop: 5 }}>
                     <Text style={styles.collapseTitle}>Pendientes</Text>
                     <Icon name={this.state.isOpenPendientes === true ? 'chevron-up' : 'chevron-down'} size={30} color={currentTheme.primaryColor} />
                   </View>
@@ -287,6 +287,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingBottom: 10,
     marginTop: 20,
+    marginBottom: 10,
   },
   filterButton: {
     alignItems: 'center',
@@ -301,7 +302,7 @@ const styles = StyleSheet.create({
     color: '#A9A9A9',
   },
   collapseTitle: {
-    fontSize: 18,
+    fontSize: 21,
     fontWeight: 'bold',
     color: currentTheme.tertiaryColor,
     marginLeft: 15,
