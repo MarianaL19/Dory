@@ -71,9 +71,6 @@ const InicioMenu = () => {
     else{
       return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          
-          {/* <Stack.Screen name="Calendario"
-          component={Calendario}/> */}
   
           <Stack.Screen name="Inicio"
           component={Inicio}/>
@@ -87,11 +84,17 @@ const InicioMenu = () => {
           <Stack.Screen name="AddRecordatorio"
           component={AddRecordatorio}/>
 
+          <Stack.Screen name="UpdateRecordatorio"
+          component={UpdateRecordatorio}/>
+
           <Stack.Screen name="AddContact"
           component={AddContact}/>
 
           <Stack.Screen name="AddMateria"
           component={AddMateria}/>
+
+          <Stack.Screen name="UpdateMateria"
+          component={UpdateMateria}/>
     
         </Stack.Navigator>
       );
