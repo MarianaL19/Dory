@@ -18,6 +18,9 @@ import MenuBar from '../hotBar';
 // Variable de dimensiones
 const {width, height} = Dimensions.get('screen');
 
+// EDITAR
+// BUSQUEDA
+
 export default class AgendaScreen extends Component {
   
   static contextType = NavigationContext;
@@ -29,10 +32,13 @@ export default class AgendaScreen extends Component {
       tagfilter: "Todos",
       search: "",
       listContact: [],
+      isLoading: false,
     };
   }
 
   recuperarDatos = () => {
+    // Vacia la lista para nueva carga
+    this.setState({listContact: []});
     var xhttp = new XMLHttpRequest();
     let _this = this;
 
@@ -59,9 +65,10 @@ export default class AgendaScreen extends Component {
           telefono = datos[2];
           correo = datos[3];
           etiqueta = datos[4];
+          id_contacto = datos[5];
 
           const objetoContacto = {
-            nombreC: nombre, ID_Usuario: id_usuario, telefonoC: telefono, correoC: correo, etiquetaC: etiqueta 
+            ID_C: id_contacto, nombreC: nombre, ID_Usuario: id_usuario, telefonoC: telefono, correoC: correo, etiquetaC: etiqueta 
           };
 
           const nuevoArregloContactos = [..._this.state.listContact, objetoContacto];
@@ -71,6 +78,8 @@ export default class AgendaScreen extends Component {
         // console.log(_this.state.listContact);
       }
     };
+    // Cambia estado de cargando a falso
+    this.setState({isLoading: false});
     xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarContacto.php',  true);
     xhttp.send();
   }
@@ -148,8 +157,19 @@ export default class AgendaScreen extends Component {
           ) : 
               ( // Si hay contactos los muestra
                 <FlatList
-                  data={this.state.listContact}
+                  data={this.state.tagfilter === 'Todos' ?
+                                                           (this.state.listContact) : 
+                                                           (this.state.tagfilter === 'Compañero' ?
+                                                                                                   (this.state.listContact.filter(objetoContacto => objetoContacto.etiquetaC === 'Compañero')) : 
+                                                                                                   (this.state.tagfilter === 'Profesor' ?
+                                                                                                                                          (this.state.listContact.filter(objetoContacto => objetoContacto.etiquetaC === 'Profesor')) :
+                                                                                                                                          (this.state.listContact.filter(objetoContacto => objetoContacto.etiquetaC === 'Administrativo'))
+                                                                                                    )
+                                                            )
+                        }
                   renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
+                  refreshing={this.state.isLoading}
+                  onRefresh={() => {this.setState({isLoading: true}); this.recuperarDatos();}}
                 />
               ) 
         }

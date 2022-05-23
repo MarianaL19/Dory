@@ -3,13 +3,33 @@ import { Alert, View, StyleSheet, Text, Dimensions, TouchableOpacity, Modal, But
 import currentTheme from './currentTheme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+// Funcion de eliminar
+const eliminarContacto = (id_contacto) => {
+    var xhttp = new XMLHttpRequest();
+    let _this = this;
+
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            // ???
+        }
+    };
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/eliminarContacto.php?id=' + id_contacto, true);
+    xhttp.send();
+}
+
+
 
 const Contact = ({ item }) => {
     //Variable para saber el estado del popUp (si se ve o no)
     const [modalVisible, setModalVisible] = useState(false);
 
     //Aún no descifro pa k es esto
-    const { nombreC, telefonoC, correoC, etiquetaC } = item;
+    const { ID_C, nombreC, ID_Usuario, telefonoC, correoC, etiquetaC } = item;
+
+    function borraYcierra(id){
+        eliminarContacto(id);
+        setModalVisible(!modalVisible);
+    }
 
     return (
         <>
@@ -77,6 +97,12 @@ const Contact = ({ item }) => {
 
                             <View style={styles.contactContainer} >
 
+                                {/* Boton para eliminar */}
+                                <TouchableOpacity onPress={() => borraYcierra(ID_C)}
+                                    style={[styles.closeButtonFormat, {backgroundColor: currentTheme.primaryColor}]}>
+                                    <Text style={styles.closeButtonText}>Eliminar</Text>
+                                </TouchableOpacity>
+
                                 {/* Boton para salir */}
                                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}
                                     style={[styles.closeButtonFormat, {backgroundColor: currentTheme.primaryColor}]}>
@@ -97,11 +123,11 @@ const Contact = ({ item }) => {
                     activa el evento que hace visible el popUp, este PopUp muestra información del elemento que se presionó,
                     -> !!!Se debe optimizar esta parte, haciendo al popUp un componente independiente de cada objeto Task
                 */}
-                <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.container}>
+                <TouchableOpacity onPress={() => setModalVisible(true)} style={[styles.container, {backgroundColor: currentTheme.quinaryColor}]}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         
                         {/* nombre del contacto */}
-                        <Text numberOfLines={2} style={styles.title}>{nombreC}</Text>
+                        <Text numberOfLines={2} style={[styles.title, {color: currentTheme.primaryColor}]}>{nombreC}</Text>
 
                     </View>
                 </TouchableOpacity>
@@ -121,8 +147,9 @@ const height = Dimensions.get('screen').height;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ededed',
+        //backgroundColor: '#ededed',
         width: width,
+        height: 60,
         paddingHorizontal: 20,
         paddingVertical: 10,
         justifyContent: 'center',
@@ -133,17 +160,17 @@ const styles = StyleSheet.create({
     }, 
     title: {
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 25,
         color: '#171717',
     },
     modalContainer: {
         backgroundColor: 'white',
-        height: 20,
+        position: 'relative',
         margin: 50,
         padding: 30,
         borderRadius: 10,
-        flex: 1,
-        width: width * 0.85,
+        minWidth: 320,
+        minHeight: 200,
     },
     modalTitle: {
         fontWeight: 'bold',
@@ -257,6 +284,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: 140,
         height: 40,
+        marginBottom: 20,
     },
     closeButtonText: {
         fontFamily: 'Inter',
