@@ -108,10 +108,15 @@ export default class AgendaScreen extends Component {
         </View>
 
         {/*Seccion de barra de busqueda*/}
-        <View>
+        <View style={styles.iconContainerSearch}>
 
-          <TextInput style={styles.searchBoxFormat}
+          {/* Icono lupa */}
+          <Icon name='magnify' size={25} color={'#C2C2C2'}/>
+
+          {/* Barra */}
+          <TextInput style={{padding: 5}}
             placeholder='Buscar contacto'
+            fontSize={20}
             placeholderTextColor='#C4C4C4'
             onChangeText = {(search => this.setState({search}))}
           />
@@ -209,6 +214,26 @@ const styles = StyleSheet.create({
       paddingBottom: 10,
       paddingHorizontal: 5,
     },
+    iconContainerSearch: {
+      flexDirection: 'row',
+      marginBottom: 15,
+      marginTop: 15,
+      alignItems:'center',
+      paddingHorizontal: 20,
+      backgroundColor: '#ffffff',
+      borderRadius: 50,
+      padding: 3,
+      alignSelf: 'center',
+      textAlign: 'center',
+      width: width*0.9,
+      height: 50,
+      // Para la sombra
+      shadowOpacity: 0.5,
+      shadowRadius: 5,
+      shadowColor: '#470000',
+      shadowOffset: {width: 10, height: 10},
+      elevation: 10,
+    }, 
     buttonFormat: {
       alignSelf: 'center',
       backgroundColor: '#E5E5E5',
