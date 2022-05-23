@@ -72,7 +72,7 @@ export default class AgendaScreen extends Component {
             ID_Usuario: id_usuario,
             telefonoC: telefono,
             correoC: correo,
-            etiquetaC: etiqueta 
+            etiquetaC: etiqueta,
           };
 
           const nuevoArregloContactos = [..._this.state.listContact, objetoContacto];
@@ -156,14 +156,13 @@ export default class AgendaScreen extends Component {
                 Parece que no tienes ningun contacto añadido, ¡Empieza añadiendo uno!
               </Text>
             </View>
-          ) : 
-              ( // Si hay contactos los muestra
-                <FlatList
+          ) : (this.state.search === "" ? (
+                <FlatList //Si hay elementos los muestra
                   data={this.state.tagfilter === 'Todos' ?
-                                                           (this.state.listContact) : 
-                                                           (this.state.tagfilter === 'Compañero' ?
-                                                                                                   (this.state.listContact.filter(objetoContacto => objetoContacto.etiquetaC === 'Compañero')) : 
-                                                                                                   (this.state.tagfilter === 'Profesor' ?
+                                                          (this.state.listContact) : 
+                                                          (this.state.tagfilter === 'Compañero' ?
+                                                                                                  (this.state.listContact.filter(objetoContacto => objetoContacto.etiquetaC === 'Compañero')) : 
+                                                                                                  (this.state.tagfilter === 'Profesor' ?
                                                                                                                                           (this.state.listContact.filter(objetoContacto => objetoContacto.etiquetaC === 'Profesor')) :
                                                                                                                                           (this.state.listContact.filter(objetoContacto => objetoContacto.etiquetaC === 'Administrativo'))
                                                                                                     )
@@ -172,8 +171,14 @@ export default class AgendaScreen extends Component {
                   renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
                   refreshing={this.state.isLoading}
                   onRefresh={() => {this.setState({isLoading: true}); this.recuperarDatos();}}
-                />
-              ) 
+                />) : (<FlatList //Solo muestra coincidencia exacta
+                          data={this.state.listContact.filter(objetoContacto => objetoContacto.nombreC.toLowerCase() === this.state.search ||
+                                                              objetoContacto.nombreC.toUpperCase() === this.state.search ||
+                                                              objetoContacto.nombreC === this.state.search)}
+                          renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
+                          refreshing={this.state.isLoading}
+                          onRefresh={() => {this.setState({isLoading: true}); this.recuperarDatos();}}
+                        />))
         }
         
         {/*Botón para agregar contactos*/}
