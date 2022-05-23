@@ -93,8 +93,8 @@ const RenderMateria = ({ item }) => {
                             <View style={{ flexDirection: 'row', marginTop: 25}}>
                                 <Icon name='map-marker' size={40} color={currentTheme.primaryColor}/>
                                 
-                                <View style={{ flexDirection: 'column'}}>
-                                    <Text style = {{fontSize:20}}> Aula </Text>
+                                <View style={{ flexDirection: 'column', marginLeft: 5}}>
+                                    <Text style = {{fontSize:16}}> Aula </Text>
                                     <Text style={[styles.modalDateText, {fontWeight: 'bold'}]}> {aula} </Text>
                                 </View>
                             </View>
@@ -102,8 +102,8 @@ const RenderMateria = ({ item }) => {
                             <View style={{ flexDirection: 'row', marginTop: 25}}>
                                 <Icon name='human-male-board' size={40} color={currentTheme.primaryColor}/>
                                 
-                                <View style={{ flexDirection: 'column'}}>
-                                    <Text style = {{fontSize:20}}> Profesor </Text>
+                                <View style={{ flexDirection: 'column', marginLeft: 5}}>
+                                    <Text style = {{fontSize:16}}> Profesor </Text>
                                     <Text style={styles.modalDateText}> {profesor} </Text>
                                 </View>
                             </View>
@@ -112,23 +112,23 @@ const RenderMateria = ({ item }) => {
                                 <View style={{ flexDirection: 'row', marginTop: 25}}>
                                 <Icon name='magnify' size={40} color={currentTheme.primaryColor}/>
                                 
-                                <View style={{ flexDirection: 'column', marginBottom: 20}}>
-                                    <Text style = {{fontSize:20}}> NRC </Text>
+                                <View style={{ flexDirection: 'column', marginLeft: 5}}>
+                                    <Text style = {{fontSize:16}}> NRC </Text>
                                     <Text style={styles.modalDateText}> {nrc} </Text>
                                 </View>
                             </View>
                             ) : null}
 
                             {/* Botón para salir del popUp */}
-                            <View style = {{marginTop: 20}}>
+                            <View style = {{marginTop: 30}}>
                             <Button color={currentTheme.primaryColor} title='Cerrar' onPress={() => setModalVisible(!modalVisible)}> </Button>
                             <View style={{ flexDirection: 'row'}}>
-                                <TouchableOpacity style={styles.editContainer} onPress={() => {setModalVisible(false); guardarID(id); navigation.push('UpdateMateria')}}>
-                                    <Text style={styles.editText}>Editar</Text>
-                                </TouchableOpacity>
-
                                 <TouchableOpacity style={styles.editContainer} onPress={() => {advertencia(id); setModalVisible(!modalVisible)}}>
                                     <Text style={styles.editText}>Eliminar</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.editContainer} onPress={() => {setModalVisible(false); guardarID(id); navigation.push('UpdateMateria')}}>
+                                    <Text style={styles.editText}>Editar</Text>
                                 </TouchableOpacity>
                             </View>
                             </View>
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontWeight: 'bold',
-        fontSize: 30,
+        fontSize: 27,
         textAlign: 'center',
     },
     modalRegularText: {
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
         color: '#171717',
     },
     modalDayText: {
-        fontSize: 22,
+        fontSize: 21,
         fontWeight: 'bold',
         color: '#171717',
         textAlign: 'center',

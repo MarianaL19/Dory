@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 22,
         textAlign: 'center',
         marginBottom: 20,
     },

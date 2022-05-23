@@ -224,7 +224,7 @@ export default class MateriaUpdateScreen extends Component {
 
        <SelectDropdown
         data={dias}
-        defaultButtonText={'Selecciona el día'}
+        defaultButtonText={<Text style={{fontSize: 16, fontWeight: '500',color: '#A9A9A9'}}>Día</Text>}
         defaultValueByIndex = {this.state.dia}
         buttonStyle={styles.selector}
         buttonTextStyle={styles.selectorTexto}
@@ -431,10 +431,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   selectorTexto: {
-      fontSize: 15,
+      fontSize: 16,
       paddingRight: 50,
+      fontWeight: '500',
       flexDirection: 'row',
-      color: '#A9A9A9',
+      color: 'black',
       textAlign: 'left',
   },
   containerTitulo: {
