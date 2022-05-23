@@ -41,14 +41,16 @@ export default class RecordatoriosUpdateScreen extends Component {
 
   }
 
-  recuperarDatos = async() => {
+  recuperarIDNativo = async() => {
     const jsonValue = await AsyncStorage.getItem('dataStorage');
     var data = JSON.parse(jsonValue);
 
     this.setState({id: data[0]});
+    console.log('ID NATIVO: ');
     console.log(this.state.id);
+    this.recuperarMaterias();
+    this.recuperarDatos();
   }
-
 
   recuperarID = async() => {
     const jsonValue = await AsyncStorage.getItem('Actualizar');
@@ -56,6 +58,7 @@ export default class RecordatoriosUpdateScreen extends Component {
 
     this.setState({id_recordatorio: data[0]});
     console.log(this.state.id_recordatorio);
+    this.recuperarIDNativo();
   }
 
   recuperarMaterias = () => {
@@ -87,7 +90,7 @@ export default class RecordatoriosUpdateScreen extends Component {
           // console.log(_this.state.listaMaterias);
         }
     };
-      xhttp.open("GET", 'https://dory69420.000webhostapp.com/listadoMaterias.php'
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/listadoMaterias.php?id=' + this.state.id
       , true);
       xhttp.send();
     }
@@ -140,15 +143,13 @@ export default class RecordatoriosUpdateScreen extends Component {
             }
           }
       };
-      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php'
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php?id=' + this.state.id
       , true);
       xhttp.send();
       }
-
+    
 
   componentDidMount(){
-    this.recuperarDatos();
-    this.recuperarMaterias();
     this.recuperarID();
   }
 

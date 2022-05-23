@@ -37,12 +37,13 @@ export default class MateriaUpdateScreen extends Component {
 
   }
 
-  recuperarDatos = async() => {
+  recuperarIDNativo = async() => {
     const jsonValue = await AsyncStorage.getItem('dataStorage');
     var data = JSON.parse(jsonValue);
 
     this.setState({id: data[0]});
     console.log(this.state.id);
+    this.recuperarDatos();
   }
 
 
@@ -52,6 +53,7 @@ export default class MateriaUpdateScreen extends Component {
 
     this.setState({id_materia: data[0]});
     console.log(this.state.id_materia);
+    this.recuperarIDNativo();
   }
 
   recuperarDatos = () => {
@@ -103,13 +105,12 @@ export default class MateriaUpdateScreen extends Component {
         }
       }
     };
-      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarMaterias.php'
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarMaterias.php?id=' + this.state.id
       , true);
       xhttp.send();
   }
 
   componentDidMount(){
-    this.recuperarDatos();
     this.recuperarID();
   }
 
