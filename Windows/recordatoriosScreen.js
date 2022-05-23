@@ -6,7 +6,7 @@ import {
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import { NavigationContext } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import MenuBar from '../hotBar';
 import currentTheme from '../Components/currentTheme';
@@ -21,6 +21,7 @@ export default class Recordatorios extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       listaRecordatorios: [],
       isOpenCompletados: false,
       isOpenOmitidos: false,
@@ -29,6 +30,17 @@ export default class Recordatorios extends Component {
       fechaActual: '',
       isLoading: false,
     };
+  }
+
+  recuperarIDUsuario = async() => {
+    const jsonValue = await AsyncStorage.getItem('dataStorage');
+    var data = JSON.parse(jsonValue);
+
+    this.setState({id: data[0]});
+    console.log('USUARIO:');
+    console.log(this.state.id);
+    console.log(data[0]);
+    this.recuperarDatos();
   }
 
   recuperarDatos = () => {
@@ -51,10 +63,12 @@ export default class Recordatorios extends Component {
 
         var recordatorio = xhttp.responseText;
 
+        if (recordatorio != ''){
+
         var registros = recordatorio.split('|');
 
         var numeroRegistros = registros[0];
-
+        
         for (let i = 1; i <= numeroRegistros; i++) {
           var datos = registros[i].split('¬');
           // console.log('datos: ' + datos[0]);
@@ -105,10 +119,15 @@ export default class Recordatorios extends Component {
           // console.log(objetoRecordatorio);
         }
         // console.log(_this.state.listaRecordatorios);
+        }
       }
     };
     this.setState({isLoading: false});
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php', true);
+    // let idUser = this.recuperarIDUsuario();
+    console.log('USUARIO EN LA FUNCION:');
+    console.log(this.state.id);
+  // console.log(idUser);
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarRecordatorios.php?id='+ this.state.id, true);
     xhttp.send();
   }
 
@@ -129,7 +148,7 @@ export default class Recordatorios extends Component {
 
 
   componentDidMount() {
-    this.recuperarDatos();
+    this.recuperarIDUsuario();
   }
 
   render() {

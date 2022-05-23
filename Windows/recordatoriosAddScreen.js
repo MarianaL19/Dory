@@ -46,6 +46,7 @@ export default class RecordatoriosAddScreen extends Component {
     var data = JSON.parse(jsonValue);
 
     this.setState({id: data[0]});
+    this.recuperarMaterias();
     // console.log(this.state.id);
   }
 
@@ -60,6 +61,7 @@ export default class RecordatoriosAddScreen extends Component {
 
           var materia = xhttp.responseText;
           
+          if(materia != ''){
           var registros = materia.split('|');
 
           var numeroRegistros = registros[0];
@@ -75,10 +77,11 @@ export default class RecordatoriosAddScreen extends Component {
             _this.setState({listaMaterias: nuevoArreglo});
             // console.log(objetoMateria);
           }
+          }
           // console.log(_this.state.listaMaterias);
         }
     };
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/listadoMaterias.php'
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/listadoMaterias.php?id=' + this.state.id
     , true);
     xhttp.send();
     }
@@ -88,7 +91,6 @@ export default class RecordatoriosAddScreen extends Component {
 
   componentDidMount(){
     this.recuperarDatos();
-    this.recuperarMaterias();
   }
 
   render() {
@@ -154,6 +156,7 @@ export default class RecordatoriosAddScreen extends Component {
         // + '&id=' + this.state.id + '&marcado=' + this.state.marcado  + '&notificacionEntrega=' + notiEntrega
         // + '&notificacion12=' + noti12 + '&notificacion24=' + noti24,true);
         restaurarValores();
+        crearFecha();
 
         if(this.state.notificacionEntrega){
           handleNotficationDay(this.state.nombre, this.state.descripcion);
@@ -191,7 +194,8 @@ export default class RecordatoriosAddScreen extends Component {
           title: titulo,
           message: '(Se entrega en 24 horas)',
           bigText: descripcion + ' (Se entrega en 24 horas)',
-          date: new Date(Date.now() + 10 * 1000),
+          date: crearFecha(),
+          // date: new Date(Date.now() + 10 * 1000),
           allowWhileIdle: true,
       });
     }
@@ -203,6 +207,26 @@ export default class RecordatoriosAddScreen extends Component {
            message: '(Se entrega ahora)',
            bigText: descripcion + ' (Se entrega ahora)',
       });
+    }
+
+    const crearFecha = () => {
+      console.log('------------');
+      console.log(this.state.textFecha);
+      console.log(this.state.textHora);
+      console.log('------------');
+      // let fechaResultado = new Date(this.state.textFecha);
+      let fechaResultado = new Date(this.state.textFecha+'T'+this.state.textHora+':00');
+      // fechaResultado.setFullYear(this.state.textFecha.substr(0,4));
+      // fechaResultado.setMonth(this.state.textFecha.substr(5,2));
+      // fechaResultado.setDate(this.state.textFecha.substr(7,2)-4);
+      // console.log(fechaResultado);
+      // fechaResultado.setHours(this.state.textHora.substr(0,2));
+      // console.log(fechaResultado);
+      // fechaResultado.setMinutes(this.state.textHora.substr(3,2));
+      // console.log(fechaResultado);
+      console.log('FECHA RESULTADO');
+      console.log(fechaResultado);
+      return fechaResultado;
     }
 
     return (
@@ -359,7 +383,7 @@ export default class RecordatoriosAddScreen extends Component {
             onConfirm={(date) => {
               this.setState({ fechaOpen: false })
               this.setState({ fecha: date })
-              this.setState({ textFecha: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() })
+              this.setState({ textFecha: date.getFullYear() + '-' + (date.getMonth()+1 < 10 ? ('0' + (date.getMonth()+1)) : (date.getMonth()+1)) + '-' + date.getDate() })
             }}
             onCancel={() => {
               this.setState({ fechaOpen: false })

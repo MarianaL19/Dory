@@ -5,6 +5,7 @@ import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContext } from '@react-navigation/native';
 import PushNotification from "react-native-push-notification";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
@@ -19,6 +20,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       listaMaterias: [],
       isOpenLunes: false,
       isOpenMartes: false,
@@ -28,6 +30,17 @@ export default class App extends Component {
       isOpenSabado: false,
       isOpenDomingo: false,
     };
+  }
+
+  recuperarIDUsuario = async() => {
+    const jsonValue = await AsyncStorage.getItem('dataStorage');
+    var data = JSON.parse(jsonValue);
+
+    this.setState({id: data[0]});
+    console.log('USUARIO:');
+    console.log(this.state.id);
+    console.log(data[0]);
+    this.recuperarDatos();
   }
 
   createChannels = () => {
@@ -55,6 +68,7 @@ export default class App extends Component {
 
           var materia = xhttp.responseText;
           
+          if(materia != ''){
           var registros = materia.split('|');
 
           var numeroRegistros = registros[0];
@@ -82,16 +96,18 @@ export default class App extends Component {
             _this.setState({listaMaterias: nuevoArreglo});
             console.log(objetoMateria);
           }
-
+          }
         }
     };
-      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarMaterias.php'
+      console.log('USUARIO EN LA FUNCION:');
+      console.log(this.state.id);
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarMaterias.php?id='+ this.state.id
       , true);
       xhttp.send();
     }
 
   componentDidMount(){
-    this.recuperarDatos();
+    this.recuperarIDUsuario();
     this.createChannels();
   }
 
