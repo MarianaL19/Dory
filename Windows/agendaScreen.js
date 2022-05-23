@@ -8,6 +8,8 @@ import {
   TextInput,
   FlatList,
   Dimensions,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -28,11 +30,23 @@ export default class AgendaScreen extends Component {
     super(props);
     this.state = {
       // variables para filtro y busquedas
+      id: '',
       tagfilter: "Todos",
       search: "",
       listContact: [],
-      isLoading: false,
+      refreshing: false,
     };
+  }
+
+  recuperarIDUsuario = async() => {
+    const jsonValue = await AsyncStorage.getItem('dataStorage');
+    var data = JSON.parse(jsonValue);
+
+    this.setState({id: data[0]});
+    console.log('USUARIO:');
+    console.log(this.state.id);
+    console.log(data[0]);
+    this.recuperarDatos();
   }
 
   recuperarDatos = () => {
@@ -44,13 +58,14 @@ export default class AgendaScreen extends Component {
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status ==200){
         let nombre = "";
+        let id_contacto = "";
         let id_usuario = "";
         let telefono = "";
         let correo = "";
         let etiqueta = "";
 
         var contacto = xhttp.responseText;
-        // console.log(contacto);
+        if (contacto != ''){
 
         var registros = contacto.split('|'); //Delimitador de registro
 
@@ -79,17 +94,23 @@ export default class AgendaScreen extends Component {
           _this.setState({listContact: nuevoArregloContactos});
           // console.log(objetoContacto);
         }
+        }
         // console.log(_this.state.listContact);
       }
     };
     // Cambia estado de cargando a falso
-    this.setState({isLoading: false});
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarContacto.php',  true);
+    this.setState({refreshing: false});
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarContacto.php?id='+ this.state.id,  true);
     xhttp.send();
   }
 
-  componentDidMount(){
+  _onRefresh = () => {
+    this.setState({listContact: []});
     this.recuperarDatos();
+  }
+
+  componentDidMount(){
+    this.recuperarIDUsuario();
   }
   
   render() {
@@ -102,9 +123,7 @@ export default class AgendaScreen extends Component {
       
         {/* Menu header */}
         <View style={styles.nav}>
-
           <MenuBar/>
-          
         </View>
 
         {/*Seccion de barra de busqueda*/}
@@ -153,13 +172,22 @@ export default class AgendaScreen extends Component {
         </View>
 
         {/*Area de scroll para ver contactos*/}
+        <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={() => {this.setState({refreshing: true}); this._onRefresh();}}
+          />
+        }
+        >
         {/* Validación para saber si hay contactos */}
         {!this.state.listContact.length ?
           ( //Si no los hay, muestra un mensaje
             <View style={[styles.emptyHeaderContainer, {backgroundColor: currentTheme.backgroundColor}]}>
-              <Text style={styles.emptyHeader}>
-                Parece que no tienes ningun contacto añadido, ¡Empieza añadiendo uno!
+              <Text style={[styles.emptyHeader, {justifyContent: 'center'}]}>
+                Parece que no tienes ningun contacto añadido,
               </Text>
+              <Text style={[styles.emptyHeader, {marginTop: 15}]}>¡Empieza añadiendo uno!</Text>
             </View>
           ) : (this.state.search === "" ? (
                 <FlatList //Si hay elementos los muestra
@@ -174,18 +202,14 @@ export default class AgendaScreen extends Component {
                                                             )
                         }
                   renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
-                  refreshing={this.state.isLoading}
-                  onRefresh={() => {this.setState({isLoading: true}); this.recuperarDatos();}}
                 />) : (<FlatList //Solo muestra coincidencia exacta
                           data={this.state.listContact.filter(objetoContacto => objetoContacto.nombreC.toLowerCase() === this.state.search ||
                                                               objetoContacto.nombreC.toUpperCase() === this.state.search ||
                                                               objetoContacto.nombreC === this.state.search)}
                           renderItem={({ item }) => <Contact item={item}/>} style={{ backgroundColor: currentTheme.backgroundColor }}
-                          refreshing={this.state.isLoading}
-                          onRefresh={() => {this.setState({isLoading: true}); this.recuperarDatos();}}
                         />))
         }
-        
+        </ScrollView>
         {/*Botón para agregar contactos*/}
         <TouchableOpacity onPress={() => {navigation.navigate("AddContact");}} style={styles.addIcon} >
           <Icon name='plus-circle' size={50} color={currentTheme.primaryColor}/>
@@ -278,12 +302,15 @@ const styles = StyleSheet.create({
     emptyHeaderContainer: {
       flex: 1,
       justifyContent: 'center',
+      alignSelf: 'center',
       alignItems: 'center',
-      zIndex: -1,
+      textAlign: 'center',
       padding: 35,
+      marginTop: 130,
     },
     emptyHeader: {
-      fontSize: 30,
+      alignSelf: 'center',
+      fontSize: 23,
       fontWeight: 'bold',
       opacity: 0.5,
       bottom: 30,

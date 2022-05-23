@@ -29,6 +29,7 @@ export default class AgendaAddContact extends Component {
 
     this.setState({id_usuario: data[0]});
     // console.log(this.state.id_usuario);
+    this.recuperarID();
   }
 
   recuperarID = async() => {
@@ -36,6 +37,7 @@ export default class AgendaAddContact extends Component {
       var data = JSON.parse(jsonValue);
 
       this.setState({id_contacto: data[0]});
+      this.recuperarContactos();
       // console.log(this.state.id_contacto);
   }
 
@@ -81,14 +83,12 @@ export default class AgendaAddContact extends Component {
         }
       }
     };
-    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarContacto.php',  true);
+    xhttp.open("GET", 'https://dory69420.000webhostapp.com/recuperarContacto.php?id=' + this.state.id_usuario,  true);
     xhttp.send();
   }
 
   componentDidMount(){
     this.recuperarDatos();
-    this.recuperarContactos();
-    this.recuperarID();
   }
 
   render() {
@@ -98,7 +98,7 @@ export default class AgendaAddContact extends Component {
     const editar = () => {
 
       // Expresion regular para nombres
-      let exregNom = new RegExp("^[a-zA-Z ]+$");
+      let exregNom = new RegExp("^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+$");
       // Expresion regular para numeros telefonicos
       let exregTelefono = new RegExp("^([0-9]{10})$");
       // Expresion regular para correos
@@ -213,7 +213,7 @@ export default class AgendaAddContact extends Component {
               <TextInput style={styles.addInputFormat}
                   placeholder='Añadir número de teléfono'
                   placeholderTextColor='#C4C4C4'
-                  keyboardType='number-pad'
+                  keyboardType='phone-pad'
                   maxLength={10}
                   clearTextOnFocus={true}
                   onChangeText = {(value) => this.setState({telefono: value})}

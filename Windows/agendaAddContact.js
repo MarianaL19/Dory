@@ -46,7 +46,7 @@ export default class AgendaAddContact extends Component {
     const registro = () => {
 
       // Expresion regular para nombres
-      let exregNom = new RegExp("^[a-zA-Z ]+$");
+      let exregNom = new RegExp("^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+$");
       // Expresion regular para numeros telefonicos
       let exregTelefono = new RegExp("^([0-9]{10})$");
       // Expresion regular para correos
@@ -159,7 +159,7 @@ export default class AgendaAddContact extends Component {
               <TextInput style={styles.addInputFormat}
                   placeholder='Añadir número de teléfono'
                   placeholderTextColor='#C4C4C4'
-                  keyboardType='number-pad'
+                  keyboardType='phone-pad'
                   maxLength={10}
                   clearTextOnFocus={true}
                   onChangeText = {(telefono => this.setState({telefono}))}
