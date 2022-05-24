@@ -6,6 +6,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContext } from '@react-navigation/native';
 import PushNotification from "react-native-push-notification";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs();
 
 import currentTheme from '../Components/currentTheme';
 import MenuBar from '../hotBar';
