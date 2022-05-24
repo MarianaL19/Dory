@@ -36,7 +36,8 @@ export default class RecordatoriosAddScreen extends Component {
       notificacion24: false,
       notificacion12: false,
       notificacionEntrega: false,
-      listaMaterias: [], 
+      listaMaterias: [],
+      username: '',
     };
 
   }
@@ -47,6 +48,7 @@ export default class RecordatoriosAddScreen extends Component {
 
     this.setState({id: data[0]});
     this.recuperarMaterias();
+    this.nombreUser();
     // console.log(this.state.id);
   }
 
@@ -85,6 +87,19 @@ export default class RecordatoriosAddScreen extends Component {
     , true);
     xhttp.send();
     }
+
+    nombreUser = () => {
+      let _this = this;
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+              var nombre = xhttp.responseText;
+              _this.setState({username: nombre});
+          }
+      };
+      xhttp.open("GET", 'https://dory69420.000webhostapp.com/buscarUser.php?id=' + this.state.id, true);
+      xhttp.send();
+  }
 
 
 
@@ -147,7 +162,7 @@ export default class RecordatoriosAddScreen extends Component {
         xhttp.open("GET", 'https://dory69420.000webhostapp.com/addRecordatorio.php?nombre=' + this.state.nombre
           + '&etiqueta=' + this.state.etiqueta + '&materia=' + this.state.materia + '&fecha=' + this.state.textFecha
           + '&hora=' + this.state.textHora + '&descripcion=' + this.state.descripcion + '&estado=' + this.state.estado
-          + '&id=' + this.state.id + '&marcado=' + this.state.marcado,true);
+          + '&id=' + this.state.id + '&marcado=' + this.state.marcado + '&notiEntrega=' + notiEntrega + '&noti12=' + noti12 + '&noti24=' + noti24, true);
         xhttp.send();
 
         // console.log('nombre=' + this.state.nombre
@@ -159,7 +174,7 @@ export default class RecordatoriosAddScreen extends Component {
         crearFecha();
 
         if(this.state.notificacionEntrega){
-          handleNotficationDay(this.state.nombre, this.state.descripcion);
+          handleNotficationDay(this.state.nombre, this.state.descripcion, this.state.fecha);
         }
   
         if(this.state.notificacion12){
@@ -181,8 +196,8 @@ export default class RecordatoriosAddScreen extends Component {
       PushNotification.localNotificationSchedule({
           channelId: 'Prueba',
           title: titulo,
-          message: '(Se entrega en 12 horas)',
-          bigText: descripcion + ' (Se entrega en 12 horas)',
+          message: 'Hola ' + this.state.username + ', tienes un pendiente dentro de 12 horas',
+          //bigText: descripcion,
           date: fecha,
           allowWhileIdle: true,
       });
@@ -193,28 +208,43 @@ export default class RecordatoriosAddScreen extends Component {
       PushNotification.localNotificationSchedule({
           channelId: 'Prueba',
           title: titulo,
-          message: '(Se entrega en 24 horas)',
-          bigText: descripcion + ' (Se entrega en 24 horas)',
+          message: 'Hola ' + this.state.username + ', tienes un pendiente dentro de 24 horas',
+          //bigText: descripcion,
           date:fecha,
-          // date: new Date(Date.now() + 10 * 1000),
           allowWhileIdle: true,
       });
     }
 
-    const handleNotficationDay = (titulo, descripcion) => {
-       PushNotification.localNotification({
-           channelId: 'Prueba',
-           title: titulo,
-           message: '(Se entrega ahora)',
-           bigText: descripcion + ' (Se entrega ahora)',
-      });
+    const handleNotficationDay = (titulo, descripcion, fecha) => {
+      PushNotification.localNotificationSchedule({
+        channelId: 'Prueba',
+        title: titulo,
+        message: 'Hola ' + this.state.username + ', tienes un pendiente ahora',
+        //bigText: descripcion,
+        date: fecha,
+        allowWhileIdle: true,
+    });
     }
 
     const crearFecha = () => {
-      this.state.fecha.setHours(this.state.hora.getHours());
-      this.state.fecha.setMinutes(this.state.hora.getMinutes());
-      this.state.fecha.setSeconds(0);
-      this.state.fecha.setMilliseconds(0);
+      if(this.state.notificacion12){
+        this.state.fecha.setHours(this.state.hora.getHours() - 12);
+        this.state.fecha.setMinutes(this.state.hora.getMinutes());
+        this.state.fecha.setSeconds(0);
+        this.state.fecha.setMilliseconds(0);
+      }
+      if(this.state.notificacion24){
+        this.state.fecha.setHours(this.state.hora.getHours() - 24);
+        this.state.fecha.setMinutes(this.state.hora.getMinutes());
+        this.state.fecha.setSeconds(0);
+        this.state.fecha.setMilliseconds(0);
+      }
+      if(this.state.notificacionEntrega){
+        this.state.fecha.setHours(this.state.hora.getHours());
+        this.state.fecha.setMinutes(this.state.hora.getMinutes());
+        this.state.fecha.setSeconds(0);
+        this.state.fecha.setMilliseconds(0);
+      }
     }
 
     return (
