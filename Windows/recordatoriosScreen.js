@@ -60,6 +60,9 @@ export default class Recordatorios extends Component {
         let idRecordatorio = -1;
         let checkRecordatorio = -1;
         let marcado;
+        let notiEntrega;
+        let noti12;
+        let noti24;
 
         var recordatorio = xhttp.responseText;
 
@@ -81,8 +84,14 @@ export default class Recordatorios extends Component {
           descripcionRecordatorio = datos[6];
           idRecordatorio = datos[7];
           checkRecordatorio = datos[8];
-          { checkRecordatorio == 0 ? marcado = false : marcado = true };
-          
+          notiEntrega = datos[9];
+          noti12 = datos[10];
+          noti24 = datos[11];
+
+          {checkRecordatorio == 0 ? marcado = false : marcado = true};
+          {notiEntrega == 0 ? notiEntrega = false : notiEntrega = true};
+          {noti12 == 0 ? noti12 = false : noti12 = true};
+          {noti24 == 0 ? noti24 = false : noti24 = true};          
 
           let fechaR = new Date(fechaRecordatorio);
           let horaR = new Date('2020-01-01');
@@ -111,7 +120,8 @@ export default class Recordatorios extends Component {
             nombre: nombreRecordatorio, etiqueta: etiquetaRecordatorio,
             materia: materiaRecordatorio, estado: estadoRecordatorio,
             fecha: fechaRecordatorio, hora: horaRecordatorio,
-            descripcion: descripcionRecordatorio, id: idRecordatorio, check: marcado
+            descripcion: descripcionRecordatorio, id: idRecordatorio, check: marcado,
+            notificacion_entrega: notiEntrega, notificacion_12: noti12, notificacion_24: noti24,
           };
 
           const nuevoArreglo = [..._this.state.listaRecordatorios, objetoRecordatorio];

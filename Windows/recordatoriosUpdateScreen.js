@@ -111,6 +111,9 @@ export default class RecordatoriosUpdateScreen extends Component {
             let idRecordatorio = -1;
             let checkRecordatorio = -1;
             let marcado;
+            let notiEntrega;
+            let noti12;
+            let noti24;
           
             var recordatorio = xhttp.responseText;
             
@@ -131,7 +134,14 @@ export default class RecordatoriosUpdateScreen extends Component {
                 descripcionRecordatorio = datos[6];
                 idRecordatorio = datos[7];
                 checkRecordatorio = datos[8];
+                notiEntrega = datos[9];
+                noti12 = datos[10];
+                noti24 = datos[11];
+      
                 {checkRecordatorio == 0 ? marcado = false : marcado = true};
+                {notiEntrega == 0 ? notiEntrega = false : notiEntrega = true};
+                {noti12 == 0 ? noti12 = false : noti12 = true};
+                {noti24 == 0 ? noti24 = false : noti24 = true};    
 
                 _this.setState({nombre: nombreRecordatorio});
                 _this.setState({etiqueta: etiquetaRecordatorio});
@@ -139,6 +149,9 @@ export default class RecordatoriosUpdateScreen extends Component {
                 _this.setState({textFecha: fechaRecordatorio});
                 _this.setState({textHora: horaRecordatorio});
                 _this.setState({descripcion: descripcionRecordatorio});
+                _this.setState({notificacionEntrega: notiEntrega});
+                _this.setState({notificacion12: noti12});
+                _this.setState({notificacion24: noti24});
               }
             }
           }
