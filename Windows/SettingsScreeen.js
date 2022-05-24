@@ -122,12 +122,12 @@ export default class SettingsScreeen extends Component {
               </TouchableOpacity>
             </View>
             {/* La siguiente view es utilizada para crear una linea vertical */}
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            {/* <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <View style={{marginTop: 70, flex: 1, height: 1, backgroundColor: currentTheme.quinaryColor}} />
-            </View>
+            </View> */}
 
             {/* A partir de aqui es el apartado de notificaciones */}
-            <Text style={styles.titulo2}>Habilitar nofiticaciones</Text>
+            {/* <Text style={styles.titulo2}>Habilitar nofiticaciones</Text>
             <Switch 
             style={{marginTop: 30}}
             trackColor={{ false: "#767577", true: currentTheme.secondaryColor }}
@@ -135,7 +135,7 @@ export default class SettingsScreeen extends Component {
             //onValueChange={toggleSwitch}
             //value={isEnabled}
             ></Switch>
-    
+     */}
             {/* Aqui es la separación de Temas */}
             <View style={styles.Themes}>
               <Text style={{fontSize: width*0.05, paddingLeft: 46, marginTop: 15, color: currentTheme.tertiaryColor, fontWeight: "600",}}>Temas</Text>
@@ -162,23 +162,23 @@ export default class SettingsScreeen extends Component {
             </View>
 
             {/* Aqui son los botones cerrar y guardar */}
-            <View style={{marginBottom: 100, marginTop: 100, flexDirection: "row", justifyContent: "space-between", backgroundColor: currentTheme.backgroundColor}}>
+            {/* <View style={{marginBottom: 100, marginTop: 100, flexDirection: "row", justifyContent: "space-between", backgroundColor: currentTheme.backgroundColor}}> */}
               {/* Boton Cerrar */}
-              <TouchableOpacity 
+              {/* <TouchableOpacity 
                   style={styles.button}
                   onPress={() => navigation.goBack()}
                   >
                   <Text style={{color: "white", marginTop: 8, fontSize: 18}}>CERRAR</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               
               {/* Boton Guardar */}
-              <TouchableOpacity 
+              {/* <TouchableOpacity 
                   style={styles.button}
                   //onPress={GUARDAR}
                   >
                   <Text style={{color: "white", marginTop: 8, fontSize: 18}}>GUARDAR</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     );
   }

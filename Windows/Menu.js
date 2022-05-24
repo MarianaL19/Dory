@@ -51,6 +51,7 @@ export default class Menu extends Component {
               tabBarInactiveTintColor: 'gray',
               tabBarActiveTintColor: colores.quaternaryColor,
               headerShown: false,
+              tabBarHideOnKeyboard: true
                 })
               }  
             >
