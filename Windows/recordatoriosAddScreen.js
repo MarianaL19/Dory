@@ -163,11 +163,12 @@ export default class RecordatoriosAddScreen extends Component {
         }
   
         if(this.state.notificacion12){
-          handleNotfication12(this.state.nombre, this.state.descripcion);
+          console.log(this.state.fecha);
+          handleNotfication12(this.state.nombre, this.state.descripcion, this.state.fecha);
         }
   
         if(this.state.notificacion24){
-          handleNotfication24(this.state.nombre, this.state.descripcion);
+          handleNotfication24(this.state.nombre, this.state.descripcion, this.state.fecha);
         }
 
         navigation.navigate("Recordatorios");
@@ -175,26 +176,26 @@ export default class RecordatoriosAddScreen extends Component {
 
     }
 
-    const handleNotfication12 = (titulo, descripcion) => {
+    const handleNotfication12 = (titulo, descripcion, fecha) => {
 
       PushNotification.localNotificationSchedule({
           channelId: 'Prueba',
           title: titulo,
           message: '(Se entrega en 12 horas)',
           bigText: descripcion + ' (Se entrega en 12 horas)',
-          date: new Date(Date.now() + 5 * 1000),
+          date: fecha,
           allowWhileIdle: true,
       });
     }
 
-    const handleNotfication24 = (titulo, descripcion) => {
+    const handleNotfication24 = (titulo, descripcion, fecha) => {
 
       PushNotification.localNotificationSchedule({
           channelId: 'Prueba',
           title: titulo,
           message: '(Se entrega en 24 horas)',
           bigText: descripcion + ' (Se entrega en 24 horas)',
-          date: crearFecha(),
+          date:fecha,
           // date: new Date(Date.now() + 10 * 1000),
           allowWhileIdle: true,
       });
@@ -210,23 +211,10 @@ export default class RecordatoriosAddScreen extends Component {
     }
 
     const crearFecha = () => {
-      console.log('------------');
-      console.log(this.state.textFecha);
-      console.log(this.state.textHora);
-      console.log('------------');
-      // let fechaResultado = new Date(this.state.textFecha);
-      let fechaResultado = new Date(this.state.textFecha+'T'+this.state.textHora+':00');
-      // fechaResultado.setFullYear(this.state.textFecha.substr(0,4));
-      // fechaResultado.setMonth(this.state.textFecha.substr(5,2));
-      // fechaResultado.setDate(this.state.textFecha.substr(7,2)-4);
-      // console.log(fechaResultado);
-      // fechaResultado.setHours(this.state.textHora.substr(0,2));
-      // console.log(fechaResultado);
-      // fechaResultado.setMinutes(this.state.textHora.substr(3,2));
-      // console.log(fechaResultado);
-      console.log('FECHA RESULTADO');
-      console.log(fechaResultado);
-      return fechaResultado;
+      this.state.fecha.setHours(this.state.hora.getHours());
+      this.state.fecha.setMinutes(this.state.hora.getMinutes());
+      this.state.fecha.setSeconds(0);
+      this.state.fecha.setMilliseconds(0);
     }
 
     return (
