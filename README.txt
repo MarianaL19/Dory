@@ -6,6 +6,8 @@ Primero debe de tener el proyecto descargado y abrirlo con su editor de preferen
 Tenemos una carpeta con dependencias la cual no se podia subir a Github. 
 En este enlace la puede bajar, la descomprime y la mete en el directorio del proyecto.
 
+https://drive.google.com/file/d/1gtYr58J6FWr0GeqKkG9ofSC7KWD0IVj-/view?usp=sharing
+
 Depues abrimos android studio.
 
 # Android Studio
